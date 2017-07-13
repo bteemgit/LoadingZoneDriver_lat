@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".modules.profile.DriverProfileAcivity">
+
+
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
+
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:background="?attr/colorPrimary"
+            app:popupTheme="@style/AppTheme.PopupOverlay">
+
+        </android.support.v7.widget.Toolbar>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <RelativeLayout
+        android:id="@+id/relativeLayout"
+        android:layout_width="match_parent"
+        android:layout_height="150dp"
+        android:layout_below="@+id/app_bar"
+        android:background="@drawable/side_nav_bar"
+        android:elevation="12dp">
+
+        <ImageView
+            android:id="@+id/ivDriverProfilePhoto"
+            android:layout_width="88dp"
+            android:layout_height="88dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="24dp"
+            android:layout_marginStart="24dp" />
+        <Button
+            android:id="@+id/btnEditProfilePic"
+            android:layout_width="100dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="77dp"
+            android:background="@drawable/btn_profile_bg"
+            android:text="Edit ProfilePic"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="77dp" />
+        <Button
+            android:id="@+id/btnEditProfilePicUpload"
+            android:layout_width="100dp"
+            android:layout_height="24dp"
+            android:layout_marginRight="77dp"
+            android:background="@drawable/btn_profile_bg"
+            android:text="Upload Image"
+            android:textColor="#ffffff"
+            android:textSize="12sp"
+            android:visibility="gone"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentEnd="true"
+            android:layout_marginEnd="77dp" />
+
+    </RelativeLayout>
+    <Button
+        android:id="@+id/btnEditOtherData"
+        android:layout_width="100dp"
+        android:layout_height="24dp"
+        android:layout_marginRight="26dp"
+        android:background="@drawable/btn_profile_bg"
+        android:text="Edit"
+        android:textColor="#ffffff"
+        android:textSize="12sp"
+        android:layout_marginEnd="26dp"
+        android:layout_marginTop="13dp"
+        android:layout_below="@+id/relativeLayout"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+    <EditText
+        android:id="@+id/editDriverEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/btnEditOtherData"
+        android:layout_marginTop="26dp"
+        android:drawableLeft="@drawable/ic_username"
+        android:drawablePadding="30dp"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableTint="@color/colorAccent"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="Email"
+        android:inputType="text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editDriverName"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editDriverEmail"
+        android:layout_marginTop="10dp"
+        android:drawableLeft="@drawable/ic_username"
+        android:drawablePadding="30dp"
+        android:drawableStart="@drawable/ic_username"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="Name"
+        android:inputType="text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editDriverLocation"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editDriverName"
+        android:layout_marginTop="15dp"
+        android:drawableLeft="@drawable/ic_username"
+        android:drawablePadding="30dp"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableTint="@color/colorAccent"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="Place,State"
+        android:inputType="text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20dp" />
+
+    <EditText
+        android:id="@+id/editDriverMobile"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/editDriverLocation"
+        android:layout_marginTop="11dp"
+        android:drawableLeft="@drawable/ic_username"
+        android:drawablePadding="30dp"
+        android:drawableStart="@drawable/ic_username"
+        android:drawableTint="@color/colorAccent"
+        android:fontFamily="sans-serif-condensed"
+        android:hint="Mobile"
+        android:inputType="text"
+        android:textColor="@color/colorPrimaryDark"
+        android:textColorHint="@color/colorPrimary"
+        android:textSize="20dp" />
+    <android.support.design.widget.FloatingActionButton
+        android:id="@+id/fabDriverAddDetails"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_marginBottom="10dp"
+        android:layout_marginRight="10dp"
+        android:padding="10dp"
+        android:visibility="gone"
+        app:layout_anchorGravity="bottom"
+        app:srcCompat="@drawable/ic_upload_profile"
+        tools:ignore="VectorDrawableCompat" />
+</RelativeLayout>

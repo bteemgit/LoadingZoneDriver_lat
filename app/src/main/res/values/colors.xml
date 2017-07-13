@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#161925</color>
+    <color name="colorPrimaryDark">#000000</color>
+    <color name="colorAccent">#D72027</color>
+    <color name="light_primaryColor">#bbdefb</color>
+    <color name="primaryTextColor">#212121</color>
+    <color name="bottom_background">#e1dddd</color>
+    <color name="bottom_icon_background">#808080</color>
+    <color name="secondaryTextColor">#757575</color>
+    <color name="dividercolor">#bdbdbd</color>
+    <color name="white">#ffffff</color>
+    <item name="theme_purple_light" type="color">#33cc3333</item>
+    <item name="theme_purple" type="color">#cc3333</item>
+    <color name="samkara_black">#66000000</color>
+    <item name="upper_divider_purple" type="color">#1f000000</item>
+    <color name="samkara_submit_button">#ff4181</color>
+    <color name="btn_send_normal">#02c754</color>
+    <color name="btn_send_pressed">#006633</color>
+</resources>
