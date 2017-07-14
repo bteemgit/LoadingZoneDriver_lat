@@ -3,6 +3,7 @@ package bteem.com.loadingzonedriver.modules.home;
 import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -43,7 +44,6 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         TextView textAssignedtruckName;
         @NonNull
         @BindView(R.id.textLocationTo)
-
         TextView textViewLocationTo;
         @NonNull
         @BindView(R.id.textTruckType)
@@ -55,8 +55,9 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         @BindView(R.id.textTruckDate)
         TextView textViewTruckDate;
         @NonNull
-        @BindView(R.id.textTruckBudget)
-        TextView textViewTruckBudget;
+        @BindView(R.id.textrunningStatus)
+        TextView textRunningStatus;
+
         @NonNull
         @BindView(R.id.imageViewCustomPic)
         ImageView imageViewCustomPic;
@@ -89,7 +90,9 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         holder.textViewLocationFrom.setText(jobList.get(position).getFromLocation().getName());
         holder.textViewTruckType.setText(jobList.get(position).getTruckType().getTruckTypeName());
         holder.textViewTruckDimension.setText(jobList.get(position).getTruckSize().getTruckSizeDimension());
-      holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
+        holder.textViewTruckDate.setText(jobList.get(position).getLoadingDate());
+        holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
+        holder.textRunningStatus.setText(jobList.get(position).getLoadStatus().getRunningStatus().getRunningStatusText());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 
         Picasso.with(context)

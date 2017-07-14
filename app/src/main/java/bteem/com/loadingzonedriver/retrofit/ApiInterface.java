@@ -29,7 +29,7 @@ public interface ApiInterface {
     @POST("main/login")
     Call<LoginResponse> Signin(@Field("username") String username, @Field("password") String password, @Field("user_type_id") String user_type);
 
-    @GET("driver/jobs")
+    @GET("driver/pending-jobs")
     Call<PostedJobResponse> PostedJobList(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("page") int page);
 
     @GET("vehicle/running-status")
@@ -61,10 +61,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("job/reached-back")
     Call<TruckUpdateStatusresponse> ReachedOrigion(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token,@Field("job_id") String job_id);
-
-
     @FormUrlEncoded
     @POST("main/logout")
     Call<Meta> Logout(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Field("device_token") String device_token);
+    @GET("driver/completed-jobs")
+    Call<PostedJobResponse> CompletedJob(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("page") int page);
 
 }

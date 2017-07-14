@@ -1,6 +1,5 @@
 package bteem.com.loadingzonedriver.modules.home;
 
-import android.content.Intent;
 import android.support.annotation.NonNull;
 import android.os.Bundle;
 import android.support.design.widget.Snackbar;
@@ -20,11 +19,9 @@ import bteem.com.loadingzonedriver.R;
 import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
-import bteem.com.loadingzonedriver.modules.login.LoginActivity;
 import bteem.com.loadingzonedriver.retrofit.ApiClient;
 import bteem.com.loadingzonedriver.retrofit.ApiInterface;
 import bteem.com.loadingzonedriver.retrofit.model.DriverStatusUpdateRsponse;
-import bteem.com.loadingzonedriver.retrofit.model.LoginResponse;
 import bteem.com.loadingzonedriver.retrofit.model.TruckUpdateStatusresponse;
 import bteem.com.loadingzonedriver.view.CircleTransformation;
 import butterknife.BindView;
@@ -229,24 +226,24 @@ public class PostedJobDetailsActivity extends BaseActivity {
 
                 hideProgressDialog();
                 if (response.isSuccessful()) {
-                    truck_status = response.body().getBlockingStatus();
+                    truck_status = response.body().getRunningStatus().getRunningStatusName();
                     if (truck_status.equals("free")) {
-                        textDriverUpdate.setText("vehicle reached origin after delivering goods");
+                        textDriverUpdate.setText("Start Job");
                     }
                     if (truck_status.equals("initiated")) {
-                        textDriverUpdate.setText("Moving to customer location");
+                        textDriverUpdate.setText("Load the Goods");
                     }
                     if (truck_status.equals("loading")) {
-                        textDriverUpdate.setText("Loading goods");
+                        textDriverUpdate.setText("Start Journey");
                     }
                     if (truck_status.equals("in-service")) {
-                        textDriverUpdate.setText("On the way to destination");
+                        textDriverUpdate.setText("Unload Goods");
                     }
                     if (truck_status.equals("unloading")) {
-                        textDriverUpdate.setText("Unloading goods");
+                        textDriverUpdate.setText("Complete the Job");
                     }
                     if (truck_status.equals("return")) {
-                        textDriverUpdate.setText("Returning back from destination to origin");
+                        textDriverUpdate.setText("Reached Provider Location");
                     }
 
 

@@ -4,11 +4,8 @@ package bteem.com.loadingzonedriver.retrofit.model;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 
-public class DriverStatusUpdateRsponse {
+public class LoadStatus {
 
-    @SerializedName("meta")
-    @Expose
-    private Meta meta;
     @SerializedName("vehicle_status_id")
     @Expose
     private Integer vehicleStatusId;
@@ -20,24 +17,16 @@ public class DriverStatusUpdateRsponse {
     private RunningStatus runningStatus;
     @SerializedName("location_latitude")
     @Expose
-    private String locationLatitude;
+    private Object locationLatitude;
     @SerializedName("location_longitude")
     @Expose
-    private String locationLongitude;
+    private Object locationLongitude;
     @SerializedName("location_name")
     @Expose
-    private String locationName;
+    private Object locationName;
     @SerializedName("date_time")
     @Expose
     private String dateTime;
-
-    public Meta getMeta() {
-        return meta;
-    }
-
-    public void setMeta(Meta meta) {
-        this.meta = meta;
-    }
 
     public Integer getVehicleStatusId() {
         return vehicleStatusId;
@@ -63,27 +52,27 @@ public class DriverStatusUpdateRsponse {
         this.runningStatus = runningStatus;
     }
 
-    public String getLocationLatitude() {
+    public Object getLocationLatitude() {
         return locationLatitude;
     }
 
-    public void setLocationLatitude(String locationLatitude) {
+    public void setLocationLatitude(Object locationLatitude) {
         this.locationLatitude = locationLatitude;
     }
 
-    public String getLocationLongitude() {
+    public Object getLocationLongitude() {
         return locationLongitude;
     }
 
-    public void setLocationLongitude(String locationLongitude) {
+    public void setLocationLongitude(Object locationLongitude) {
         this.locationLongitude = locationLongitude;
     }
 
-    public String getLocationName() {
+    public Object getLocationName() {
         return locationName;
     }
 
-    public void setLocationName(String locationName) {
+    public void setLocationName(Object locationName) {
         this.locationName = locationName;
     }
 

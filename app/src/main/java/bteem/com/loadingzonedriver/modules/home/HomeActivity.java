@@ -14,7 +14,6 @@ import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
-import android.view.Menu;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
@@ -34,7 +33,7 @@ import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
 import bteem.com.loadingzonedriver.global.SessionManager;
-import bteem.com.loadingzonedriver.modules.completedjob;
+import bteem.com.loadingzonedriver.modules.job.CompletedJobListActivity;
 import bteem.com.loadingzonedriver.modules.login.LoginActivity;
 import bteem.com.loadingzonedriver.modules.profile.DriverProfileAcivity;
 import bteem.com.loadingzonedriver.recyclerview.EndlessRecyclerView;
@@ -161,11 +160,8 @@ public class HomeActivity extends BaseActivity
             public void onItemClick(View view, int position) {
 
                 Intent i=new Intent(HomeActivity.this,PostedJobDetailsActivity.class);
-                String JobId = jobList.get(position).getJobId();
+                String JobId = String.valueOf(jobList.get(position).getJobId());
                 String name = jobList.get(position).getCustomer().getName();
-                text_users_name.setTextColor(Color.WHITE);
-                text_users_name.setText( jobList.get(position).getCustomer().getName());
-
                 String email = jobList.get(position).getCustomer().getEmail();
                 String phone1 = jobList.get(position).getCustomer().getPhone1();
                 String profilepic = jobList.get(position).getCustomer().getProfilePic();
@@ -248,15 +244,6 @@ public class HomeActivity extends BaseActivity
         }
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        // Inflate the menu; this adds items to the action bar if it is present.
-        getMenuInflater().inflate(R.menu.home, menu);
-        return true;
-    }
-
-
-
     @SuppressWarnings("StatementWithEmptyBody")
     @Override
     public boolean onNavigationItemSelected(MenuItem item) {
@@ -264,7 +251,9 @@ public class HomeActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_home) {
-            // Handle the camera action
+
+            Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+            startActivity(i);
         }
         else if(id==R.id.nav_profile)
         {
@@ -272,7 +261,7 @@ public class HomeActivity extends BaseActivity
             startActivity(i);
         }
         else if(id == R.id.nav_completedjob){
-            Intent i=new Intent(getApplicationContext(), completedjob.class);
+            Intent i=new Intent(getApplicationContext(), CompletedJobListActivity.class);
             startActivity(i);
         }
         else if(id == R.id.nav_logout){

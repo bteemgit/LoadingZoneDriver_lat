@@ -32,7 +32,7 @@
         <activity android:name=".modules.home.PostedJobDetailsActivity" />
         <activity android:name=".permision.PermissionsActivity" />
         <activity android:name=".modules.profile.DriverProfileAcivity" />
-        <activity android:name=".modules.completedjob"></activity>
+        <activity android:name=".modules.job.CompletedJobListActivity"></activity>
     </application>
 
 </manifest>

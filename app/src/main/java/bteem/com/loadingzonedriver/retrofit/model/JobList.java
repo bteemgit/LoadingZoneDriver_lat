@@ -8,7 +8,7 @@ public class JobList {
 
     @SerializedName("job_id")
     @Expose
-    private String jobId;
+    private Integer jobId;
     @SerializedName("job_title")
     @Expose
     private String jobTitle;
@@ -29,13 +29,16 @@ public class JobList {
     private String materialDescription;
     @SerializedName("material_weight")
     @Expose
-    private MaterialWeight materialWeight;
+    private Object materialWeight;
     @SerializedName("loading_date")
     @Expose
     private String loadingDate;
     @SerializedName("loading_time")
     @Expose
     private String loadingTime;
+    @SerializedName("date_updated")
+    @Expose
+    private String dateUpdated;
     @SerializedName("payment_type")
     @Expose
     private PaymentType paymentType;
@@ -66,12 +69,15 @@ public class JobList {
     @SerializedName("assigned_vehicle")
     @Expose
     private AssignedVehicle assignedVehicle;
+    @SerializedName("load_status")
+    @Expose
+    private LoadStatus loadStatus;
 
-    public String getJobId() {
+    public Integer getJobId() {
         return jobId;
     }
 
-    public void setJobId(String jobId) {
+    public void setJobId(Integer jobId) {
         this.jobId = jobId;
     }
 
@@ -123,11 +129,11 @@ public class JobList {
         this.materialDescription = materialDescription;
     }
 
-    public MaterialWeight getMaterialWeight() {
+    public Object getMaterialWeight() {
         return materialWeight;
     }
 
-    public void setMaterialWeight(MaterialWeight materialWeight) {
+    public void setMaterialWeight(Object materialWeight) {
         this.materialWeight = materialWeight;
     }
 
@@ -145,6 +151,14 @@ public class JobList {
 
     public void setLoadingTime(String loadingTime) {
         this.loadingTime = loadingTime;
+    }
+
+    public String getDateUpdated() {
+        return dateUpdated;
+    }
+
+    public void setDateUpdated(String dateUpdated) {
+        this.dateUpdated = dateUpdated;
     }
 
     public PaymentType getPaymentType() {
@@ -225,6 +239,14 @@ public class JobList {
 
     public void setAssignedVehicle(AssignedVehicle assignedVehicle) {
         this.assignedVehicle = assignedVehicle;
+    }
+
+    public LoadStatus getLoadStatus() {
+        return loadStatus;
+    }
+
+    public void setLoadStatus(LoadStatus loadStatus) {
+        this.loadStatus = loadStatus;
     }
 
 }

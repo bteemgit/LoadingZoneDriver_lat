@@ -43,6 +43,7 @@ public class LoginActivity extends BaseActivity {
     ConstraintLayout rootView;
     private SessionManager session;
     private ApiInterface apiService;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -71,11 +72,11 @@ public class LoginActivity extends BaseActivity {
 
         if (GloablMethods.validate(username, password)) {
 //            if (isValidEmaillId(username)) {
-                if (isConnectingToInternet(getApplicationContext()))
-                    Signin(username, password, usertype);
-                else {
-                    showSnakBar(rootView, MessageConstants.INTERNET);
-                }
+            if (isConnectingToInternet(getApplicationContext()))
+                Signin(username, password, usertype);
+            else {
+                showSnakBar(rootView, MessageConstants.INTERNET);
+            }
 //            }
 //            } else {
 //                showSnakBar(rootView, MessageConstants.INVALID_EMAIL);
@@ -84,6 +85,7 @@ public class LoginActivity extends BaseActivity {
             showSnakBar(rootView, MessageConstants.PROVIDE_BASIC_INFO);
         }
     }
+
     //api call for singin
     public void Signin(String username, String password, String usertype) {
 
@@ -96,16 +98,16 @@ public class LoginActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
-                            Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
-                            session.setLogin(true);
-                            AppController.setString(getApplicationContext(), "customer_email", response.body().getData().getUsername());
-                            AppController.setString(getApplicationContext(), "customer_name", response.body().getData().getName());
-                            AppController.setString(getApplicationContext(), "acess_token", response.body().getData().getAccessToken());
-                            AppController.setString(getApplicationContext(), "user_id", String.valueOf(response.body().getData().getUserId()));
-                            AppController.setString(getApplicationContext(), "pic", response.body().getData().getProfilePic());
-                            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                            intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                            startActivity(intent);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        session.setLogin(true);
+                        AppController.setString(getApplicationContext(), "customer_email", response.body().getData().getUsername());
+                        AppController.setString(getApplicationContext(), "customer_name", response.body().getData().getName());
+                        AppController.setString(getApplicationContext(), "acess_token", response.body().getData().getAccessToken());
+                        AppController.setString(getApplicationContext(), "user_id", String.valueOf(response.body().getData().getUserId()));
+                        AppController.setString(getApplicationContext(), "pic", response.body().getData().getProfilePic());
+                        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                        startActivity(intent);
 
                     } else {
                         Snackbar snackbar = Snackbar
@@ -113,8 +115,7 @@ public class LoginActivity extends BaseActivity {
                         snackbar.show();
 
                     }
-                }
-                else {
+                } else {
                     try {
                         JSONObject jObjError = new JSONObject(response.errorBody().string());
                         JSONObject meta = jObjError.getJSONObject("meta");
@@ -123,7 +124,7 @@ public class LoginActivity extends BaseActivity {
                         snackbar.show();
 
                     } catch (Exception e) {
-                        Log.d("exception",e.getMessage());
+                        Log.d("exception", e.getMessage());
                         Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
                     }
 
@@ -134,7 +135,7 @@ public class LoginActivity extends BaseActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 hideProgressDialog();
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("exception>>>",t.getMessage());
+                Log.d("exception>>>", t.getMessage());
 
             }
         });

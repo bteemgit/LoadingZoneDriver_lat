@@ -1,4 +1,4 @@
-package bteem.com.loadingzonedriver.modules;
+package bteem.com.loadingzonedriver.modules.job;
 
 import android.content.Context;
 import android.support.annotation.NonNull;
@@ -15,16 +15,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bteem.com.loadingzonedriver.R;
+import bteem.com.loadingzonedriver.modules.home.PostedJobListAdapter;
 import bteem.com.loadingzonedriver.retrofit.model.JobList;
 import bteem.com.loadingzonedriver.view.CircleTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by admin on 7/6/2017.
+ * Created by admin on 7/14/2017.
  */
 
-public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdapter.ViewHolder> {
+public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobListAdapter.ViewHolder> {
 
     private List<JobList> jobList = new ArrayList<>();
     private int rowLayout;
@@ -54,9 +55,9 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         @NonNull
         @BindView(R.id.textTruckDate)
         TextView textViewTruckDate;
-        @NonNull
-        @BindView(R.id.textTruckBudget)
-        TextView textViewTruckBudget;
+//        @NonNull
+//        @BindView(R.id.textTruckBudget)
+//        TextView textViewTruckBudget;
         @NonNull
         @BindView(R.id.imageViewCustomPic)
         ImageView imageViewCustomPic;
@@ -68,28 +69,28 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         }
     }
 
-    public PostedJobListAdapter(List<JobList> jobList, int rowLayout, Context context) {
+    public CompletedJobListAdapter(List<JobList> jobList, int rowLayout, Context context) {
         this.jobList = jobList;
         this.rowLayout = rowLayout;
         this.context = context;
     }
 
     @Override
-    public PostedJobListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
+    public CompletedJobListAdapter.ViewHolder onCreateViewHolder(ViewGroup parent,
                                                               int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(rowLayout, parent, false);
-        return new PostedJobListAdapter.ViewHolder(view);
+        return new CompletedJobListAdapter.ViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(PostedJobListAdapter.ViewHolder holder, int position) {
+    public void onBindViewHolder(CompletedJobListAdapter.ViewHolder holder, int position) {
 
         holder.textViewCustomerName.setText(jobList.get(position).getCustomer().getName());
         holder.textViewLocationTo.setText(jobList.get(position).getToLocation().getName());
         holder.textViewLocationFrom.setText(jobList.get(position).getFromLocation().getName());
         holder.textViewTruckType.setText(jobList.get(position).getTruckType().getTruckTypeName());
         holder.textViewTruckDimension.setText(jobList.get(position).getTruckSize().getTruckSizeDimension());
-      holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
+        holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 
         Picasso.with(context)
