@@ -31,7 +31,8 @@
             android:theme="@style/AppTheme" />
         <activity android:name=".modules.home.PostedJobDetailsActivity" />
         <activity android:name=".permision.PermissionsActivity" />
-        <activity android:name=".modules.profile.DriverProfileAcivity"></activity>
+        <activity android:name=".modules.profile.DriverProfileAcivity" />
+        <activity android:name=".modules.completedjob"></activity>
     </application>
 
 </manifest>

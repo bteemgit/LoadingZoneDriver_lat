@@ -1,6 +1,9 @@
 package bteem.com.loadingzonedriver.modules.home;
 
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -13,8 +16,12 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
+
+import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
@@ -26,17 +33,24 @@ import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
+import bteem.com.loadingzonedriver.global.SessionManager;
+import bteem.com.loadingzonedriver.modules.completedjob;
+import bteem.com.loadingzonedriver.modules.login.LoginActivity;
 import bteem.com.loadingzonedriver.modules.profile.DriverProfileAcivity;
 import bteem.com.loadingzonedriver.recyclerview.EndlessRecyclerView;
 import bteem.com.loadingzonedriver.recyclerview.RecyclerItemClickListener;
 import bteem.com.loadingzonedriver.retrofit.ApiClient;
 import bteem.com.loadingzonedriver.retrofit.ApiInterface;
 import bteem.com.loadingzonedriver.retrofit.model.JobList;
+import bteem.com.loadingzonedriver.retrofit.model.Meta;
 import bteem.com.loadingzonedriver.retrofit.model.PostedJobResponse;
+import bteem.com.loadingzonedriver.util.Config;
+import bteem.com.loadingzonedriver.view.CircleTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import retrofit2.Call;
 import retrofit2.Callback;
+import retrofit2.Response;
 
 public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
@@ -49,6 +63,11 @@ public class HomeActivity extends BaseActivity
     ProgressBar progressBar;
     @BindView(R.id.rootView)
     RelativeLayout relativeLayoutRoot;
+    private SessionManager sessionManager;
+
+   // @BindView(R.id.id_text_users_name)
+    private TextView text_users_name,text_users_mail;
+    ImageView nav_img;
     private PostedJobListAdapter postedJobListAdapter;
     private List<JobList> jobList = new ArrayList<>();
     private int limit = 30;
@@ -86,15 +105,14 @@ public class HomeActivity extends BaseActivity
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
-
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
+        sessionManager=new SessionManager(getApplicationContext());
         refreshLayout.setRefreshing(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         endlessRecyclerViewPostedJob.setLayoutManager(layoutManager);
         setUpListeners();
-
 
         if (isConnectingToInternet(getApplicationContext()))
         {
@@ -103,6 +121,26 @@ public class HomeActivity extends BaseActivity
         else {
             showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
         }
+
+        //setting user_name and  password in to navigation drawer
+        View header = navigationView.getHeaderView(0);
+        nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
+        Context context = this;
+        Picasso.with(context)
+                .load(AppController.getString(getApplicationContext(), "pic"))
+                .resize(70, 70)
+                .centerCrop()
+                .transform(new CircleTransformation())
+                .into(nav_img);
+
+        text_users_name = (TextView) header.findViewById(R.id.id_text_users_name);
+        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
+       // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
+
+        text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
+        text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
+
+
     }
     private void setUpListeners() {
 
@@ -125,6 +163,9 @@ public class HomeActivity extends BaseActivity
                 Intent i=new Intent(HomeActivity.this,PostedJobDetailsActivity.class);
                 String JobId = jobList.get(position).getJobId();
                 String name = jobList.get(position).getCustomer().getName();
+                text_users_name.setTextColor(Color.WHITE);
+                text_users_name.setText( jobList.get(position).getCustomer().getName());
+
                 String email = jobList.get(position).getCustomer().getEmail();
                 String phone1 = jobList.get(position).getCustomer().getPhone1();
                 String profilepic = jobList.get(position).getCustomer().getProfilePic();
@@ -230,10 +271,48 @@ public class HomeActivity extends BaseActivity
             Intent i=new Intent(getApplicationContext(), DriverProfileAcivity.class);
             startActivity(i);
         }
+        else if(id == R.id.nav_completedjob){
+            Intent i=new Intent(getApplicationContext(), completedjob.class);
+            startActivity(i);
+        }
+        else if(id == R.id.nav_logout){
+            logout();
+        }
 
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    private void logout() {
+
+        showProgressDialog(HomeActivity.this, "Log outing...");
+        apiService =
+                ApiClient.getClient().create(ApiInterface.class);
+        String acess_token = AppController.getString(getApplicationContext(), "acess_token");
+        SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
+        //  String device_token = pref.getString("regId", null);
+        Call<Meta> call = apiService.Logout(GloablMethods.API_HEADER + acess_token, "1");
+        call.enqueue(new Callback<Meta>() {
+            @Override
+            public void onResponse(Call<Meta> call, Response<Meta> response) {
+                if (response.isSuccessful()) {
+                    AppController.clear(getApplicationContext());
+                    sessionManager.logoutUser();
+                    hideProgressDialog();
+                    Intent i = new Intent(getApplicationContext(), LoginActivity.class);
+                    startActivity(i);
+                    finish();
+                }
+            }
+
+            @Override
+            public void onFailure(Call<Meta> call, Throwable t) {
+                // Log error here since request failed
+                //   progressDialog.dismiss();
+
+            }
+        });
     }
 
     // Getting the job posted by the customer

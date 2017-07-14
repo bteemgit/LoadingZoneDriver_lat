@@ -14,7 +14,7 @@ import com.squareup.picasso.Transformation;
  */
 public class CircleTransformation implements Transformation {
 
-    private static final int STROKE_WIDTH = 6;
+    private static final int STROKE_WIDTH = 1;
 
     @Override
     public Bitmap transform(Bitmap source) {

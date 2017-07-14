@@ -4,6 +4,7 @@ import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.retrofit.model.DriverProfileRsponse;
 import bteem.com.loadingzonedriver.retrofit.model.DriverStatusUpdateRsponse;
 import bteem.com.loadingzonedriver.retrofit.model.LoginResponse;
+import bteem.com.loadingzonedriver.retrofit.model.Meta;
 import bteem.com.loadingzonedriver.retrofit.model.PostedJobResponse;
 import bteem.com.loadingzonedriver.retrofit.model.TruckUpdateStatusresponse;
 import okhttp3.MultipartBody;
@@ -60,4 +61,10 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("job/reached-back")
     Call<TruckUpdateStatusresponse> ReachedOrigion(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token,@Field("job_id") String job_id);
+
+
+    @FormUrlEncoded
+    @POST("main/logout")
+    Call<Meta> Logout(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Field("device_token") String device_token);
+
 }
