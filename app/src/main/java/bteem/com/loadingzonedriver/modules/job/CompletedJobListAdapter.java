@@ -44,7 +44,6 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
         TextView textAssignedtruckName;
         @NonNull
         @BindView(R.id.textLocationTo)
-
         TextView textViewLocationTo;
         @NonNull
         @BindView(R.id.textTruckType)
