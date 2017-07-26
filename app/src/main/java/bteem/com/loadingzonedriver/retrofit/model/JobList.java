@@ -73,6 +73,19 @@ public class JobList {
     @Expose
     private LoadStatus loadStatus;
 
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
+    }
+
+    @SerializedName("service_provider")
+    @Expose
+    private ServiceProvider serviceProvider;
+
     public Integer getJobId() {
         return jobId;
     }

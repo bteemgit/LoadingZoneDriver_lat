@@ -14,6 +14,11 @@
             android:id="@+id/nav_completedjob"
             android:icon="@drawable/ic_menu_gallery"
             android:title="Completed Job" />
+
+        <item
+            android:id="@+id/nav_notification"
+            android:icon="@drawable/ic_menu_gallery"
+            android:title="Notification" />
         <item
             android:id="@+id/nav_logout"
             android:icon="@drawable/ic_menu_gallery"

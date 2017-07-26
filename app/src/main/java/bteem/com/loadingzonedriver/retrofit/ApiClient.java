@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
 
 
 public class ApiClient {
-    public static final String BASE_URL = "http://dev.bteem.com/loading-zone-2/api/web/v1/";
+    public static final String BASE_URL = "http://dev.bteem.com/loading-zone/api/web/v1/";
     private static Retrofit retrofit = null;
     public static Retrofit getClient() {
         if (retrofit == null) {

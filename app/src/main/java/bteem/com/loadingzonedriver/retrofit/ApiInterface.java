@@ -5,6 +5,7 @@ import bteem.com.loadingzonedriver.retrofit.model.DriverProfileRsponse;
 import bteem.com.loadingzonedriver.retrofit.model.DriverStatusUpdateRsponse;
 import bteem.com.loadingzonedriver.retrofit.model.LoginResponse;
 import bteem.com.loadingzonedriver.retrofit.model.Meta;
+import bteem.com.loadingzonedriver.retrofit.model.NottificationListResponse;
 import bteem.com.loadingzonedriver.retrofit.model.PostedJobResponse;
 import bteem.com.loadingzonedriver.retrofit.model.TruckUpdateStatusresponse;
 import okhttp3.MultipartBody;
@@ -67,4 +68,10 @@ public interface ApiInterface {
     @GET("driver/completed-jobs")
     Call<PostedJobResponse> CompletedJob(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("page") int page);
 
+    @GET("notification/unread-list")
+    Call<NottificationListResponse> NotificationList(@Header(GloablMethods.HEADER_AUTHORIZATION) String access_token, @Query("page") int page);
+
+    @FormUrlEncoded
+    @PUT("notification/read")
+    Call<Meta> ReadNottification(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("notification_id") int notification_id, @Field("notification_id") int notification_ids);
 }

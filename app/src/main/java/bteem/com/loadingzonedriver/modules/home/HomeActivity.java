@@ -3,7 +3,6 @@ package bteem.com.loadingzonedriver.modules.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -33,8 +33,12 @@ import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
 import bteem.com.loadingzonedriver.global.SessionManager;
+
+import bteem.com.loadingzonedriver.modules.notification.NotificationListActivity;
 import bteem.com.loadingzonedriver.modules.job.CompletedJobListActivity;
 import bteem.com.loadingzonedriver.modules.login.LoginActivity;
+
+
 import bteem.com.loadingzonedriver.modules.profile.DriverProfileAcivity;
 import bteem.com.loadingzonedriver.recyclerview.EndlessRecyclerView;
 import bteem.com.loadingzonedriver.recyclerview.RecyclerItemClickListener;
@@ -164,6 +168,8 @@ public class HomeActivity extends BaseActivity
                 String name = jobList.get(position).getCustomer().getName();
                 String email = jobList.get(position).getCustomer().getEmail();
                 String phone1 = jobList.get(position).getCustomer().getPhone1();
+
+                String provider_phone_no = String.valueOf(jobList.get(position).getServiceProvider().getPhone1());
                 String profilepic = jobList.get(position).getCustomer().getProfilePic();
                 String FromLoc_latt = jobList.get(position).getFromLocation().getLatitude();
                 String FromLoc_long = jobList.get(position).getFromLocation().getLongitude();
@@ -216,17 +222,20 @@ public class HomeActivity extends BaseActivity
                 i.putExtra("PaymentType_name",PaymentType_name);
                 i.putExtra("PaymentType_id",PaymentType_id);
                 i.putExtra("TruckType_name",TruckType_name);
-               i.putExtra("driver_id",driver_id);
+                i.putExtra("driver_id",driver_id);
                 i.putExtra("TruckSize_id",TruckSize_id);
                 i.putExtra("TruckSize_dimension",TruckSize_dimension);
-               i.putExtra("truck_name",truck_name);
+                i.putExtra("truck_name",truck_name);
                 i.putExtra("LocationDistance",LocationDistance);
                 i.putExtra("DateRequested",DateRequested);
                 i.putExtra("DateRequestedRelative",DateRequestedRelative);
              //   i.putExtra("Budget",Budget);
                 i.putExtra("QuotationCount",QuotationCount);
-               i.putExtra("vehicle_id",vehicle_id);
+                i.putExtra("vehicle_id",vehicle_id);
                 i.putExtra("JobStatus",JobStatus);
+
+                i.putExtra("provider_phone_no",provider_phone_no);
+               // Toast.makeText(HomeActivity.this, provider_phone_no, Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
         }));
@@ -263,6 +272,13 @@ public class HomeActivity extends BaseActivity
         else if(id == R.id.nav_completedjob){
             Intent i=new Intent(getApplicationContext(), CompletedJobListActivity.class);
             startActivity(i);
+        }
+
+        else if(id==R.id.nav_notification){
+            Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
+           // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+           // nav_drawer.closeDrawers();
+            startActivity(intent);
         }
         else if(id == R.id.nav_logout){
             logout();
@@ -305,8 +321,7 @@ public class HomeActivity extends BaseActivity
     }
 
     // Getting the job posted by the customer
-    public void getJobPosted
-    () {
+    public void getJobPosted() {
 
         if (offset == 1) {
             showProgressDialog(HomeActivity.this, "loading");

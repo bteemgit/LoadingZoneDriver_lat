@@ -3,6 +3,7 @@
     package="bteem.com.loadingzonedriver">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
+    <uses-permission android:name="android.permission.CALL_PHONE" />
     <uses-permission android:name="android.permission.INTERNET" />
     <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
@@ -33,7 +34,8 @@
         <activity android:name=".modules.home.PostedJobDetailsActivity" />
         <activity android:name=".permision.PermissionsActivity" />
         <activity android:name=".modules.profile.DriverProfileAcivity" />
-        <activity android:name=".modules.job.CompletedJobListActivity"></activity>
+        <activity android:name=".modules.job.CompletedJobListActivity" />
+        <activity android:name=".modules.notification.NotificationListActivity"></activity>
     </application>
 
 </manifest>
