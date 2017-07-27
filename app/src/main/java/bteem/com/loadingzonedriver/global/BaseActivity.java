@@ -1,5 +1,6 @@
 package bteem.com.loadingzonedriver.global;
 
+import android.app.Dialog;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -11,6 +12,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.support.design.widget.Snackbar;
+import android.widget.Button;
+import android.widget.EditText;
 
 import java.util.regex.Pattern;
 
@@ -19,7 +22,11 @@ import bteem.com.loadingzonedriver.R;
 
 public class BaseActivity extends AppCompatActivity {
     ProgressDialog progressDialog;
-
+    public Dialog dialog;
+    public Button btnSentMessage;
+    public EditText et_subject;
+    public EditText et_message;
+    private BaseActivity context;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -51,6 +58,18 @@ public class BaseActivity extends AppCompatActivity {
                 .make(v,message,Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.RED);
         snackbar.show();
+    }
+
+
+    public void messageDilog() {
+        context=this;
+        dialog=new Dialog(context);
+        dialog.setContentView(R.layout.activity_base);
+        dialog.setCancelable(true);
+        et_subject=(EditText)dialog.findViewById(R.id.edit_message_subject);
+        et_message=(EditText)dialog.findViewById(R.id.edit_message);
+        btnSentMessage=(Button)dialog.findViewById(R.id.sentBtnMessage) ;
+        dialog.show();
     }
 
     //method for email validation

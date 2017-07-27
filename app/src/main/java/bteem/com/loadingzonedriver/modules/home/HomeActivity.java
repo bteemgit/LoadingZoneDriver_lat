@@ -34,6 +34,7 @@ import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
 import bteem.com.loadingzonedriver.global.SessionManager;
 
+import bteem.com.loadingzonedriver.modules.message.MessageListViewActivity;
 import bteem.com.loadingzonedriver.modules.notification.NotificationListActivity;
 import bteem.com.loadingzonedriver.modules.job.CompletedJobListActivity;
 import bteem.com.loadingzonedriver.modules.login.LoginActivity;
@@ -278,6 +279,13 @@ public class HomeActivity extends BaseActivity
             Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
            // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
            // nav_drawer.closeDrawers();
+            startActivity(intent);
+        }
+
+        else if(id==R.id.nav_message){
+            Intent intent=new Intent(getApplicationContext(), MessageListViewActivity.class);
+            // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // nav_drawer.closeDrawers();
             startActivity(intent);
         }
         else if(id == R.id.nav_logout){

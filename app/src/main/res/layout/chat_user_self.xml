@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:paddingBottom="5dp"
+    android:paddingTop="5dp"
+
+    >
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:layout_marginRight="15dp"
+
+        android:gravity="end">
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="#d3dae0"
+            android:orientation="vertical"
+            android:padding="7dp"
+            >
+            <TextView
+                android:id="@+id/text_other_message"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textColor="#3e3d3d"
+                android:layout_toLeftOf="@id/time_text"
+                android:autoLink="web"
+                />
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+
+                android:layout_gravity="end"
+                >
+
+                <TextView
+                    android:id="@+id/time_text"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textSize="10dp"
+                    android:text="17:10"
+                    android:textColor="@color/primaryTextColor"
+                    />
+
+                <ImageView
+                    android:id="@+id/user_reply_status"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:src="@drawable/ic_tickconblue"
+                    android:visibility="visible"
+                    />
+            </LinearLayout>
+        </LinearLayout>
+        <ImageView
+            android:id="@+id/image_arrow"
+            android:layout_width="wrap_content"
+            android:layout_gravity="center"
+            android:layout_height="wrap_content"
+            android:background="@drawable/triangle"
+            />
+    </LinearLayout>
+
+</RelativeLayout>
