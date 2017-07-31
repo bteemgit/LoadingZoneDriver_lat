@@ -15,6 +15,7 @@ import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.widget.Toolbar;
 import android.view.MenuItem;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
@@ -52,6 +53,7 @@ import bteem.com.loadingzonedriver.util.Config;
 import bteem.com.loadingzonedriver.view.CircleTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
@@ -68,6 +70,26 @@ public class HomeActivity extends BaseActivity
     @BindView(R.id.rootView)
     RelativeLayout relativeLayoutRoot;
     private SessionManager sessionManager;
+
+
+    //nav_drawer
+    @BindView(R.id.id_profile_xml)
+    LinearLayout linear_profile;
+    @BindView(R.id.id_linear_myquotation)
+    LinearLayout linear_myquotation;
+    @BindView(R.id.id_linearmyJob)
+    LinearLayout linear_linearmyJob;
+
+    @BindView(R.id.nav_changepassword)
+    LinearLayout linear_changepassword;
+
+    @BindView(R.id.drawer_layout)
+    DrawerLayout nav_drawer;
+
+    @BindView(R.id.id_img_logout)
+    ImageView img_logout;
+
+
 
    // @BindView(R.id.id_text_users_name)
     private TextView text_users_name,text_users_mail;
@@ -94,6 +116,54 @@ public class HomeActivity extends BaseActivity
             hasReachedTop = true;
         }
     };
+
+    //navigation drawer clicks
+
+    @OnClick(R.id.id_profile_xml)
+    void id_profile_xml() {
+        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+        nav_drawer.closeDrawers();
+        startActivity(i);
+    }
+
+
+    @OnClick(R.id.id_linear_myquotation)
+    void id_linear_myquotation() {
+        Intent i=new Intent(getApplicationContext(), DriverProfileAcivity.class);
+        nav_drawer.closeDrawers();
+        startActivity(i);
+    }
+
+    @OnClick(R.id.id_linearmyJob)
+    void id_linearmyJob() {
+        Intent i=new Intent(getApplicationContext(), CompletedJobListActivity.class);
+        nav_drawer.closeDrawers();
+        startActivity(i);
+    }
+
+    @OnClick(R.id.nav_notification)
+    void nav_notification() {
+        Intent intent=new Intent(getApplicationContext(),MessageListViewActivity .class);
+        // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // nav_drawer.closeDrawers();
+        nav_drawer.closeDrawers();
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.nav_changepassword)
+    void nav_changepassword() {
+        Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
+        // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // nav_drawer.closeDrawers();
+        nav_drawer.closeDrawers();
+        startActivity(intent);
+    }
+
+    @OnClick(R.id.id_img_logout)
+    void id_img_logout() {
+        logout();
+    }
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,21 +198,35 @@ public class HomeActivity extends BaseActivity
 
         //setting user_name and  password in to navigation drawer
         View header = navigationView.getHeaderView(0);
-        nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
+      //  nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
+      /*  Context context = this;
+        Picasso.with(context)
+                .load(AppController.getString(getApplicationContext(), "pic"))
+                .resize(70, 70)
+                .centerCrop()
+                .transform(new CircleTransformation())
+                .into(nav_img);*/
+
+//        text_users_name = (TextView) header.findViewById(R.id.id_text_users_name);
+//        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
+       // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
+
+     //   text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
+      //  text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
+
+
+        TextView text_users_name = (TextView)findViewById(R.id.id_text_users_name);
+        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
+        TextView text_usersemail = (TextView)findViewById(R.id.id_text_usersemail);
+        text_usersemail.setText((AppController.getString(getApplicationContext(), "customer_email")));
+        ImageView user_imageView = (ImageView)findViewById(R.id.imageView6);
         Context context = this;
         Picasso.with(context)
                 .load(AppController.getString(getApplicationContext(), "pic"))
                 .resize(70, 70)
                 .centerCrop()
                 .transform(new CircleTransformation())
-                .into(nav_img);
-
-        text_users_name = (TextView) header.findViewById(R.id.id_text_users_name);
-        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
-       // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
-
-        text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
-        text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
+                .into(user_imageView);
 
 
     }

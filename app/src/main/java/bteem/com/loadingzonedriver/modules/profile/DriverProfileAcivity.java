@@ -353,9 +353,8 @@ public class DriverProfileAcivity extends BaseActivity {
                     editTextDriverMobile.setFocusable(false);
                     editTextDriverName.setFocusable(false);
 
-
                     Picasso.with(DriverProfileAcivity.this)
-                            .load(new File(response.body().getDriverPic()))
+                            .load(response.body().getDriverPic())
                             .resize(80, 80)
                             .centerCrop()
                             .transform(new CircleTransformation())

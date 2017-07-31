@@ -17,4 +17,6 @@
     <color name="samkara_submit_button">#ff4181</color>
     <color name="btn_send_normal">#02c754</color>
     <color name="btn_send_pressed">#006633</color>
+
+    <color name="colorGrey">#808080</color>
 </resources>

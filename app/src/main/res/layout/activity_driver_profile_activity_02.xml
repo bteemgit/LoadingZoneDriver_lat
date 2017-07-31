@@ -32,7 +32,7 @@
         android:layout_below="@+id/app_bar"
         android:background="@color/colorPrimary"
         android:gravity="center"
-        android:orientation="vertical"
+        android:orientation="horizontal"
         android:elevation="12dp">
 
         <ImageView
@@ -44,17 +44,11 @@
             android:layout_centerVertical="true" />
         <Button
             android:id="@+id/btnEditProfilePic"
-            android:layout_width="100dp"
-            android:layout_height="24dp"
-            android:layout_marginRight="77dp"
-            android:background="@drawable/btn_profile_bg"
-            android:text="Edit ProfilePic"
-            android:textColor="#ffffff"
-            android:textSize="12sp"
-            android:layout_centerVertical="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentEnd="true"
-            android:layout_marginEnd="77dp" />
+            android:layout_width="35dp"
+            android:layout_height="35dp"
+            android:layout_marginTop="30dp"
+            android:background="@drawable/ic_photo_camera"
+            android:textColor="#ffffff" />
         <Button
             android:id="@+id/btnEditProfilePicUpload"
             android:layout_width="100dp"
@@ -193,11 +187,11 @@
 
     <Button
         android:id="@+id/btnEditOtherData"
-        android:layout_width="100dp"
-        android:layout_height="24dp"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        android:visibility="gone"
         android:layout_marginRight="26dp"
-        android:background="@drawable/btn_profile_bg"
-        android:text="Edit"
+        android:background="@drawable/ic_edit"
         android:textColor="#ffffff"
         android:textSize="12sp"
         android:layout_marginEnd="26dp"
@@ -208,7 +202,6 @@
 
     <android.support.design.widget.FloatingActionButton
         android:id="@+id/fabEdit"
-        android:visibility="gone"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
@@ -217,7 +210,7 @@
         android:layout_marginRight="10dp"
         android:padding="10dp"
         app:layout_anchorGravity="bottom"
-        app:srcCompat="@drawable/ic_edit"
+        app:srcCompat="@drawable/ic_edit_file"
         tools:ignore="VectorDrawableCompat" />
     <!--<android.support.design.widget.FloatingActionButton-->
     <!--android:id="@+id/fabDriverEdit"-->
