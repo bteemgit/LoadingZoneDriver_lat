@@ -3,11 +3,11 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginBottom="10dp"
-    android:layout_marginTop="5dp"
+    android:layout_marginBottom=".5dp"
+    android:layout_marginTop=".5dp"
+
     android:elevation="4dp"
-    android:orientation="vertical"
-    app:cardCornerRadius="8dp">
+    android:orientation="vertical">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -16,29 +16,40 @@
 
         <ImageView
             android:id="@+id/imageViewCustomPic"
-            android:layout_width="70dp"
-            android:layout_height="70dp"
-            android:layout_marginTop="5dp" />
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginLeft="10dp"
+            android:layout_marginTop="15dp" />
 
         <TextView
             android:id="@+id/textCustomerName"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentTop="true"
-            android:layout_marginLeft="26dp"
-            android:layout_marginStart="26dp"
+            android:layout_marginLeft="20dp"
             android:layout_marginTop="10dp"
             android:layout_toEndOf="@+id/imageViewCustomPic"
             android:layout_toRightOf="@+id/imageViewCustomPic"
-            android:text="Swarooplal" />
+            android:textColor="@color/colorPrimaryDark"
+            android:text="Swarooplal"
+            android:textStyle="bold"/>
+        <TextView
+            android:layout_width="150dp"
+            android:layout_height="wrap_content"
+            android:id="@+id/id_txt_daterequestedrelative"
+            android:layout_marginLeft="90dp"
+            android:layout_marginTop="5dp"
+            android:textSize="10sp"
+            android:textColor="@color/colorPrimary"
+            android:layout_below="@+id/textCustomerName"
+            android:text="1 hour ago"/>
 
         <LinearLayout
             android:id="@+id/linear"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/textCustomerName"
+            android:layout_below="@+id/id_txt_daterequestedrelative"
             android:layout_marginLeft="10dp"
-            android:layout_marginTop="11dp"
             android:layout_toEndOf="@+id/imageViewCustomPic"
             android:layout_toRightOf="@+id/imageViewCustomPic"
             android:orientation="horizontal">
@@ -46,11 +57,14 @@
 
             <TextView
                 android:id="@+id/textLocationFrom"
-                android:layout_width="wrap_content"
+                android:layout_width="55dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:textColor="#3289C7"
+                android:textColor="@color/colorPrimary"
                 android:textSize="10sp" />
 
             <ImageView
@@ -58,17 +72,18 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="10dp"
-                android:src="@drawable/ic_arrows" >
-
-            </ImageView>
+                android:src="@drawable/ic_arrows" />
 
             <TextView
                 android:id="@+id/textLocationTo"
-                android:layout_width="wrap_content"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
+                android:ellipsize="end"
+                android:maxLines="1"
+                android:singleLine="true"
                 android:layout_marginLeft="10dp"
                 android:layout_marginTop="5dp"
-                android:textColor="#000000"
+                android:textColor="@color/colorAccent"
                 android:textSize="10sp" />
 
 
@@ -83,19 +98,28 @@
             android:layout_marginTop="5dp">
 
             <TextView
+                android:layout_width="200dp"
+                android:gravity="start"
+                android:paddingLeft="90dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="1dp"
+                android:textSize="12sp"
+                android:textColor="@color/colorPrimary"
+                android:text="Truck Type " />
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Truck Type          :" />
-
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=":"/>
             <TextView
                 android:id="@+id/textTruckType"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:text="TruckType" />
+                android:layout_width="190dp"
+                android:gravity="start"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:text=":TruckType"
+                android:textSize="12sp"/>
 
         </LinearLayout>
 
@@ -103,23 +127,36 @@
             android:id="@+id/linear_truckDimension"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:weightSum="3"
             android:layout_below="@+id/liner_trucktype"
             android:layout_marginTop="5dp">
 
             <TextView
+                android:id="@+id/textView2"
+                android:layout_width="200dp"
+                android:paddingLeft="90dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="1dp"
+                android:gravity="start"
+                android:textColor="@color/colorPrimary"
+                android:text="Truck Dimension"
+                android:textSize="12sp"/>
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Truck Dimension :" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=":"/>
 
             <TextView
                 android:id="@+id/textTruckDimension"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="30dp"
-                android:layout_marginTop="5dp"
-                android:text="TruckType" />
+                android:layout_width="190dp"
+                android:gravity="start"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:textSize="12sp"
+                android:text=":TruckType" />
 
         </LinearLayout>
 
@@ -128,22 +165,34 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_truckDimension"
-            android:layout_marginTop="5dp">
+            android:layout_marginTop="5dp"
+            android:layout_marginBottom="5dp">
+            <TextView
+                android:id="@+id/textView3"
+                android:layout_width="200dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="1dp"
+                android:gravity="start"
+                android:paddingLeft="90dp"
+                android:text="Loading Date"
+                android:textColor="@color/colorPrimary"
+                android:textSize="12sp" />
 
             <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Loading Date     :" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=":"/>
 
             <TextView
                 android:id="@+id/textTruckDate"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="5dp"
-                android:text="TruckType" />
+                android:layout_width="190dp"
+                android:gravity="start"
+                android:textSize="12sp"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:text=":TruckType" />
 
         </LinearLayout>
 
@@ -152,48 +201,69 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_truckDate"
-            android:layout_marginTop="5dp">
+            android:layout_marginBottom="5dp">
 
             <TextView
+                android:layout_width="200dp"
+                android:paddingLeft="90dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="1dp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="start"
+                android:textSize="12sp"
+                android:text="Assigned Truck"/>
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Assigned Truck :" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=":"/>
 
             <TextView
                 android:id="@+id/textAssignedtruckName"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="5dp"
-                android:text="TruckType" />
+                android:layout_width="190dp"
+                android:gravity="start"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:textSize="12sp"
+                android:text=":TruckType" />
 
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linear_truckstatus"
+            android:id="@+id/linear_truckBt"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_truckBudget"
-            android:layout_marginTop="5dp"
-            android:layout_marginBottom="10dp">
+
+            android:layout_marginBottom="5dp">
 
             <TextView
+                android:layout_width="200dp"
+                android:paddingLeft="90dp"
+                android:layout_height="18dp"
+                android:layout_marginTop="1dp"
+                android:textColor="@color/colorPrimary"
+                android:gravity="start"
+                android:textSize="12sp"
+                android:text="Truck Status" />
+            <TextView
                 android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginTop="5dp"
-                android:text="Truck Status      :" />
+                android:layout_height="match_parent"
+                android:textColor="@color/colorPrimaryDark"
+                android:text=":"/>
 
             <TextView
                 android:id="@+id/textrunningStatus"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="35dp"
-                android:layout_marginTop="5dp"
-                android:text="Status" />
+                android:layout_width="190dp"
+                android:gravity="start"
+                android:layout_height="18dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="1dp"
+                android:textSize="12sp"
+                android:text=":Status" />
 
         </LinearLayout>
+
     </RelativeLayout>
 </android.support.v7.widget.CardView>

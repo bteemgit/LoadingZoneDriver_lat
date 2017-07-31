@@ -15,6 +15,7 @@ import android.os.Bundle;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
+import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
@@ -187,7 +188,11 @@ public class PostedJobDetailsActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_posted_job_details);
-
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        setSupportActionBar(toolbar);
+        getSupportActionBar().setTitle("Job Detail");
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
         ButterKnife.bind(this);
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
         JobId = getIntent().getStringExtra("JobId");
@@ -243,7 +248,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
         textViewPaymentMode.setText(PaymentMode);
         //textViewCurrency.setText(Currency);
         Picasso.with(PostedJobDetailsActivity.this)
-                .load(new File(profilepic))
+                .load(profilepic)
                 .resize(80, 80)
                 .centerCrop()
                 .transform(new CircleTransformation())
@@ -266,6 +271,14 @@ public class PostedJobDetailsActivity extends BaseActivity {
             }
         });
     }
+
+
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
+    }
+
 
     private ArrayList<String> findUnAskedPermissions(ArrayList<String> wanted) {
         ArrayList<String> result = new ArrayList<String>();
@@ -362,7 +375,6 @@ public class PostedJobDetailsActivity extends BaseActivity {
                 if (message.length() > 0 && subject.length() > 0) {
                     if (isConnectingToInternet(PostedJobDetailsActivity.this)) {
                         sendMessage(subject, message, message_type_id);
-
 
                     } else {
                         showSnakBar(rootView, MessageConstants.INTERNET);

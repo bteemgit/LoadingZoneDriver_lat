@@ -56,7 +56,12 @@ public class DriverProfileAcivity extends BaseActivity {
     @NonNull
     @BindView(R.id.btnEditOtherData)
     Button btnEditOtherData;
+
     @NonNull
+    @BindView(R.id.fabEdit)
+    FloatingActionButton fabEdit;
+
+
     @BindView(R.id.fabDriverAddDetails)
     FloatingActionButton fabDriverAdd;
     @NonNull
@@ -83,7 +88,7 @@ public class DriverProfileAcivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_driver_profile_acivity);
+        setContentView(R.layout.activity_driver_profile_activity_02);
         this.avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
         ButterKnife.bind(this);
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -94,6 +99,22 @@ public class DriverProfileAcivity extends BaseActivity {
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
         checker = new PermissionsChecker(this);
         getDriverProfile();
+    }
+
+
+    @OnClick(R.id.fabEdit)
+    public void fabEditClick(){
+        fabDriverAdd.setVisibility(View.VISIBLE);
+        editTextDriverEmail.setFocusableInTouchMode(true);
+        editTextDriverEmail.requestFocus();
+        editTextDriverAdress.setFocusableInTouchMode(true);
+        editTextDriverAdress.requestFocus();
+        editTextDriverMobile.setFocusableInTouchMode(true);
+        editTextDriverMobile.requestFocus();
+        editTextDriverName.setFocusableInTouchMode(true);
+        editTextDriverName.requestFocus();
+        btnEditOtherData.setVisibility(View.GONE);
+
     }
 
     @OnClick(R.id.btnEditProfilePic)
