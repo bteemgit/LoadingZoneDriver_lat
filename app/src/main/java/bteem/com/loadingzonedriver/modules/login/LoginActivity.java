@@ -9,6 +9,7 @@ import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import org.json.JSONObject;
@@ -19,7 +20,8 @@ import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
 import bteem.com.loadingzonedriver.global.SessionManager;
-import bteem.com.loadingzonedriver.modules.home.HomeActivity;
+import bteem.com.loadingzonedriver.modules.ForgotOrChangePassword.ForgotPassword;
+import bteem.com.loadingzonedriver.modules.home.HomeActivity02;
 import bteem.com.loadingzonedriver.retrofit.ApiClient;
 import bteem.com.loadingzonedriver.retrofit.ApiInterface;
 import bteem.com.loadingzonedriver.retrofit.model.LoginResponse;
@@ -41,6 +43,10 @@ public class LoginActivity extends BaseActivity {
     Button buttonLogin;
     @BindView(R.id.rootView)
     ConstraintLayout rootView;
+
+    @BindView(R.id.textViewForgotPassword)
+    TextView textViewForgotPassword;
+
     private SessionManager session;
     private ApiInterface apiService;
 
@@ -55,13 +61,19 @@ public class LoginActivity extends BaseActivity {
         session = new SessionManager(getApplicationContext());
         if (session.isLoggedIn()) {
             Log.d("login Isuue", "sessionfalse");
-            Intent intent1 = new Intent(LoginActivity.this, HomeActivity.class);
+            Intent intent1 = new Intent(LoginActivity.this, HomeActivity02.class);
             startActivity(intent1);
             finish();
         } else {
             Log.d("login Isuue", "sessionfalse");
         }
 
+    }
+
+    @OnClick(R.id.textViewForgotPassword)
+    public void ForgotPassword() {
+        Intent i = new Intent(LoginActivity.this, ForgotPassword.class);
+        startActivity(i);
     }
 
     @OnClick(R.id.buttonLogin)
@@ -98,7 +110,7 @@ public class LoginActivity extends BaseActivity {
                 if (response.isSuccessful()) {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
-                        Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
+                        Intent intent = new Intent(LoginActivity.this, HomeActivity02.class);
                         session.setLogin(true);
                         AppController.setString(getApplicationContext(), "customer_email", response.body().getData().getUsername());
                         AppController.setString(getApplicationContext(), "customer_name", response.body().getData().getName());

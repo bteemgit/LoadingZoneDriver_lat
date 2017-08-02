@@ -96,9 +96,20 @@ public class DriverProfileAcivity extends BaseActivity {
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
         getSupportActionBar().setDisplayShowHomeEnabled(true);
         getSupportActionBar().setTitle("Profile");
+        //back button
+        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        getSupportActionBar().setDisplayShowHomeEnabled(true);
+
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
         checker = new PermissionsChecker(this);
         getDriverProfile();
+    }
+
+    // back button action
+    @Override
+    public boolean onSupportNavigateUp() {
+        onBackPressed();
+        return true;
     }
 
 

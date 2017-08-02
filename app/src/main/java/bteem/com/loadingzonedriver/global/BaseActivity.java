@@ -14,6 +14,7 @@ import android.view.View;
 import android.support.design.widget.Snackbar;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import java.util.regex.Pattern;
 
@@ -58,6 +59,14 @@ public class BaseActivity extends AppCompatActivity {
                 .make(v,message,Snackbar.LENGTH_SHORT);
         snackbar.setActionTextColor(Color.RED);
         snackbar.show();
+    }
+
+
+    /**
+     * Shows a toast with the given text.
+     */
+    protected void showBaseToast(String text) {
+        Toast.makeText(this, text, Toast.LENGTH_SHORT).show();
     }
 
 

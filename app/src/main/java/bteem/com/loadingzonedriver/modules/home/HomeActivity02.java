@@ -35,6 +35,7 @@ import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
 import bteem.com.loadingzonedriver.global.SessionManager;
 
+import bteem.com.loadingzonedriver.modules.ForgotOrChangePassword.ChangePassword;
 import bteem.com.loadingzonedriver.modules.message.MessageListViewActivity;
 import bteem.com.loadingzonedriver.modules.notification.NotificationListActivity;
 import bteem.com.loadingzonedriver.modules.job.CompletedJobListActivity;
@@ -58,7 +59,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity extends BaseActivity
+public class HomeActivity02 extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ApiInterface apiService;
     @BindView(R.id.recyclerViewHomePostedJob)
@@ -83,6 +84,10 @@ public class HomeActivity extends BaseActivity
     @BindView(R.id.nav_changepassword)
     LinearLayout linear_changepassword;
 
+
+    @BindView(R.id.nav_changepasswordd)
+    LinearLayout changepassword;
+
     @BindView(R.id.drawer_layout)
     DrawerLayout nav_drawer;
 
@@ -91,7 +96,7 @@ public class HomeActivity extends BaseActivity
 
 
 
-   // @BindView(R.id.id_text_users_name)
+    // @BindView(R.id.id_text_users_name)
     private TextView text_users_name,text_users_mail;
     ImageView nav_img;
     private PostedJobListAdapter postedJobListAdapter;
@@ -121,7 +126,7 @@ public class HomeActivity extends BaseActivity
 
     @OnClick(R.id.id_profile_xml)
     void id_profile_xml() {
-        Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+        Intent i=new Intent(getApplicationContext(),HomeActivity02.class);
         nav_drawer.closeDrawers();
         startActivity(i);
     }
@@ -159,6 +164,19 @@ public class HomeActivity extends BaseActivity
         startActivity(intent);
     }
 
+
+
+    @OnClick(R.id.nav_changepasswordd)
+    void nav_changepasswordd() {
+        Intent intent=new Intent(getApplicationContext(), ChangePassword.class);
+        // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        // nav_drawer.closeDrawers();
+        nav_drawer.closeDrawers();
+        startActivity(intent);
+    }
+
+
+
     @OnClick(R.id.id_img_logout)
     void id_img_logout() {
         logout();
@@ -168,7 +186,7 @@ public class HomeActivity extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home);
+        setContentView(R.layout.activity_home02);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setSupportActionBar(toolbar);
@@ -188,6 +206,7 @@ public class HomeActivity extends BaseActivity
         endlessRecyclerViewPostedJob.setLayoutManager(layoutManager);
         setUpListeners();
 
+
         if (isConnectingToInternet(getApplicationContext()))
         {
             getJobPosted();
@@ -198,7 +217,7 @@ public class HomeActivity extends BaseActivity
 
         //setting user_name and  password in to navigation drawer
         View header = navigationView.getHeaderView(0);
-      //  nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
+        //  nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
       /*  Context context = this;
         Picasso.with(context)
                 .load(AppController.getString(getApplicationContext(), "pic"))
@@ -209,10 +228,10 @@ public class HomeActivity extends BaseActivity
 
 //        text_users_name = (TextView) header.findViewById(R.id.id_text_users_name);
 //        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
-       // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
+        // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
 
-     //   text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
-      //  text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
+        //   text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
+        //  text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
 
 
         TextView text_users_name = (TextView)findViewById(R.id.id_text_users_name);
@@ -244,11 +263,11 @@ public class HomeActivity extends BaseActivity
         });
 
         endlessRecyclerViewPostedJob.addPaginationListener(paginationListener);
-        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(HomeActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
+        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(HomeActivity02.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
-                Intent i=new Intent(HomeActivity.this,PostedJobDetailsActivity.class);
+                Intent i=new Intent(HomeActivity02.this,PostedJobDetailsActivity.class);
                 String JobId = String.valueOf(jobList.get(position).getJobId());
                 String name = jobList.get(position).getCustomer().getName();
                 String email = jobList.get(position).getCustomer().getEmail();
@@ -274,16 +293,16 @@ public class HomeActivity extends BaseActivity
                 String PaymentType_name = jobList.get(position).getPaymentType().getPaymentTypeName();
                 Integer PaymentType_id = jobList.get(position).getPaymentType().getPaymentTypeId();
                 String TruckType_name = jobList.get(position).getTruckType().getTruckTypeName();
-              //  String TruckType_id = jobList.get(position).getTruckType().getTruckTypeId();
+                //  String TruckType_id = jobList.get(position).getTruckType().getTruckTypeId();
 
                 Integer TruckSize_id = jobList.get(position).getTruckSize().getTruckSizeId();
-              //  String Currency_name = jobList.get(position).getCurrency().getCurrencyName();
+                //  String Currency_name = jobList.get(position).getCurrency().getCurrencyName();
                 String LocationDistance = String.valueOf(jobList.get(position).getLocationDistance());
                 String DateRequested = jobList.get(position).getDateRequested();
                 String DateRequestedRelative = jobList.get(position).getDateRequestedRelative();
-               // String Budget = jobList.get(position).getBudget();
+                // String Budget = jobList.get(position).getBudget();
                 String QuotationCount = jobList.get(position).getQuotationCount();
-             //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
+                //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
                 String JobStatus = jobList.get(position).getJobStatus().getName();
                 String expected_start_date=jobList.get(position).getAssignedVehicle().getExpectedStartDate();
                 String expected_end_date=jobList.get(position).getAssignedVehicle().getExpectedEndDate();
@@ -314,13 +333,13 @@ public class HomeActivity extends BaseActivity
                 i.putExtra("LocationDistance",LocationDistance);
                 i.putExtra("DateRequested",DateRequested);
                 i.putExtra("DateRequestedRelative",DateRequestedRelative);
-             //   i.putExtra("Budget",Budget);
+                //   i.putExtra("Budget",Budget);
                 i.putExtra("QuotationCount",QuotationCount);
                 i.putExtra("vehicle_id",vehicle_id);
                 i.putExtra("JobStatus",JobStatus);
 
                 i.putExtra("provider_phone_no",provider_phone_no);
-               // Toast.makeText(HomeActivity.this, provider_phone_no, Toast.LENGTH_SHORT).show();
+                // Toast.makeText(HomeActivity.this, provider_phone_no, Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
         }));
@@ -346,7 +365,7 @@ public class HomeActivity extends BaseActivity
 
         if (id == R.id.nav_home) {
 
-            Intent i=new Intent(getApplicationContext(),HomeActivity.class);
+            Intent i=new Intent(getApplicationContext(),HomeActivity02.class);
             startActivity(i);
         }
         else if(id==R.id.nav_profile)
@@ -361,8 +380,8 @@ public class HomeActivity extends BaseActivity
 
         else if(id==R.id.nav_notification){
             Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
-           // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-           // nav_drawer.closeDrawers();
+            // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            // nav_drawer.closeDrawers();
             startActivity(intent);
         }
 
@@ -383,7 +402,7 @@ public class HomeActivity extends BaseActivity
 
     private void logout() {
 
-        showProgressDialog(HomeActivity.this, "Log outing...");
+        showProgressDialog(HomeActivity02.this, "Log outing...");
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
@@ -416,7 +435,7 @@ public class HomeActivity extends BaseActivity
     public void getJobPosted() {
 
         if (offset == 1) {
-            showProgressDialog(HomeActivity.this, "loading");
+            showProgressDialog(HomeActivity02.this, "loading");
         } else {
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -466,7 +485,7 @@ public class HomeActivity extends BaseActivity
                         Log.d("exception",e.getMessage());
                     }
                 }
-                progressBar.setVisibility(View.GONE);
+
             }
 
             @Override

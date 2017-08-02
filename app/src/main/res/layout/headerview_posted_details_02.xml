@@ -387,10 +387,10 @@
                     android:layout_marginRight="24dp"
                     android:layout_marginTop="8dp"
                     android:background="@drawable/btn_following"
-                    android:text="Assign Job"
+                    android:text="Cancel Job"
                     android:textColor="#ffffff"
                     android:textSize="12sp"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
             </LinearLayout>
 

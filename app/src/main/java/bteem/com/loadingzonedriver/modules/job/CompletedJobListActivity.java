@@ -22,7 +22,7 @@ import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.MessageConstants;
-import bteem.com.loadingzonedriver.modules.home.HomeActivity;
+
 import bteem.com.loadingzonedriver.modules.home.PostedJobDetailsActivity;
 import bteem.com.loadingzonedriver.modules.home.PostedJobListAdapter;
 import bteem.com.loadingzonedriver.recyclerview.EndlessRecyclerView;
@@ -108,82 +108,85 @@ public class CompletedJobListActivity extends BaseActivity {
             }
         });
 
-//        endlessRecyclerViewPostedJob.addPaginationListener(paginationListener);
-//        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(CompletedJobListActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
-//            @Override
-//            public void onItemClick(View view, int position) {
-//
-//                Intent i=new Intent(HomeActivity.this,PostedJobDetailsActivity.class);
-//                String JobId = String.valueOf(jobList.get(position).getJobId());
-//                String name = jobList.get(position).getCustomer().getName();
-//                String email = jobList.get(position).getCustomer().getEmail();
-//                String phone1 = jobList.get(position).getCustomer().getPhone1();
-//                String profilepic = jobList.get(position).getCustomer().getProfilePic();
-//                String FromLoc_latt = jobList.get(position).getFromLocation().getLatitude();
-//                String FromLoc_long = jobList.get(position).getFromLocation().getLongitude();
-//                String FromLoc_name = jobList.get(position).getFromLocation().getName();
-//                String ToLoc_latt = jobList.get(position).getToLocation().getLatitude();
-//                String ToLoc_long = jobList.get(position).getToLocation().getLongitude();
-//                String ToLoc_name = jobList.get(position).getToLocation().getName();
-//                String Material_name = jobList.get(position).getMaterial().getMaterialName();
-//                Integer Material_id = jobList.get(position).getMaterial().getMaterialId();
-//                String vehicle_id= String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
-//                String TruckSize_dimension = jobList.get(position).getTruckSize().getTruckSizeDimension();
-//                String truck_name=jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName();
-//                String driver_id= String.valueOf(jobList.get(position).getAssignedVehicle().getJobDriverId());
-//                String MaterialDescription = jobList.get(position).getMaterialDescription();
-////                String weight =jobList.get(position).getWeight();
-////                String DateOfLoading = jobList.get(position).getDateOfLoading();
-//                String PaymentType_name = jobList.get(position).getPaymentType().getPaymentTypeName();
-//                Integer PaymentType_id = jobList.get(position).getPaymentType().getPaymentTypeId();
-//                String TruckType_name = jobList.get(position).getTruckType().getTruckTypeName();
-//                //  String TruckType_id = jobList.get(position).getTruckType().getTruckTypeId();
-//
-//                Integer TruckSize_id = jobList.get(position).getTruckSize().getTruckSizeId();
-//                //  String Currency_name = jobList.get(position).getCurrency().getCurrencyName();
-//                String LocationDistance = String.valueOf(jobList.get(position).getLocationDistance());
-//                String DateRequested = jobList.get(position).getDateRequested();
-//                String DateRequestedRelative = jobList.get(position).getDateRequestedRelative();
-//                // String Budget = jobList.get(position).getBudget();
-//                String QuotationCount = jobList.get(position).getQuotationCount();
-//                //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
-//                String JobStatus = jobList.get(position).getJobStatus().getName();
-//                String expected_start_date=jobList.get(position).getAssignedVehicle().getExpectedStartDate();
-//                String expected_end_date=jobList.get(position).getAssignedVehicle().getExpectedEndDate();
-//                i.putExtra("isFrom","Home");
-//                i.putExtra("JobId",JobId);
-//                i.putExtra("name",name);
-//                i.putExtra("email",email);
-//                i.putExtra("phone1",phone1);
-//                i.putExtra("profilepic",profilepic);
-//                i.putExtra("FromLoc_latt",FromLoc_latt);
-//                i.putExtra("FromLoc_long",FromLoc_long);
-//                i.putExtra("FromLoc_name",FromLoc_name);
-//                i.putExtra("ToLoc_latt",ToLoc_latt);
-//                i.putExtra("ToLoc_long",ToLoc_long);
-//                i.putExtra("ToLoc_name",ToLoc_name);
-//                i.putExtra("Material_name",Material_name);
-//                i.putExtra("Material_id",Material_id);
-//                i.putExtra("MaterialDescription",MaterialDescription);
-//                i.putExtra("expected_start_date",expected_start_date);
-//                i.putExtra("expected_end_date",expected_end_date);
-//                i.putExtra("PaymentType_name",PaymentType_name);
-//                i.putExtra("PaymentType_id",PaymentType_id);
-//                i.putExtra("TruckType_name",TruckType_name);
-//                i.putExtra("driver_id",driver_id);
-//                i.putExtra("TruckSize_id",TruckSize_id);
-//                i.putExtra("TruckSize_dimension",TruckSize_dimension);
-//                i.putExtra("truck_name",truck_name);
-//                i.putExtra("LocationDistance",LocationDistance);
-//                i.putExtra("DateRequested",DateRequested);
-//                i.putExtra("DateRequestedRelative",DateRequestedRelative);
-//                //   i.putExtra("Budget",Budget);
-//                i.putExtra("QuotationCount",QuotationCount);
-//                i.putExtra("vehicle_id",vehicle_id);
-//                i.putExtra("JobStatus",JobStatus);
-//                startActivity(i);
-//            }
-//        }));
+        endlessRecyclerViewPostedJob.addPaginationListener(paginationListener);
+        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(CompletedJobListActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
+            @Override
+            public void onItemClick(View view, int position) {
+
+                Intent i=new Intent(CompletedJobListActivity.this,CompletedJobDetailsActivity.class);
+                String JobId = String.valueOf(jobList.get(position).getJobId());
+                String vehicle_id= String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
+               /* String name = jobList.get(position).getCustomer().getName();
+                String email = jobList.get(position).getCustomer().getEmail();
+                String phone1 = jobList.get(position).getCustomer().getPhone1();
+                String profilepic = jobList.get(position).getCustomer().getProfilePic();
+                String FromLoc_latt = jobList.get(position).getFromLocation().getLatitude();
+                String FromLoc_long = jobList.get(position).getFromLocation().getLongitude();
+                String FromLoc_name = jobList.get(position).getFromLocation().getName();
+                String ToLoc_latt = jobList.get(position).getToLocation().getLatitude();
+                String ToLoc_long = jobList.get(position).getToLocation().getLongitude();
+                String ToLoc_name = jobList.get(position).getToLocation().getName();
+                String Material_name = jobList.get(position).getMaterial().getMaterialName();
+                Integer Material_id = jobList.get(position).getMaterial().getMaterialId();
+                String vehicle_id= String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
+                String TruckSize_dimension = jobList.get(position).getTruckSize().getTruckSizeDimension();
+                String truck_name=jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName();
+                String driver_id= String.valueOf(jobList.get(position).getAssignedVehicle().getJobDriverId());
+                String MaterialDescription = jobList.get(position).getMaterialDescription();
+//                String weight =jobList.get(position).getWeight();
+//                String DateOfLoading = jobList.get(position).getDateOfLoading();
+                String PaymentType_name = jobList.get(position).getPaymentType().getPaymentTypeName();
+                Integer PaymentType_id = jobList.get(position).getPaymentType().getPaymentTypeId();
+                String TruckType_name = jobList.get(position).getTruckType().getTruckTypeName();
+                //  String TruckType_id = jobList.get(position).getTruckType().getTruckTypeId();
+
+                Integer TruckSize_id = jobList.get(position).getTruckSize().getTruckSizeId();
+                //  String Currency_name = jobList.get(position).getCurrency().getCurrencyName();
+                String LocationDistance = String.valueOf(jobList.get(position).getLocationDistance());
+                String DateRequested = jobList.get(position).getDateRequested();
+                String DateRequestedRelative = jobList.get(position).getDateRequestedRelative();
+                // String Budget = jobList.get(position).getBudget();
+                String QuotationCount = jobList.get(position).getQuotationCount();
+                //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
+                String JobStatus = jobList.get(position).getJobStatus().getName();
+                String expected_start_date=jobList.get(position).getAssignedVehicle().getExpectedStartDate();
+                String expected_end_date=jobList.get(position).getAssignedVehicle().getExpectedEndDate();*/
+
+                i.putExtra("isFrom","CompletedJob");
+                i.putExtra("JobId",JobId);
+                i.putExtra("vehicle_id",vehicle_id);
+               /* i.putExtra("name",name);
+                i.putExtra("email",email);
+                i.putExtra("phone1",phone1);
+                i.putExtra("profilepic",profilepic);
+                i.putExtra("FromLoc_latt",FromLoc_latt);
+                i.putExtra("FromLoc_long",FromLoc_long);
+                i.putExtra("FromLoc_name",FromLoc_name);
+                i.putExtra("ToLoc_latt",ToLoc_latt);
+                i.putExtra("ToLoc_long",ToLoc_long);
+                i.putExtra("ToLoc_name",ToLoc_name);
+                i.putExtra("Material_name",Material_name);
+                i.putExtra("Material_id",Material_id);
+                i.putExtra("MaterialDescription",MaterialDescription);
+                i.putExtra("expected_start_date",expected_start_date);
+                i.putExtra("expected_end_date",expected_end_date);
+                i.putExtra("PaymentType_name",PaymentType_name);
+                i.putExtra("PaymentType_id",PaymentType_id);
+                i.putExtra("TruckType_name",TruckType_name);
+                i.putExtra("driver_id",driver_id);
+                i.putExtra("TruckSize_id",TruckSize_id);
+                i.putExtra("TruckSize_dimension",TruckSize_dimension);
+                i.putExtra("truck_name",truck_name);
+                i.putExtra("LocationDistance",LocationDistance);
+                i.putExtra("DateRequested",DateRequested);
+                i.putExtra("DateRequestedRelative",DateRequestedRelative);
+                //   i.putExtra("Budget",Budget);
+                i.putExtra("QuotationCount",QuotationCount);
+                i.putExtra("vehicle_id",vehicle_id);
+                i.putExtra("JobStatus",JobStatus);*/
+                startActivity(i);
+            }
+        }));
 
     }
 

@@ -1,8 +1,10 @@
 package bteem.com.loadingzonedriver.retrofit;
 
 import bteem.com.loadingzonedriver.global.GloablMethods;
+import bteem.com.loadingzonedriver.retrofit.model.ChangePasswordResponse;
 import bteem.com.loadingzonedriver.retrofit.model.DriverProfileRsponse;
 import bteem.com.loadingzonedriver.retrofit.model.DriverStatusUpdateRsponse;
+import bteem.com.loadingzonedriver.retrofit.model.ForgotPasswordResponse;
 import bteem.com.loadingzonedriver.retrofit.model.LoginResponse;
 import bteem.com.loadingzonedriver.retrofit.model.MessageCreateResponse;
 import bteem.com.loadingzonedriver.retrofit.model.MessageDetailsResponse;
@@ -11,6 +13,7 @@ import bteem.com.loadingzonedriver.retrofit.model.Meta;
 import bteem.com.loadingzonedriver.retrofit.model.NottificationListResponse;
 import bteem.com.loadingzonedriver.retrofit.model.PostedJobResponse;
 import bteem.com.loadingzonedriver.retrofit.model.ReplyMessageResponse;
+import bteem.com.loadingzonedriver.retrofit.model.SingleJobResponse;
 import bteem.com.loadingzonedriver.retrofit.model.TruckUpdateStatusresponse;
 import okhttp3.MultipartBody;
 import retrofit2.Call;
@@ -92,4 +95,17 @@ public interface ApiInterface {
     @FormUrlEncoded
     @POST("message")
     Call<MessageCreateResponse> CreateMessage(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Field("reference_id") String referenceid, @Field("message_type_id") String message_type_id, @Field("subject") String subject, @Field("message") String message);
+
+    @FormUrlEncoded
+    @POST("main/forgot-password")
+    Call<ForgotPasswordResponse> ForgotPassword(@Header(GloablMethods.HEADER_AUTHORIZATION) String access_token, @Field("username") String username);
+    @FormUrlEncoded
+    @POST("user/change-password")
+    Call<ChangePasswordResponse> ChangePassword(@Header(GloablMethods.HEADER_AUTHORIZATION) String access_token, @Field("old_password") String OldPassword, @Field("new_password") String NewPassword, @Field("confirm_password") String ConfirmPassword);
+
+    @GET("job/{job_id}")
+    Call<SingleJobResponse> GetSingleJob(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Path("job_id") String job_id);
+
+
+
 }
