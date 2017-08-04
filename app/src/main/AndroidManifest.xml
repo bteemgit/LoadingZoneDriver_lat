@@ -45,7 +45,6 @@
         <activity android:name=".modules.notification.NotificationListActivity" />
         <activity android:name=".modules.message.MessageListViewActivity" />
         <activity android:name=".modules.message.MessageDetailListActivity" />
-        <activity android:name=".modules.home.HomeActivity02"></activity>
         <activity android:name=".modules.ForgotOrChangePassword.ForgotPassword" />
         <activity android:name=".modules.ForgotOrChangePassword.ChangePassword" />
         <activity android:name=".modules.job.CompletedJobDetailsActivity" />

@@ -262,7 +262,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                         String truck_name=response.body().getAssignedVehicle().getVehicleDetails().getCustomName();
                         String driver_id= String.valueOf(response.body().getAssignedVehicle().getJobDriverId());
                         String MaterialDescription = response.body().getMaterialDescription();
-//                String weight =jobList.get(position).getWeight();
+                        String Materialweight =response.body().getMaterialWeight().getMaterialWeightText();
 //                String DateOfLoading = jobList.get(position).getDateOfLoading();
                         String PaymentMode = response.body().getPaymentType().getPaymentTypeName();
                         Integer PaymentType_id = response.body().getPaymentType().getPaymentTypeId();
@@ -281,9 +281,16 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                         String expected_start_date=response.body().getAssignedVehicle().getExpectedStartDate();
                         String expected_end_date=response.body().getAssignedVehicle().getExpectedEndDate();
 
-                        String[] splited_sDate = expected_start_date.split("\\s+");
-                        String[] splited_eDate = expected_end_date.split("\\s+");
+                        String expected_start_time=response.body().getAssignedVehicle().getExpectedStartTime();
+                        String expected_end_time=response.body().getAssignedVehicle().getExpectedEndTime();
 
+                        String QutoationCount = response.body().getQuotationCount();
+                        String JobDate = response.body().getLoadingDate();
+                        /*String[] splited_sDate = expected_start_date.split("\\s+");
+                        String[] splited_eDate = expected_end_date.split("\\s+");*/
+
+                        String StartDateAndTime =expected_start_date+" "+expected_start_time;
+                        String EndDateAndTime =expected_end_date+" "+expected_end_time;
                         //----------------------------------------------------
 
 
@@ -296,11 +303,14 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                         textViewJob_To.setText(Job_To);
                         textViewJobTotalDist.setText(JobTotalDist);
                         textViewRequestedDate.setText(RequestedDate);
-        textViewJobDate.setText(splited_eDate[0]);
-        textViewQutoation.setText(splited_sDate[0]);
-        textStartTime.setText(splited_sDate[1]);
-        textEndTime.setText(splited_eDate[1]);
+
+                        textViewJobDate.setText(JobDate);
+                        textViewQutoation.setText(QutoationCount);
+                        textStartTime.setText(StartDateAndTime);
+                        textEndTime.setText(EndDateAndTime);
+
                         textViewLoadingMaterial.setText(LoadingMaterial);
+                        textLoadingMat_Weight.setText(Materialweight);
                         textTruckName.setText(truck_name);
                         //  textViewBudget.setText(Budget);
                         textViewTotalDistance.setText(JobTotalDist);

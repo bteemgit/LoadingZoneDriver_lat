@@ -12,9 +12,6 @@ public class JobList {
     @SerializedName("job_title")
     @Expose
     private String jobTitle;
-    @SerializedName("customer")
-    @Expose
-    private Customer customer;
     @SerializedName("from_location")
     @Expose
     private FromLocation fromLocation;
@@ -29,7 +26,13 @@ public class JobList {
     private String materialDescription;
     @SerializedName("material_weight")
     @Expose
-    private Object materialWeight;
+    private MaterialWeight materialWeight;
+    @SerializedName("preferred_loading_date")
+    @Expose
+    private String preferredLoadingDate;
+    @SerializedName("preferred_loading_time")
+    @Expose
+    private String preferredLoadingTime;
     @SerializedName("loading_date")
     @Expose
     private String loadingDate;
@@ -72,19 +75,12 @@ public class JobList {
     @SerializedName("load_status")
     @Expose
     private LoadStatus loadStatus;
-
-
-    public ServiceProvider getServiceProvider() {
-        return serviceProvider;
-    }
-
-    public void setServiceProvider(ServiceProvider serviceProvider) {
-        this.serviceProvider = serviceProvider;
-    }
-
     @SerializedName("service_provider")
     @Expose
     private ServiceProvider serviceProvider;
+    @SerializedName("customer")
+    @Expose
+    private Customer customer;
 
     public Integer getJobId() {
         return jobId;
@@ -100,14 +96,6 @@ public class JobList {
 
     public void setJobTitle(String jobTitle) {
         this.jobTitle = jobTitle;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public FromLocation getFromLocation() {
@@ -142,12 +130,28 @@ public class JobList {
         this.materialDescription = materialDescription;
     }
 
-    public Object getMaterialWeight() {
+    public MaterialWeight getMaterialWeight() {
         return materialWeight;
     }
 
-    public void setMaterialWeight(Object materialWeight) {
+    public void setMaterialWeight(MaterialWeight materialWeight) {
         this.materialWeight = materialWeight;
+    }
+
+    public String getPreferredLoadingDate() {
+        return preferredLoadingDate;
+    }
+
+    public void setPreferredLoadingDate(String preferredLoadingDate) {
+        this.preferredLoadingDate = preferredLoadingDate;
+    }
+
+    public String getPreferredLoadingTime() {
+        return preferredLoadingTime;
+    }
+
+    public void setPreferredLoadingTime(String preferredLoadingTime) {
+        this.preferredLoadingTime = preferredLoadingTime;
     }
 
     public String getLoadingDate() {
@@ -260,6 +264,22 @@ public class JobList {
 
     public void setLoadStatus(LoadStatus loadStatus) {
         this.loadStatus = loadStatus;
+    }
+
+    public ServiceProvider getServiceProvider() {
+        return serviceProvider;
+    }
+
+    public void setServiceProvider(ServiceProvider serviceProvider) {
+        this.serviceProvider = serviceProvider;
+    }
+
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
     }
 
 }

@@ -208,7 +208,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
         String JobTotalDist = getIntent().getStringExtra("LocationDistance");
         String RequestedDate = getIntent().getStringExtra("DateRequested");
         String JobDate = getIntent().getStringExtra("DateOfLoading");
-        String Qutoation = getIntent().getStringExtra("QuotationCount");
+        String QutoationCount = getIntent().getStringExtra("QuotationCount");
         String LoadingMaterial = getIntent().getStringExtra("Material_name");
         String TotalDistance = getIntent().getStringExtra("LocationDistance");
         String JobFrom = getIntent().getStringExtra("FromLoc_name");
@@ -218,14 +218,24 @@ public class PostedJobDetailsActivity extends BaseActivity {
         String PaymentMode = getIntent().getStringExtra("PaymentType_name");
         String expected_start_date = getIntent().getStringExtra("expected_start_date");
         String expected_end_date = getIntent().getStringExtra("expected_end_date");
+
+
+
+        String expected_start_time = getIntent().getStringExtra("expected_start_time");
+        String expected_end_time = getIntent().getStringExtra("expected_end_time");
+
+        String StartDateAndTime =expected_start_date+" "+expected_start_time;
+        String EndDateAndTime =expected_end_date+" "+expected_end_time;
+
         String truck_name = getIntent().getStringExtra("truck_name");
 
         providerPhoneno = getIntent().getStringExtra("provider_phone_no");
 
+        String material_weight = getIntent().getStringExtra("Materialweight");
+
         driver_id = getIntent().getStringExtra("driver_id");
         vehicle_id=getIntent().getStringExtra("vehicle_id");
-        String[] splited_sDate = expected_start_date.split("\\s+");
-        String[] splited_eDate = expected_end_date.split("\\s+");
+
 
         textViewCutomerName.setText(CutomerName);
         textViewCutomerEmail.setText(CutomerEmail);
@@ -234,21 +244,20 @@ public class PostedJobDetailsActivity extends BaseActivity {
         textViewJob_To.setText(Job_To);
         textViewJobTotalDist.setText(JobTotalDist);
         textViewRequestedDate.setText(RequestedDate);
-        textViewJobDate.setText(splited_eDate[0]);
-        textViewQutoation.setText(splited_sDate[0]);
-        textStartTime.setText(splited_sDate[1]);
-        textEndTime.setText(splited_eDate[1]);
+        textViewJobDate.setText(JobDate);
+        textViewQutoation.setText(QutoationCount);
+        textStartTime.setText(StartDateAndTime);
+        textEndTime.setText(EndDateAndTime);
         textViewLoadingMaterial.setText(LoadingMaterial);
         textTruckName.setText(truck_name);
-        //  textViewBudget.setText(Budget);
         textViewTotalDistance.setText(TotalDistance);
         textViewJobFrom.setText(JobFrom);
         textViewJobTo.setText(JobTo);
-        //  textViewLoadingDate.setText(LoadingDate);
         textViewTruckSize.setText(TruckSize);
         textViewTruckType.setText(TruckType);
         textViewPaymentMode.setText(PaymentMode);
-        //textViewCurrency.setText(Currency);
+
+        textLoadingMat_Weight.setText(material_weight);
         Picasso.with(PostedJobDetailsActivity.this)
                 .load(profilepic)
                 .resize(80, 80)

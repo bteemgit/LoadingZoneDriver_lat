@@ -3,6 +3,7 @@ package bteem.com.loadingzonedriver.modules.home;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -19,7 +20,6 @@ import android.widget.LinearLayout;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.squareup.picasso.Picasso;
 
@@ -59,7 +59,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class HomeActivity02 extends BaseActivity
+public class HomeActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
     private ApiInterface apiService;
     @BindView(R.id.recyclerViewHomePostedJob)
@@ -95,9 +95,8 @@ public class HomeActivity02 extends BaseActivity
     ImageView img_logout;
 
 
-
     // @BindView(R.id.id_text_users_name)
-    private TextView text_users_name,text_users_mail;
+    private TextView text_users_name, text_users_mail;
     ImageView nav_img;
     private PostedJobListAdapter postedJobListAdapter;
     private List<JobList> jobList = new ArrayList<>();
@@ -107,11 +106,9 @@ public class HomeActivity02 extends BaseActivity
     private EndlessRecyclerView.PaginationListener paginationListener = new EndlessRecyclerView.PaginationListener() {
         @Override
         public void onReachedBottom() {
-            if (isConnectingToInternet(getApplicationContext()))
-            {
+            if (isConnectingToInternet(getApplicationContext())) {
                 getJobPosted();
-            }
-            else {
+            } else {
                 showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
             }
         }
@@ -126,7 +123,7 @@ public class HomeActivity02 extends BaseActivity
 
     @OnClick(R.id.id_profile_xml)
     void id_profile_xml() {
-        Intent i=new Intent(getApplicationContext(),HomeActivity02.class);
+        Intent i = new Intent(getApplicationContext(), HomeActivity.class);
         nav_drawer.closeDrawers();
         startActivity(i);
     }
@@ -134,21 +131,21 @@ public class HomeActivity02 extends BaseActivity
 
     @OnClick(R.id.id_linear_myquotation)
     void id_linear_myquotation() {
-        Intent i=new Intent(getApplicationContext(), DriverProfileAcivity.class);
+        Intent i = new Intent(getApplicationContext(), DriverProfileAcivity.class);
         nav_drawer.closeDrawers();
         startActivity(i);
     }
 
     @OnClick(R.id.id_linearmyJob)
     void id_linearmyJob() {
-        Intent i=new Intent(getApplicationContext(), CompletedJobListActivity.class);
+        Intent i = new Intent(getApplicationContext(), CompletedJobListActivity.class);
         nav_drawer.closeDrawers();
         startActivity(i);
     }
 
     @OnClick(R.id.nav_notification)
     void nav_notification() {
-        Intent intent=new Intent(getApplicationContext(),MessageListViewActivity .class);
+        Intent intent = new Intent(getApplicationContext(), MessageListViewActivity.class);
         // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // nav_drawer.closeDrawers();
         nav_drawer.closeDrawers();
@@ -157,24 +154,22 @@ public class HomeActivity02 extends BaseActivity
 
     @OnClick(R.id.nav_changepassword)
     void nav_changepassword() {
-        Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
+        Intent intent = new Intent(getApplicationContext(), NotificationListActivity.class);
         // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // nav_drawer.closeDrawers();
         nav_drawer.closeDrawers();
         startActivity(intent);
     }
-
 
 
     @OnClick(R.id.nav_changepasswordd)
     void nav_changepasswordd() {
-        Intent intent=new Intent(getApplicationContext(), ChangePassword.class);
+        Intent intent = new Intent(getApplicationContext(), ChangePassword.class);
         // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         // nav_drawer.closeDrawers();
         nav_drawer.closeDrawers();
         startActivity(intent);
     }
-
 
 
     @OnClick(R.id.id_img_logout)
@@ -186,7 +181,7 @@ public class HomeActivity02 extends BaseActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_home02);
+        setContentView(R.layout.activity_home);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         setSupportActionBar(toolbar);
@@ -200,18 +195,16 @@ public class HomeActivity02 extends BaseActivity
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
-        sessionManager=new SessionManager(getApplicationContext());
+        sessionManager = new SessionManager(getApplicationContext());
         refreshLayout.setRefreshing(false);
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
         endlessRecyclerViewPostedJob.setLayoutManager(layoutManager);
         setUpListeners();
 
 
-        if (isConnectingToInternet(getApplicationContext()))
-        {
+        if (isConnectingToInternet(getApplicationContext())) {
             getJobPosted();
-        }
-        else {
+        } else {
             showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
         }
 
@@ -234,11 +227,11 @@ public class HomeActivity02 extends BaseActivity
         //  text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
 
 
-        TextView text_users_name = (TextView)findViewById(R.id.id_text_users_name);
+        TextView text_users_name = (TextView) findViewById(R.id.id_text_users_name);
         text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
-        TextView text_usersemail = (TextView)findViewById(R.id.id_text_usersemail);
+        TextView text_usersemail = (TextView) findViewById(R.id.id_text_usersemail);
         text_usersemail.setText((AppController.getString(getApplicationContext(), "customer_email")));
-        ImageView user_imageView = (ImageView)findViewById(R.id.imageView6);
+        ImageView user_imageView = (ImageView) findViewById(R.id.imageView6);
         Context context = this;
         Picasso.with(context)
                 .load(AppController.getString(getApplicationContext(), "pic"))
@@ -249,6 +242,7 @@ public class HomeActivity02 extends BaseActivity
 
 
     }
+
     private void setUpListeners() {
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(getApplicationContext());
@@ -263,11 +257,11 @@ public class HomeActivity02 extends BaseActivity
         });
 
         endlessRecyclerViewPostedJob.addPaginationListener(paginationListener);
-        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(HomeActivity02.this, new RecyclerItemClickListener.OnItemClickListener() {
+        endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(HomeActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
 
-                Intent i=new Intent(HomeActivity02.this,PostedJobDetailsActivity.class);
+                Intent i = new Intent(HomeActivity.this, PostedJobDetailsActivity.class);
                 String JobId = String.valueOf(jobList.get(position).getJobId());
                 String name = jobList.get(position).getCustomer().getName();
                 String email = jobList.get(position).getCustomer().getEmail();
@@ -283,13 +277,14 @@ public class HomeActivity02 extends BaseActivity
                 String ToLoc_name = jobList.get(position).getToLocation().getName();
                 String Material_name = jobList.get(position).getMaterial().getMaterialName();
                 Integer Material_id = jobList.get(position).getMaterial().getMaterialId();
-                String vehicle_id= String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
+                String vehicle_id = String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
                 String TruckSize_dimension = jobList.get(position).getTruckSize().getTruckSizeDimension();
-                String truck_name=jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName();
-                String driver_id= String.valueOf(jobList.get(position).getAssignedVehicle().getJobDriverId());
+                String truck_name = jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName();
+                String driver_id = String.valueOf(jobList.get(position).getAssignedVehicle().getJobDriverId());
                 String MaterialDescription = jobList.get(position).getMaterialDescription();
-//                String weight =jobList.get(position).getWeight();
-//                String DateOfLoading = jobList.get(position).getDateOfLoading();
+
+                String Materialweight = String.valueOf(jobList.get(position).getMaterialWeight().getMaterialWeightText());
+                String DateOfLoading = jobList.get(position).getLoadingDate();
                 String PaymentType_name = jobList.get(position).getPaymentType().getPaymentTypeName();
                 Integer PaymentType_id = jobList.get(position).getPaymentType().getPaymentTypeId();
                 String TruckType_name = jobList.get(position).getTruckType().getTruckTypeName();
@@ -304,41 +299,54 @@ public class HomeActivity02 extends BaseActivity
                 String QuotationCount = jobList.get(position).getQuotationCount();
                 //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
                 String JobStatus = jobList.get(position).getJobStatus().getName();
-                String expected_start_date=jobList.get(position).getAssignedVehicle().getExpectedStartDate();
-                String expected_end_date=jobList.get(position).getAssignedVehicle().getExpectedEndDate();
-                i.putExtra("isFrom","Home");
-                i.putExtra("JobId",JobId);
-                i.putExtra("name",name);
-                i.putExtra("email",email);
-                i.putExtra("phone1",phone1);
-                i.putExtra("profilepic",profilepic);
-                i.putExtra("FromLoc_latt",FromLoc_latt);
-                i.putExtra("FromLoc_long",FromLoc_long);
-                i.putExtra("FromLoc_name",FromLoc_name);
-                i.putExtra("ToLoc_latt",ToLoc_latt);
-                i.putExtra("ToLoc_long",ToLoc_long);
-                i.putExtra("ToLoc_name",ToLoc_name);
-                i.putExtra("Material_name",Material_name);
-                i.putExtra("Material_id",Material_id);
-                i.putExtra("MaterialDescription",MaterialDescription);
-                i.putExtra("expected_start_date",expected_start_date);
-                i.putExtra("expected_end_date",expected_end_date);
-                i.putExtra("PaymentType_name",PaymentType_name);
-                i.putExtra("PaymentType_id",PaymentType_id);
-                i.putExtra("TruckType_name",TruckType_name);
-                i.putExtra("driver_id",driver_id);
-                i.putExtra("TruckSize_id",TruckSize_id);
-                i.putExtra("TruckSize_dimension",TruckSize_dimension);
-                i.putExtra("truck_name",truck_name);
-                i.putExtra("LocationDistance",LocationDistance);
-                i.putExtra("DateRequested",DateRequested);
-                i.putExtra("DateRequestedRelative",DateRequestedRelative);
-                //   i.putExtra("Budget",Budget);
-                i.putExtra("QuotationCount",QuotationCount);
-                i.putExtra("vehicle_id",vehicle_id);
-                i.putExtra("JobStatus",JobStatus);
+                String expected_start_date = jobList.get(position).getAssignedVehicle().getExpectedStartDate();
+                String expected_end_date = jobList.get(position).getAssignedVehicle().getExpectedEndDate();
 
-                i.putExtra("provider_phone_no",provider_phone_no);
+                String expected_start_time = jobList.get(position).getAssignedVehicle().getExpectedStartTime();
+                String expected_end_time = jobList.get(position).getAssignedVehicle().getExpectedEndTime();
+
+                i.putExtra("isFrom", "Home");
+                i.putExtra("JobId", JobId);
+                i.putExtra("name", name);
+                i.putExtra("email", email);
+                i.putExtra("phone1", phone1);
+                i.putExtra("profilepic", profilepic);
+                i.putExtra("FromLoc_latt", FromLoc_latt);
+                i.putExtra("FromLoc_long", FromLoc_long);
+                i.putExtra("FromLoc_name", FromLoc_name);
+                i.putExtra("ToLoc_latt", ToLoc_latt);
+                i.putExtra("ToLoc_long", ToLoc_long);
+                i.putExtra("ToLoc_name", ToLoc_name);
+                i.putExtra("Material_name", Material_name);
+                i.putExtra("Material_id", Material_id);
+                i.putExtra("MaterialDescription", MaterialDescription);
+                i.putExtra("expected_start_date", expected_start_date);
+                i.putExtra("expected_end_date", expected_end_date);
+
+                i.putExtra("expected_start_time", expected_start_time);
+                i.putExtra("expected_end_time", expected_end_time);
+
+                i.putExtra("DateOfLoading", DateOfLoading);
+
+                i.putExtra("PaymentType_name", PaymentType_name);
+                i.putExtra("PaymentType_id", PaymentType_id);
+                i.putExtra("TruckType_name", TruckType_name);
+                i.putExtra("driver_id", driver_id);
+                i.putExtra("TruckSize_id", TruckSize_id);
+                i.putExtra("TruckSize_dimension", TruckSize_dimension);
+                i.putExtra("truck_name", truck_name);
+                i.putExtra("LocationDistance", LocationDistance);
+                i.putExtra("DateRequested", DateRequested);
+                i.putExtra("DateRequestedRelative", DateRequestedRelative);
+                //   i.putExtra("Budget",Budget);
+                i.putExtra("QuotationCount", QuotationCount);
+                i.putExtra("vehicle_id", vehicle_id);
+                i.putExtra("JobStatus", JobStatus);
+
+                i.putExtra("Materialweight",Materialweight);
+
+                i.putExtra("provider_phone_no", provider_phone_no);
+
                 // Toast.makeText(HomeActivity.this, provider_phone_no, Toast.LENGTH_SHORT).show();
                 startActivity(i);
             }
@@ -365,33 +373,25 @@ public class HomeActivity02 extends BaseActivity
 
         if (id == R.id.nav_home) {
 
-            Intent i=new Intent(getApplicationContext(),HomeActivity02.class);
+            Intent i = new Intent(getApplicationContext(), HomeActivity.class);
             startActivity(i);
-        }
-        else if(id==R.id.nav_profile)
-        {
-            Intent i=new Intent(getApplicationContext(), DriverProfileAcivity.class);
+        } else if (id == R.id.nav_profile) {
+            Intent i = new Intent(getApplicationContext(), DriverProfileAcivity.class);
             startActivity(i);
-        }
-        else if(id == R.id.nav_completedjob){
-            Intent i=new Intent(getApplicationContext(), CompletedJobListActivity.class);
+        } else if (id == R.id.nav_completedjob) {
+            Intent i = new Intent(getApplicationContext(), CompletedJobListActivity.class);
             startActivity(i);
-        }
-
-        else if(id==R.id.nav_notification){
-            Intent intent=new Intent(getApplicationContext(), NotificationListActivity.class);
+        } else if (id == R.id.nav_notification) {
+            Intent intent = new Intent(getApplicationContext(), NotificationListActivity.class);
             // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // nav_drawer.closeDrawers();
             startActivity(intent);
-        }
-
-        else if(id==R.id.nav_message){
-            Intent intent=new Intent(getApplicationContext(), MessageListViewActivity.class);
+        } else if (id == R.id.nav_message) {
+            Intent intent = new Intent(getApplicationContext(), MessageListViewActivity.class);
             // i.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             // nav_drawer.closeDrawers();
             startActivity(intent);
-        }
-        else if(id == R.id.nav_logout){
+        } else if (id == R.id.nav_logout) {
             logout();
         }
 
@@ -402,7 +402,7 @@ public class HomeActivity02 extends BaseActivity
 
     private void logout() {
 
-        showProgressDialog(HomeActivity02.this, "Log outing...");
+        showProgressDialog(HomeActivity.this, "Log outing...");
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
@@ -435,7 +435,7 @@ public class HomeActivity02 extends BaseActivity
     public void getJobPosted() {
 
         if (offset == 1) {
-            showProgressDialog(HomeActivity02.this, "loading");
+            showProgressDialog(HomeActivity.this, "loading");
         } else {
             progressBar.setVisibility(View.VISIBLE);
         }
@@ -447,8 +447,9 @@ public class HomeActivity02 extends BaseActivity
             public void onResponse(Call<PostedJobResponse> call, retrofit2.Response<PostedJobResponse> response) {
                 refreshLayout.setRefreshing(false);
                 hideProgressDialog();
-                if (response.isSuccessful() ) {
+                if (response.isSuccessful()) {
                     if (!response.body().getJobList().isEmpty()) {
+
                         List<JobList> JobList = response.body().getJobList();
                         if (offset == 1) {
                             jobList = JobList;
@@ -482,7 +483,7 @@ public class HomeActivity02 extends BaseActivity
                         showSnakBar(relativeLayoutRoot, meta.getString("message"));
 
                     } catch (Exception e) {
-                        Log.d("exception",e.getMessage());
+                        Log.d("exception", e.getMessage());
                     }
                 }
 

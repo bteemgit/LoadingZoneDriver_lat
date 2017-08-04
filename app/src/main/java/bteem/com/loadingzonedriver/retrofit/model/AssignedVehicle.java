@@ -18,18 +18,33 @@ public class AssignedVehicle {
     @SerializedName("expected_start_date")
     @Expose
     private String expectedStartDate;
+    @SerializedName("expected_start_time")
+    @Expose
+    private String expectedStartTime;
     @SerializedName("job_starting_date")
     @Expose
-    private Object jobStartingDate;
+    private String jobStartingDate;
+    @SerializedName("job_starting_time")
+    @Expose
+    private String jobStartingTime;
     @SerializedName("expected_end_date")
     @Expose
     private String expectedEndDate;
+    @SerializedName("expected_end_time")
+    @Expose
+    private String expectedEndTime;
     @SerializedName("job_ended_date")
     @Expose
-    private Object jobEndedDate;
+    private String jobEndedDate;
+    @SerializedName("job_ended_time")
+    @Expose
+    private String jobEndedTime;
     @SerializedName("vehicle_details")
     @Expose
     private VehicleDetails vehicleDetails;
+    @SerializedName("active_status")
+    @Expose
+    private String activeStatus;
 
     public Integer getVehicleBlockId() {
         return vehicleBlockId;
@@ -63,12 +78,28 @@ public class AssignedVehicle {
         this.expectedStartDate = expectedStartDate;
     }
 
-    public Object getJobStartingDate() {
+    public String getExpectedStartTime() {
+        return expectedStartTime;
+    }
+
+    public void setExpectedStartTime(String expectedStartTime) {
+        this.expectedStartTime = expectedStartTime;
+    }
+
+    public String getJobStartingDate() {
         return jobStartingDate;
     }
 
-    public void setJobStartingDate(Object jobStartingDate) {
+    public void setJobStartingDate(String jobStartingDate) {
         this.jobStartingDate = jobStartingDate;
+    }
+
+    public String getJobStartingTime() {
+        return jobStartingTime;
+    }
+
+    public void setJobStartingTime(String jobStartingTime) {
+        this.jobStartingTime = jobStartingTime;
     }
 
     public String getExpectedEndDate() {
@@ -79,12 +110,28 @@ public class AssignedVehicle {
         this.expectedEndDate = expectedEndDate;
     }
 
-    public Object getJobEndedDate() {
+    public String getExpectedEndTime() {
+        return expectedEndTime;
+    }
+
+    public void setExpectedEndTime(String expectedEndTime) {
+        this.expectedEndTime = expectedEndTime;
+    }
+
+    public String getJobEndedDate() {
         return jobEndedDate;
     }
 
-    public void setJobEndedDate(Object jobEndedDate) {
+    public void setJobEndedDate(String jobEndedDate) {
         this.jobEndedDate = jobEndedDate;
+    }
+
+    public String getJobEndedTime() {
+        return jobEndedTime;
+    }
+
+    public void setJobEndedTime(String jobEndedTime) {
+        this.jobEndedTime = jobEndedTime;
     }
 
     public VehicleDetails getVehicleDetails() {
@@ -93,6 +140,14 @@ public class AssignedVehicle {
 
     public void setVehicleDetails(VehicleDetails vehicleDetails) {
         this.vehicleDetails = vehicleDetails;
+    }
+
+    public String getActiveStatus() {
+        return activeStatus;
+    }
+
+    public void setActiveStatus(String activeStatus) {
+        this.activeStatus = activeStatus;
     }
 
 }
