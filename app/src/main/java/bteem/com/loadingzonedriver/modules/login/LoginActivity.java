@@ -5,12 +5,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
+import android.os.Bundle;
 import android.support.annotation.NonNull;
-import android.support.constraint.ConstraintLayout;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.util.Log;
 import android.widget.Button;
 import android.widget.EditText;
@@ -40,8 +38,6 @@ import butterknife.ButterKnife;
 import butterknife.OnClick;
 import retrofit2.Call;
 import retrofit2.Callback;
-
-import static bteem.com.loadingzonedriver.global.BaseActivity.isConnectingToInternet;
 
 public class LoginActivity extends BaseActivity {
 
@@ -175,6 +171,8 @@ public class LoginActivity extends BaseActivity {
             showSnakBar(rootView, MessageConstants.PROVIDE_BASIC_INFO);
         }
     }
+
+    //chumma...
 
     //api call for singin
     public void Signin(String username, String password, String usertype) {
