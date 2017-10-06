@@ -33,7 +33,7 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-        @NonNull
+       /* @NonNull
         @BindView(R.id.textCustomerName)
         TextView textViewCustomerName;
         @NonNull
@@ -59,9 +59,40 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
 //        TextView textViewTruckBudget;
         @NonNull
         @BindView(R.id.imageViewCustomPic)
+        ImageView imageViewCustomPic;*/
+
+
+        //----------------------------------------
+        @NonNull
+        @BindView(R.id.textCustomerName)
+        TextView textViewCustomerName;
+        @NonNull
+        @BindView(R.id.textLocationFrom)
+        TextView textViewLocationFrom;
+        @NonNull
+        @BindView(R.id.textTotalDistance)
+        TextView textViewTotalDistance;
+        @NonNull
+        @BindView(R.id.textLocationTo)
+        TextView textViewLocationTo;
+        @NonNull
+        @BindView(R.id.textLoadingDate)
+        TextView textViewLoadingDate;
+        @NonNull
+        @BindView(R.id.textEndingDate)
+        TextView textviewEndingDate;
+        @NonNull
+        @BindView(R.id.textMaterial)
+        TextView textViewMaterial;
+        @NonNull
+        @BindView(R.id.textrunningStatus)
+        TextView textRunningStatus;
+
+        @NonNull
+        @BindView(R.id.imageViewCustomPic)
         ImageView imageViewCustomPic;
 
-
+//-----------------------------------------------------
         public ViewHolder(View v) {
             super(v);
             ButterKnife.bind(this, v);
@@ -84,12 +115,30 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
     @Override
     public void onBindViewHolder(CompletedJobListAdapter.ViewHolder holder, int position) {
 
-        holder.textViewCustomerName.setText(jobList.get(position).getCustomer().getName());
+       /* holder.textViewCustomerName.setText(jobList.get(position).getCustomer().getName());
         holder.textViewLocationTo.setText(jobList.get(position).getToLocation().getName());
         holder.textViewLocationFrom.setText(jobList.get(position).getFromLocation().getName());
         holder.textViewTruckType.setText(jobList.get(position).getTruckType().getTruckTypeName());
         holder.textViewTruckDimension.setText(jobList.get(position).getTruckSize().getTruckSizeDimension());
         holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
+//        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
+
+        Picasso.with(context)
+                .load(jobList.get(position).getCustomer().getProfilePic())
+                .resize(70, 70)
+                .centerCrop()
+                .transform(new CircleTransformation())
+                .into(holder.imageViewCustomPic);*/
+
+        holder.textViewCustomerName.setText(jobList.get(position).getCustomer().getName());
+        holder.textViewLocationTo.setText(jobList.get(position).getToLocation().getName());
+        holder.textViewLocationFrom.setText(jobList.get(position).getFromLocation().getName());
+        holder.textViewLoadingDate.setText(jobList.get(position).getAssignedVehicle().getExpectedStartDate());
+        holder.textviewEndingDate.setText(jobList.get(position).getAssignedVehicle().getExpectedEndDate());
+        holder.textViewMaterial.setText(jobList.get(position).getMaterial().getMaterialName());
+        String locationDist = String.valueOf(jobList.get(position).getLocationDistance());
+        holder.textViewTotalDistance.setText(locationDist);
+        holder.textRunningStatus.setText(jobList.get(position).getLoadStatus().getRunningStatus().getRunningStatusText());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 
         Picasso.with(context)

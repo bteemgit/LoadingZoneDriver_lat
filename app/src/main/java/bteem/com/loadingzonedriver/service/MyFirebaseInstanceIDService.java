@@ -11,7 +11,8 @@ import android.util.Log;
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
 
-import bteem.com.loadingzonedriver.utils.Config;
+import bteem.com.loadingzonedriver.app.Config;
+
 
 /**
  * Created by Ravi Tamada on 08/08/16.

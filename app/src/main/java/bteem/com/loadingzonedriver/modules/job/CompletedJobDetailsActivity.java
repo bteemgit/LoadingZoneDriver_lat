@@ -44,6 +44,7 @@ import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.LocationTrack;
 import bteem.com.loadingzonedriver.global.MessageConstants;
+import bteem.com.loadingzonedriver.modules.home.PostedJobDetailsActivity;
 import bteem.com.loadingzonedriver.retrofit.ApiClient;
 import bteem.com.loadingzonedriver.retrofit.ApiInterface;
 import bteem.com.loadingzonedriver.retrofit.model.DriverStatusUpdateRsponse;
@@ -60,7 +61,6 @@ import retrofit2.Response;
 
 import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
 import static android.Manifest.permission.ACCESS_FINE_LOCATION;
-
 
 
 public class CompletedJobDetailsActivity extends BaseActivity {
@@ -94,6 +94,11 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     @NonNull
     @BindView(R.id.textLoadingMaterial)
     TextView textViewLoadingMaterial;
+
+    @NonNull
+    @BindView(R.id.textMaterialDesription)
+    TextView textViewMaterialDescription;
+
     @NonNull
     @BindView(R.id.textLoadingMat_Weight)
     TextView textLoadingMat_Weight;
@@ -167,6 +172,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     @NonNull
     @BindView(R.id.fabcall_provider)
     FloatingActionButton  fabcallProvider;
+
 
     RelativeLayout root_relativeLayout;
 
@@ -310,6 +316,8 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                         textEndTime.setText(EndDateAndTime);
 
                         textViewLoadingMaterial.setText(LoadingMaterial);
+                        textViewMaterialDescription.setText(MaterialDescription);
+
                         textLoadingMat_Weight.setText(Materialweight);
                         textTruckName.setText(truck_name);
                         //  textViewBudget.setText(Budget);
@@ -398,7 +406,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
 
 
-        getTruckUpdation(vehicle_id);
+        getTruckUpdation(JobId);
 
 //BG Dimming while Fab open
         view = findViewById(R.id.background_dimmer);
@@ -684,7 +692,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (driver_id != null)
-            getTruckUpdation(vehicle_id);
+            getTruckUpdation(JobId);
 
     }
 
@@ -697,23 +705,129 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
         if(isGPS_Enabled == true) {
             if (truck_status!=null) {
-                if (truck_status.equals("free")) {
-                    TruckStartToCustomerLocation(JobId,longitude,latitude);
+                if (truck_status.equals("uninitiated")) {
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    TruckStartToCustomerLocation(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
                 if (truck_status.equals("initiated")) {
-                    LoadingMaterials(JobId,longitude,latitude);
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    LoadingMaterials(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
                 if (truck_status.equals("loading")) {
-                    TruckOntheWayToDestination(JobId,longitude,latitude);
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    TruckOntheWayToDestination(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
                 if (truck_status.equals("in-service")) {
-                    TruckUnLoadingGoods(JobId,longitude,latitude);
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    TruckUnLoadingGoods(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
                 if (truck_status.equals("unloading")) {
-                    BackFromDestination(JobId,longitude,latitude);
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    BackFromDestination(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
                 if (truck_status.equals("return")) {
-                    ReachedOrigin(JobId,longitude,latitude);
+
+                    DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            switch (which){
+                                case DialogInterface.BUTTON_POSITIVE:
+                                    //Yes button clicked
+                                    ReachedOrigin(JobId,longitude,latitude);
+                                    break;
+
+                                case DialogInterface.BUTTON_NEGATIVE:
+                                    //No button clicked
+                                    break;
+                            }
+                        }
+                    };
+                    AlertDialog.Builder builder = new AlertDialog.Builder(CompletedJobDetailsActivity.this);
+                    builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
+                            .setNegativeButton("No", dialogClickListener).show();
                 }
             }
         }
@@ -741,7 +855,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                 Toast.makeText(PostedJobDetailsActivity.this, flag, Toast.LENGTH_SHORT).show();*/
 
 
-            Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
         } else {
 
             locationTrack.showSettingsAlert();
@@ -761,23 +875,27 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
                     truck_status = response.body().getRunningStatus().getRunningStatusName();
-                    if (truck_status.equals("free")) {
-                        textDriverUpdate.setText("Start Job");
+                    if (truck_status.equals("uninitiated")) {
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("initiated")) {
-                        textDriverUpdate.setText("Load the Goods");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("loading")) {
-                        textDriverUpdate.setText("Start Journey");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("in-service")) {
-                        textDriverUpdate.setText("Unload Goods");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("unloading")) {
-                        textDriverUpdate.setText("Complete the Job");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("return")) {
-                        textDriverUpdate.setText("Reached Provider Location");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
+                    }
+                    if (truck_status.equals("free")){
+                        relativeTruckUpdate.setVisibility(View.GONE);
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
 
 
@@ -820,6 +938,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -863,6 +982,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -905,6 +1025,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -947,6 +1068,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -989,6 +1111,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -1030,6 +1153,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {

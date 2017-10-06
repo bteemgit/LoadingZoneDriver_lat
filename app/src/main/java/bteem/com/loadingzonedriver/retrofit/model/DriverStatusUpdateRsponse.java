@@ -31,6 +31,9 @@ public class DriverStatusUpdateRsponse {
     @Expose
     private String dateTime;
 
+
+
+
     public Meta getMeta() {
         return meta;
     }

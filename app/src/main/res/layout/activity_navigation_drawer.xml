@@ -44,12 +44,14 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
+<LinearLayout
+    android:layout_width="match_parent"
+    android:layout_height="350dp"
+    android:gravity="center"
+    android:orientation="vertical">
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="50dp"
-        android:layout_marginTop="25dp"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -63,7 +65,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_nav_profile" />
+                android:src="@drawable/ic_home" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -89,7 +91,7 @@
             <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:src="@drawable/ic_thumbsup"/>
+                android:src="@drawable/ic_nav_profile"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -143,7 +145,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:src="@drawable/ic_message_icon"/>
+                android:src="@drawable/ic_msg"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -203,6 +205,7 @@
                 android:text="Change Password"/>
         </LinearLayout>
     </LinearLayout>
+</LinearLayout>
 
 
     <LinearLayout

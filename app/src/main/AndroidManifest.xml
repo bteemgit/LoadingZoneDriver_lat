@@ -15,6 +15,7 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
 
+
     <application
         android:name=".global.AppController"
         android:allowBackup="true"
@@ -39,6 +40,10 @@
             android:label="@string/title_activity_base"
             android:theme="@style/AppTheme" />
 
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyCrkS0Ux-uFiFt156kNN3DPrExm6HQTzmE" />
+
 
         <service android:name=".service.MyFirebaseMessagingService">
             <intent-filter>
@@ -50,8 +55,6 @@
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
-
-
 
         <activity android:name=".modules.home.PostedJobDetailsActivity" />
         <activity android:name=".permision.PermissionsActivity" />

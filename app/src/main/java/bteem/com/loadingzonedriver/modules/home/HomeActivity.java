@@ -29,6 +29,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import bteem.com.loadingzonedriver.R;
+import bteem.com.loadingzonedriver.app.Config;
 import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
 import bteem.com.loadingzonedriver.global.GloablMethods;
@@ -50,7 +51,7 @@ import bteem.com.loadingzonedriver.retrofit.ApiInterface;
 import bteem.com.loadingzonedriver.retrofit.model.JobList;
 import bteem.com.loadingzonedriver.retrofit.model.Meta;
 import bteem.com.loadingzonedriver.retrofit.model.PostedJobResponse;
-import bteem.com.loadingzonedriver.util.Config;
+
 import bteem.com.loadingzonedriver.view.CircleTransformation;
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,14 +77,15 @@ public class HomeActivity extends BaseActivity
     //nav_drawer
     @BindView(R.id.id_profile_xml)
     LinearLayout linear_profile;
+
     @BindView(R.id.id_linear_myquotation)
     LinearLayout linear_myquotation;
+
     @BindView(R.id.id_linearmyJob)
     LinearLayout linear_linearmyJob;
 
     @BindView(R.id.nav_changepassword)
     LinearLayout linear_changepassword;
-
 
     @BindView(R.id.nav_changepasswordd)
     LinearLayout changepassword;
@@ -112,7 +114,6 @@ public class HomeActivity extends BaseActivity
                 showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
             }
         }
-
         @Override
         public void onReachedTop() {
             hasReachedTop = true;
@@ -276,6 +277,7 @@ public class HomeActivity extends BaseActivity
                 String ToLoc_long = jobList.get(position).getToLocation().getLongitude();
                 String ToLoc_name = jobList.get(position).getToLocation().getName();
                 String Material_name = jobList.get(position).getMaterial().getMaterialName();
+                String Material_description = jobList.get(position).getMaterialDescription();
                 Integer Material_id = jobList.get(position).getMaterial().getMaterialId();
                 String vehicle_id = String.valueOf(jobList.get(position).getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
                 String TruckSize_dimension = jobList.get(position).getTruckSize().getTruckSizeDimension();
@@ -319,7 +321,7 @@ public class HomeActivity extends BaseActivity
                 i.putExtra("ToLoc_name", ToLoc_name);
                 i.putExtra("Material_name", Material_name);
                 i.putExtra("Material_id", Material_id);
-                i.putExtra("MaterialDescription", MaterialDescription);
+                i.putExtra("Material_description", Material_description);
                 i.putExtra("expected_start_date", expected_start_date);
                 i.putExtra("expected_end_date", expected_end_date);
 
@@ -394,7 +396,6 @@ public class HomeActivity extends BaseActivity
         } else if (id == R.id.nav_logout) {
             logout();
         }
-
         DrawerLayout drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         drawer.closeDrawer(GravityCompat.START);
         return true;
@@ -407,8 +408,8 @@ public class HomeActivity extends BaseActivity
                 ApiClient.getClient().create(ApiInterface.class);
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-        //  String device_token = pref.getString("regId", null);
-        Call<Meta> call = apiService.Logout(GloablMethods.API_HEADER + acess_token, "1");
+          String device_token = pref.getString("regId", null);
+        Call<Meta> call = apiService.Logout(GloablMethods.API_HEADER + acess_token, device_token);
         call.enqueue(new Callback<Meta>() {
             @Override
             public void onResponse(Call<Meta> call, Response<Meta> response) {
@@ -426,7 +427,6 @@ public class HomeActivity extends BaseActivity
             public void onFailure(Call<Meta> call, Throwable t) {
                 // Log error here since request failed
                 //   progressDialog.dismiss();
-
             }
         });
     }

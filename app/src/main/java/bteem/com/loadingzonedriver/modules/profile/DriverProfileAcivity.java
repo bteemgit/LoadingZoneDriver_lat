@@ -16,12 +16,19 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
+import com.google.android.gms.common.GooglePlayServicesNotAvailableException;
+import com.google.android.gms.common.GooglePlayServicesRepairableException;
+import com.google.android.gms.common.api.Status;
+import com.google.android.gms.location.places.Place;
+import com.google.android.gms.location.places.ui.PlaceAutocomplete;
 import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
 import java.io.File;
+import java.util.regex.Pattern;
 
 import bteem.com.loadingzonedriver.R;
 import bteem.com.loadingzonedriver.global.AppController;
@@ -44,7 +51,7 @@ import retrofit2.Call;
 import retrofit2.Callback;
 import retrofit2.Response;
 
-public class DriverProfileAcivity extends BaseActivity {
+public class DriverProfileAcivity extends BaseActivity implements View.OnClickListener {
     @BindView(R.id.ivDriverProfilePhoto)
     ImageView imageViewDriverProfileImage;
     @NonNull
@@ -91,6 +98,7 @@ public class DriverProfileAcivity extends BaseActivity {
         setContentView(R.layout.activity_driver_profile_activity_02);
         this.avatarSize = getResources().getDimensionPixelSize(R.dimen.user_profile_avatar_size);
         ButterKnife.bind(this);
+
         final Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
         getSupportActionBar().setDisplayHomeAsUpEnabled(true);
@@ -103,7 +111,33 @@ public class DriverProfileAcivity extends BaseActivity {
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
         checker = new PermissionsChecker(this);
         getDriverProfile();
+
+        editTextDriverAdress.setOnClickListener(this);
+        editTextDriverAdress.setFocusable(false);
+
+
     }
+
+
+    //google API for location
+    @Override
+    public void onClick(View v) {
+        try {
+            Intent intent =
+                    new PlaceAutocomplete
+                            .IntentBuilder(PlaceAutocomplete.MODE_OVERLAY)
+                            .build(DriverProfileAcivity.this);
+            startActivityForResult(intent, 1);
+        } catch (GooglePlayServicesRepairableException e) {
+            // TODO: Handle the error.
+        } catch (GooglePlayServicesNotAvailableException e) {
+            System.out.println(e);
+            // TODO: Handle the error.
+        }
+    }
+
+
+
 
     // back button action
     @Override
@@ -113,17 +147,22 @@ public class DriverProfileAcivity extends BaseActivity {
     }
 
 
+    @OnClick(R.id.editDriverLocation)
+    public void getLocation(){
+
+    }
+
     @OnClick(R.id.fabEdit)
     public void fabEditClick(){
         fabDriverAdd.setVisibility(View.VISIBLE);
-        editTextDriverEmail.setFocusableInTouchMode(true);
-        editTextDriverEmail.requestFocus();
-        editTextDriverAdress.setFocusableInTouchMode(true);
-        editTextDriverAdress.requestFocus();
+        /*editTextDriverEmail.setFocusableInTouchMode(true);
+        editTextDriverEmail.requestFocus();*/
+        /*editTextDriverAdress.setFocusableInTouchMode(true);
+        editTextDriverAdress.requestFocus();*/
         editTextDriverMobile.setFocusableInTouchMode(true);
         editTextDriverMobile.requestFocus();
-        editTextDriverName.setFocusableInTouchMode(true);
-        editTextDriverName.requestFocus();
+       /* editTextDriverName.setFocusableInTouchMode(true);
+        editTextDriverName.requestFocus();*/
         btnEditOtherData.setVisibility(View.GONE);
 
     }
@@ -146,14 +185,14 @@ public class DriverProfileAcivity extends BaseActivity {
     @OnClick(R.id.btnEditOtherData)
     public void editProfiledata() {
         fabDriverAdd.setVisibility(View.VISIBLE);
-        editTextDriverEmail.setFocusableInTouchMode(true);
-        editTextDriverEmail.requestFocus();
-        editTextDriverAdress.setFocusableInTouchMode(true);
-        editTextDriverAdress.requestFocus();
+        /*editTextDriverEmail.setFocusableInTouchMode(true);
+        editTextDriverEmail.requestFocus();*/
+     /*   editTextDriverAdress.setFocusableInTouchMode(true);
+        editTextDriverAdress.requestFocus();*/
         editTextDriverMobile.setFocusableInTouchMode(true);
         editTextDriverMobile.requestFocus();
-        editTextDriverName.setFocusableInTouchMode(true);
-        editTextDriverName.requestFocus();
+        /*editTextDriverName.setFocusableInTouchMode(true);
+        editTextDriverName.requestFocus();*/
         btnEditOtherData.setVisibility(View.GONE);
     }
 
@@ -166,11 +205,32 @@ public class DriverProfileAcivity extends BaseActivity {
         String driverAdress = editTextDriverAdress.getText().toString().trim();
         String driverMobile = editTextDriverMobile.getText().toString().trim();
         if (isConnectingToInternet(DriverProfileAcivity.this)) {
-            UpdateDriver(driver_id, driverName, driverMobile, driverEmail, driverAdress);
+            if(isValidMobile( driverMobile) == true){
+                UpdateDriver(driver_id, driverName, driverMobile, driverEmail, driverAdress);
+            }
+
+
         } else {
             showSnakBar(rootView, MessageConstants.INTERNET);
         }
 
+    }
+
+    private boolean isValidMobile(String phone) {
+        boolean check=false;
+        if(!Pattern.matches("[a-zA-Z]+", phone)) {
+            if(phone.length() < 6 || phone.length() > 13) {
+                // if(phone.length() != 10) {
+                check = false;
+                //txtPhone.setError("Not Valid Number");
+                Toast.makeText(this, "Not Valid Mobile Number", Toast.LENGTH_SHORT).show();
+            } else {
+                check = true;
+            }
+        } else {
+            check=false;
+        }
+        return check;
     }
 
     //:.....................profile pic upload
@@ -236,6 +296,24 @@ public class DriverProfileAcivity extends BaseActivity {
                 Snackbar.make(rootView, R.string.string_unable_to_load_image, Snackbar.LENGTH_LONG).show();
             }
         }
+
+        else if (resultCode == RESULT_OK) {
+            // retrive the data by using getPlace() method.
+            Place place = PlaceAutocomplete.getPlace(this, data);
+            Log.e("Tag", "Place: " + place.getAddress() + place.getPhoneNumber());
+            editTextDriverAdress.setText(place.getName());
+
+
+
+        } else if (resultCode == PlaceAutocomplete.RESULT_ERROR) {
+            Status status = PlaceAutocomplete.getStatus(this, data);
+            // TODO: Handle the error.
+            Log.e("Tag", status.getStatusMessage());
+
+        } else if (resultCode == RESULT_CANCELED) {
+            // The user canceled the operation.
+        }
+
     }
 
     private void startPermissionsActivity(String[] permission) {
@@ -244,7 +322,7 @@ public class DriverProfileAcivity extends BaseActivity {
     //:-----------Driver Update Api-------------:\\
 
     private void UpdateDriver(String driver_id, String driver_name, String driver_phone, String driver_email, String driver_address) {
-        showProgressDialog(DriverProfileAcivity.this, "Updatimg Driver,please wait...");
+        showProgressDialog(DriverProfileAcivity.this, "Updating Driver,please wait...");
         apiService =
                 ApiClient.getClient().create(ApiInterface.class);
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
@@ -256,7 +334,7 @@ public class DriverProfileAcivity extends BaseActivity {
                 if (response.isSuccessful())
 
                 {
-                    btnEditOtherData.setVisibility(View.VISIBLE);
+                   // btnEditOtherData.setVisibility(View.VISIBLE);
                     editTextDriverEmail.setText(response.body().getDriverEmail());
                     editTextDriverName.setText(response.body().getDriverName());
                     editTextDriverAdress.setText(response.body().getDriverAddress());
@@ -266,6 +344,11 @@ public class DriverProfileAcivity extends BaseActivity {
                     editTextDriverAdress.setFocusable(false);
                     editTextDriverMobile.setFocusable(false);
                     editTextDriverName.setFocusable(false);
+                    AppController.setString(getApplicationContext(), "customer_email", response.body().getDriverEmail());
+//                    AppController.setString(getApplicationContext(), "customer_name", response.body().getData().getName());
+//                    AppController.setString(getApplicationContext(), "acess_token", response.body().getData().getAccessToken());
+//                    AppController.setString(getApplicationContext(), "user_id", String.valueOf(response.body().getData().getUserId()));
+//                    AppController.setString(getApplicationContext(), "pic", response.body().getData().getProfilePic());
                     fabDriverAdd.setVisibility(View.GONE);
                     showSnakBar(rootView, "Driver Added Successfully");
                 }

@@ -16,6 +16,6 @@
     <string name="string_unable_to_load_image">Unable t o Load Image</string>
     <string name="string_reselect">Reselect Image</string>
     <string name="settings">Settings</string>
-    <string name="string_upload_success">Succesfu;;y Upoloaded image</string>
+    <string name="string_upload_success">Succesfully Uploaded image</string>
     <string name="string_upload_fail">Cant Upload image</string>
 </resources>

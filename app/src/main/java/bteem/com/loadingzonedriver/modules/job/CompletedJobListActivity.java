@@ -191,8 +191,7 @@ public class CompletedJobListActivity extends BaseActivity {
     }
 
     // Getting the job posted by the customer
-    public void getJobPosted
-    () {
+    public void getJobPosted() {
 
         if (offset == 1) {
             showProgressDialog(CompletedJobListActivity.this, "loading");

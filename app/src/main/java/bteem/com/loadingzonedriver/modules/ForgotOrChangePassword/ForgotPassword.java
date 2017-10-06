@@ -15,6 +15,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import org.json.JSONObject;
+
 import bteem.com.loadingzonedriver.R;
 import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
@@ -125,21 +127,41 @@ public class ForgotPassword extends BaseActivity implements View.OnClickListener
             public void onResponse(Call<ForgotPasswordResponse> call, retrofit2.Response<ForgotPasswordResponse> response) {
                 progressDialog.dismiss();
 
-                if (response.body().getMeta().getStatus().equals("true")) {
-                    Toast.makeText(ForgotPassword.this, response.body().getMeta().getMessage(), Toast.LENGTH_SHORT).show();
+                if (response.isSuccessful()) {
+                    if (response.body().getMeta().getStatus().equals("true")) {
+                        Toast.makeText(ForgotPassword.this, response.body().getMeta().getMessage(), Toast.LENGTH_SHORT).show();
 
-                } else {
-                    Toast.makeText(getApplicationContext(), response.body().getMeta().getMessage(), Toast.LENGTH_SHORT).show();
+                    } else {
+                        Toast.makeText(getApplicationContext(), response.body().getMeta().getMessage(), Toast.LENGTH_SHORT).show();
+                    }
+                    Log.e("test..............", response.body().getMeta().getMessage());
+
+                    Intent in = new Intent(getApplicationContext(), LoginActivity.class);
+
+
+                    in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                    in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+                    startActivity(in);
+                }else if(!response.isSuccessful()){
+
+                    progressDialog.dismiss();
+
+                    try {
+                        JSONObject jObjError = new JSONObject(response.errorBody().string());
+                        JSONObject meta = jObjError.getJSONObject("meta");
+                        Snackbar snackbar = Snackbar
+                                .make(linearLayout, meta.getString("message"), Snackbar.LENGTH_LONG);
+                        snackbar.show();
+
+                    } catch (Exception e) {
+                        Log.d("exception", e.getMessage());
+                        Toast.makeText(getApplicationContext(), e.getMessage(), Toast.LENGTH_LONG).show();
+                    }
+
+
                 }
-                Log.e("test..............", response.body().getMeta().getMessage());
 
-                Intent in = new Intent(getApplicationContext(), LoginActivity.class);
-
-
-                in.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
-                in.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                startActivity(in);
 
             }
 

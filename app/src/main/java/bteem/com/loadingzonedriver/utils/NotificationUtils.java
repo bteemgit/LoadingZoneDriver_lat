@@ -23,6 +23,8 @@ import android.text.Html;
 import android.text.TextUtils;
 import android.util.Patterns;
 
+
+
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
@@ -33,6 +35,7 @@ import java.util.Date;
 import java.util.List;
 
 import bteem.com.loadingzonedriver.R;
+import bteem.com.loadingzonedriver.app.Config;
 
 
 /**
@@ -59,7 +62,7 @@ public class NotificationUtils {
 
 
         // notification icon
-        final int icon = R.drawable.drivericon;
+        final int icon = R.mipmap.drivericon;
 
         intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_SINGLE_TOP);
         final PendingIntent resultPendingIntent =
@@ -109,7 +112,7 @@ public class NotificationUtils {
                 .setSound(alarmSound)
                 .setStyle(inboxStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.drawable.drivericon)
+                .setSmallIcon(R.mipmap.drivericon)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();
@@ -131,7 +134,7 @@ public class NotificationUtils {
                 .setSound(alarmSound)
                 .setStyle(bigPictureStyle)
                 .setWhen(getTimeMilliSec(timeStamp))
-                .setSmallIcon(R.drawable.drivericon)
+                .setSmallIcon(R.mipmap.drivericon)
                 .setLargeIcon(BitmapFactory.decodeResource(mContext.getResources(), icon))
                 .setContentText(message)
                 .build();

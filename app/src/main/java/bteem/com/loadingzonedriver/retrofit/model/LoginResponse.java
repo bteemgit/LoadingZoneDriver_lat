@@ -12,9 +12,7 @@ public class LoginResponse {
     @SerializedName("data")
     @Expose
     private Data data;
-    @SerializedName("fcm_update")
-    @Expose
-    private Boolean fcmUpdate;
+
 
     public Meta getMeta() {
         return meta;
@@ -30,14 +28,6 @@ public class LoginResponse {
 
     public void setData(Data data) {
         this.data = data;
-    }
-
-    public Boolean getFcmUpdate() {
-        return fcmUpdate;
-    }
-
-    public void setFcmUpdate(Boolean fcmUpdate) {
-        this.fcmUpdate = fcmUpdate;
     }
 
 }

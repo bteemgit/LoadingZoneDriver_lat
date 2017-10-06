@@ -40,20 +40,20 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         @BindView(R.id.textLocationFrom)
         TextView textViewLocationFrom;
         @NonNull
-        @BindView(R.id.textAssignedtruckName)
-        TextView textAssignedtruckName;
+        @BindView(R.id.textTotalDistance)
+        TextView textViewTotalDistance;
         @NonNull
         @BindView(R.id.textLocationTo)
         TextView textViewLocationTo;
         @NonNull
-        @BindView(R.id.textTruckType)
-        TextView textViewTruckType;
+        @BindView(R.id.textLoadingDate)
+        TextView textViewLoadingDate;
         @NonNull
-        @BindView(R.id.textTruckDimension)
-        TextView textViewTruckDimension;
+        @BindView(R.id.textEndingDate)
+        TextView textviewEndingDate;
         @NonNull
-        @BindView(R.id.textTruckDate)
-        TextView textViewTruckDate;
+        @BindView(R.id.textMaterial)
+        TextView textViewMaterial;
         @NonNull
         @BindView(R.id.textrunningStatus)
         TextView textRunningStatus;
@@ -88,10 +88,13 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         holder.textViewCustomerName.setText(jobList.get(position).getCustomer().getName());
         holder.textViewLocationTo.setText(jobList.get(position).getToLocation().getName());
         holder.textViewLocationFrom.setText(jobList.get(position).getFromLocation().getName());
-        holder.textViewTruckType.setText(jobList.get(position).getTruckType().getTruckTypeName());
-        holder.textViewTruckDimension.setText(jobList.get(position).getTruckSize().getTruckSizeDimension());
-        holder.textViewTruckDate.setText(jobList.get(position).getLoadingDate());
-        holder.textAssignedtruckName.setText(jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName());
+        String start_dateAndtime = jobList.get(position).getAssignedVehicle().getExpectedStartDate()+" "+jobList.get(position).getAssignedVehicle().getExpectedStartTime();
+        holder.textViewLoadingDate.setText(start_dateAndtime);
+        String end_dateAndtime = jobList.get(position).getAssignedVehicle().getExpectedEndDate()+" "+jobList.get(position).getAssignedVehicle().getExpectedEndTime();
+        holder.textviewEndingDate.setText(end_dateAndtime);
+        holder.textViewMaterial.setText(jobList.get(position).getMaterial().getMaterialName());
+        String locationDist = String.valueOf(jobList.get(position).getLocationDistance());
+        holder.textViewTotalDistance.setText(locationDist);
         holder.textRunningStatus.setText(jobList.get(position).getLoadStatus().getRunningStatus().getRunningStatusText());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 

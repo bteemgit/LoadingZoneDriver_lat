@@ -35,13 +35,13 @@ import retrofit2.http.Query;
 public interface ApiInterface {
     @FormUrlEncoded
     @POST("main/login")
-    Call<LoginResponse> Signin(@Field("username") String username, @Field("password") String password, @Field("user_type_id") String user_type);
+    Call<LoginResponse> Signin(@Field("username") String username, @Field("password") String password, @Field("user_type_id") String user_type,@Field("device_token") String device_token);
 
     @GET("driver/pending-jobs")
     Call<PostedJobResponse> PostedJobList(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("page") int page);
 
-    @GET("vehicle/running-status")
-    Call<DriverStatusUpdateRsponse> TruckRunningStatus(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("vehicle_id") String vehicle_id);
+    @GET("driver/load-status")
+    Call<DriverStatusUpdateRsponse> TruckRunningStatus(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token, @Query("job_id") String job_id);
 
     @GET("driver")
     Call<DriverProfileRsponse> DriverProfile(@Header(GloablMethods.HEADER_AUTHORIZATION) String acces_token);

@@ -83,7 +83,7 @@
             android:drawablePadding="20dp"
             android:drawableTint="@color/colorAccent"
             android:fontFamily="Open-Sans-condensed"
-            android:hint="Driver Name"
+            android:hint="Driver Email"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/secondaryTextColor"
@@ -99,7 +99,7 @@
             android:drawablePadding="20dp"
             android:drawableTint="@color/colorAccent"
             android:fontFamily="Open-Sans-condensed"
-            android:hint="Driver Email"
+            android:hint="Driver Name"
             android:inputType="textEmailAddress"
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/secondaryTextColor"
@@ -132,7 +132,7 @@
             android:drawableTint="@color/colorAccent"
             android:fontFamily="Open-Sans-condensed"
             android:hint="Driver Phone"
-            android:inputType="textEmailAddress"
+            android:inputType="number"
             android:textColor="@color/colorPrimaryDark"
             android:textColorHint="@color/secondaryTextColor"
             android:textSize="13sp" />
@@ -210,7 +210,7 @@
         android:layout_marginRight="10dp"
         android:padding="10dp"
         app:layout_anchorGravity="bottom"
-        app:srcCompat="@drawable/ic_edit_file"
+        app:srcCompat="@drawable/ic_edit"
         tools:ignore="VectorDrawableCompat" />
     <!--<android.support.design.widget.FloatingActionButton-->
     <!--android:id="@+id/fabDriverEdit"-->
@@ -239,7 +239,4 @@
         app:layout_anchorGravity="bottom"
         app:srcCompat="@drawable/ic_upload_profile"
         tools:ignore="VectorDrawableCompat" />
-
-
-
 </RelativeLayout>

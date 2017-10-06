@@ -105,20 +105,20 @@
                 android:layout_marginTop="1dp"
                 android:textSize="12sp"
                 android:textColor="@color/colorPrimary"
-                android:text="Truck Type " />
+                android:text="Loading Date" />
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:textColor="@color/colorPrimaryDark"
                 android:text=":"/>
             <TextView
-                android:id="@+id/textTruckType"
+                android:id="@+id/textLoadingDate"
                 android:layout_width="190dp"
                 android:gravity="start"
                 android:layout_height="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="1dp"
-                android:text=":TruckType"
+                android:text="Loading Date"
                 android:textSize="12sp"/>
 
         </LinearLayout>
@@ -140,7 +140,7 @@
                 android:layout_marginTop="1dp"
                 android:gravity="start"
                 android:textColor="@color/colorPrimary"
-                android:text="Truck Dimension"
+                android:text="Ending Date"
                 android:textSize="12sp"/>
             <TextView
                 android:layout_width="wrap_content"
@@ -149,14 +149,14 @@
                 android:text=":"/>
 
             <TextView
-                android:id="@+id/textTruckDimension"
+                android:id="@+id/textEndingDate"
                 android:layout_width="190dp"
                 android:gravity="start"
                 android:layout_height="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="1dp"
                 android:textSize="12sp"
-                android:text=":TruckType" />
+                android:text="Ending Date" />
 
         </LinearLayout>
 
@@ -174,7 +174,7 @@
                 android:layout_marginTop="1dp"
                 android:gravity="start"
                 android:paddingLeft="90dp"
-                android:text="Loading Date"
+                android:text="Material"
                 android:textColor="@color/colorPrimary"
                 android:textSize="12sp" />
 
@@ -185,14 +185,14 @@
                 android:text=":"/>
 
             <TextView
-                android:id="@+id/textTruckDate"
+                android:id="@+id/textMaterial"
                 android:layout_width="190dp"
                 android:gravity="start"
                 android:textSize="12sp"
                 android:layout_height="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="1dp"
-                android:text=":TruckType" />
+                android:text="Material" />
 
         </LinearLayout>
 
@@ -201,7 +201,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_truckDate"
-            android:layout_marginBottom="5dp">
+            android:layout_marginBottom="7dp">
 
             <TextView
                 android:layout_width="200dp"
@@ -211,7 +211,7 @@
                 android:textColor="@color/colorPrimary"
                 android:gravity="start"
                 android:textSize="12sp"
-                android:text="Assigned Truck"/>
+                android:text="Total Distance(km)"/>
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -219,14 +219,14 @@
                 android:text=":"/>
 
             <TextView
-                android:id="@+id/textAssignedtruckName"
+                android:id="@+id/textTotalDistance"
                 android:layout_width="190dp"
                 android:gravity="start"
                 android:layout_height="18dp"
                 android:layout_marginLeft="8dp"
                 android:layout_marginTop="1dp"
                 android:textSize="12sp"
-                android:text=":TruckType" />
+                android:text="Total Distance" />
 
         </LinearLayout>
 
@@ -235,7 +235,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/linear_truckBudget"
-
+            android:visibility="gone"
             android:layout_marginBottom="5dp">
 
             <TextView

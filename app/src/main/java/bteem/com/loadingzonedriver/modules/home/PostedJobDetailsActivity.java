@@ -6,12 +6,11 @@ import android.content.ActivityNotFoundException;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
-import android.location.Location;
 import android.net.Uri;
 import android.os.Build;
-import android.os.Handler;
-import android.support.annotation.NonNull;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.Snackbar;
 import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AlertDialog;
@@ -29,13 +28,11 @@ import com.squareup.picasso.Picasso;
 
 import org.json.JSONObject;
 
-import java.io.File;
 import java.util.ArrayList;
 
 import bteem.com.loadingzonedriver.R;
 import bteem.com.loadingzonedriver.global.AppController;
 import bteem.com.loadingzonedriver.global.BaseActivity;
-
 import bteem.com.loadingzonedriver.global.GloablMethods;
 import bteem.com.loadingzonedriver.global.LocationTrack;
 import bteem.com.loadingzonedriver.global.MessageConstants;
@@ -88,6 +85,11 @@ public class PostedJobDetailsActivity extends BaseActivity {
     @NonNull
     @BindView(R.id.textLoadingMaterial)
     TextView textViewLoadingMaterial;
+
+    @NonNull
+    @BindView(R.id.textMaterialDesription)
+    TextView textViewMaterialDescription;
+
     @NonNull
     @BindView(R.id.textLoadingMat_Weight)
     TextView textLoadingMat_Weight;
@@ -184,6 +186,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
     View view;
     String CutomerMobile= null;
     String providerPhoneno = null;
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -210,6 +213,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
         String JobDate = getIntent().getStringExtra("DateOfLoading");
         String QutoationCount = getIntent().getStringExtra("QuotationCount");
         String LoadingMaterial = getIntent().getStringExtra("Material_name");
+        String MaterialDescription = getIntent().getStringExtra("Material_description");
         String TotalDistance = getIntent().getStringExtra("LocationDistance");
         String JobFrom = getIntent().getStringExtra("FromLoc_name");
         String JobTo = getIntent().getStringExtra("ToLoc_name");
@@ -249,6 +253,9 @@ public class PostedJobDetailsActivity extends BaseActivity {
         textStartTime.setText(StartDateAndTime);
         textEndTime.setText(EndDateAndTime);
         textViewLoadingMaterial.setText(LoadingMaterial);
+        
+        textViewMaterialDescription.setText(MaterialDescription);
+
         textTruckName.setText(truck_name);
         textViewTotalDistance.setText(TotalDistance);
         textViewJobFrom.setText(JobFrom);
@@ -265,7 +272,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                 .transform(new CircleTransformation())
                 .into(ivCustomerProfilePhoto);
 
-        getTruckUpdation(vehicle_id);
+        getTruckUpdation(JobId);
 
 //BG Dimming while Fab open
         view = findViewById(R.id.background_dimmer);
@@ -549,7 +556,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
         if (driver_id != null)
-            getTruckUpdation(vehicle_id);
+            getTruckUpdation(JobId);
 
     }
 
@@ -562,7 +569,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
 
         if(isGPS_Enabled == true) {
             if (truck_status!=null) {
-                if (truck_status.equals("free")) {
+                if (truck_status.equals("uninitiated")) {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
@@ -581,8 +588,6 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     AlertDialog.Builder builder = new AlertDialog.Builder(PostedJobDetailsActivity.this);
                     builder.setMessage("Are you sure?").setPositiveButton("Yes", dialogClickListener)
                             .setNegativeButton("No", dialogClickListener).show();
-
-
 
                 }
                 if (truck_status.equals("initiated")) {
@@ -726,7 +731,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                 Toast.makeText(PostedJobDetailsActivity.this, flag, Toast.LENGTH_SHORT).show();*/
 
 
-            Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getApplicationContext(), "Longitude:" + Double.toString(longitude) + "\nLatitude:" + Double.toString(latitude), Toast.LENGTH_SHORT).show();
         } else {
 
             locationTrack.showSettingsAlert();
@@ -746,26 +751,28 @@ public class PostedJobDetailsActivity extends BaseActivity {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
                     truck_status = response.body().getRunningStatus().getRunningStatusName();
-                    if (truck_status.equals("free")) {
-                        textDriverUpdate.setText("Start Job");
+                    if (truck_status.equals("uninitiated")) {
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("initiated")) {
-                        textDriverUpdate.setText("Load the Goods");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("loading")) {
-                        textDriverUpdate.setText("Start Journey");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("in-service")) {
-                        textDriverUpdate.setText("Unload Goods");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("unloading")) {
-                        textDriverUpdate.setText("Complete the Job");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
                     if (truck_status.equals("return")) {
-                        textDriverUpdate.setText("Reached Provider Location");
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
-
-
+                    if (truck_status.equals("free")){
+                        relativeTruckUpdate.setVisibility(View.GONE);
+                        textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
+                    }
 
                 } else {
                     try {
@@ -805,6 +812,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -848,6 +856,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -890,6 +899,8 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -932,6 +943,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -974,6 +986,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
@@ -1015,6 +1028,7 @@ public class PostedJobDetailsActivity extends BaseActivity {
                     if (response.body().getMeta().getStatus().equals(true)) {
 
                         showSnakBar(rootView, response.body().getMeta().getMessage());
+                        getTruckUpdation(JobId);
                     }
                 } else {
                     try {
