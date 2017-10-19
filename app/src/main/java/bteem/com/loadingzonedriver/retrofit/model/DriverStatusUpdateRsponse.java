@@ -18,6 +18,9 @@ public class DriverStatusUpdateRsponse {
     @SerializedName("running_status")
     @Expose
     private RunningStatus runningStatus;
+    @SerializedName("scheduled_status")
+    @Expose
+    private ScheduledStatus scheduled_status;
     @SerializedName("location_latitude")
     @Expose
     private String locationLatitude;
@@ -56,6 +59,14 @@ public class DriverStatusUpdateRsponse {
 
     public void setVehicleId(Integer vehicleId) {
         this.vehicleId = vehicleId;
+    }
+
+    public ScheduledStatus getScheduled_status() {
+        return scheduled_status;
+    }
+
+    public void setScheduled_status(ScheduledStatus scheduled_status) {
+        this.scheduled_status = scheduled_status;
     }
 
     public RunningStatus getRunningStatus() {

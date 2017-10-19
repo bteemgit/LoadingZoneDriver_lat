@@ -60,6 +60,22 @@ public class JobList {
     @SerializedName("date_requested_relative")
     @Expose
     private String dateRequestedRelative;
+
+    public String getOrigin_destination_distance() {
+        return origin_destination_distance;
+    }
+
+    public void setOrigin_destination_distance(String origin_destination_distance) {
+        this.origin_destination_distance = origin_destination_distance;
+    }
+
+    @SerializedName("origin_destination_distance")
+    @Expose
+    private String origin_destination_distance;
+
+    @SerializedName("job_code")
+    @Expose
+    private String job_code;
     @SerializedName("quotation_count")
     @Expose
     private String quotationCount;
@@ -142,7 +158,16 @@ public class JobList {
         return preferredLoadingDate;
     }
 
+    public String getJob_code() {
+        return job_code;
+    }
+
+    public void setJob_code(String job_code) {
+        this.job_code = job_code;
+    }
+
     public void setPreferredLoadingDate(String preferredLoadingDate) {
+
         this.preferredLoadingDate = preferredLoadingDate;
     }
 

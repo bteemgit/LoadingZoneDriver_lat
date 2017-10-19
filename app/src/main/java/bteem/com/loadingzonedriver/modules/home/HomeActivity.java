@@ -73,7 +73,8 @@ public class HomeActivity extends BaseActivity
     RelativeLayout relativeLayoutRoot;
     private SessionManager sessionManager;
 
-
+    @BindView(R.id.textArrayEmptyInfo)
+    TextView textViewArrayEmptyInfo;
     //nav_drawer
     @BindView(R.id.id_profile_xml)
     LinearLayout linear_profile;
@@ -114,6 +115,7 @@ public class HomeActivity extends BaseActivity
                 showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
             }
         }
+
         @Override
         public void onReachedTop() {
             hasReachedTop = true;
@@ -209,25 +211,6 @@ public class HomeActivity extends BaseActivity
             showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
         }
 
-        //setting user_name and  password in to navigation drawer
-        View header = navigationView.getHeaderView(0);
-        //  nav_img = (ImageView)header.findViewById(R.id.imageView_nav);
-      /*  Context context = this;
-        Picasso.with(context)
-                .load(AppController.getString(getApplicationContext(), "pic"))
-                .resize(70, 70)
-                .centerCrop()
-                .transform(new CircleTransformation())
-                .into(nav_img);*/
-
-//        text_users_name = (TextView) header.findViewById(R.id.id_text_users_name);
-//        text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
-        // HeaderMail.setText(AppController.getString(getApplicationContext(), "user_email"));
-
-        //   text_users_mail = (TextView) header.findViewById(R.id.id_text_users_email);
-        //  text_users_mail.setText(AppController.getString(getApplicationContext(), "customer_email"));
-
-
         TextView text_users_name = (TextView) findViewById(R.id.id_text_users_name);
         text_users_name.setText(AppController.getString(getApplicationContext(), "customer_name"));
         TextView text_usersemail = (TextView) findViewById(R.id.id_text_usersemail);
@@ -240,8 +223,6 @@ public class HomeActivity extends BaseActivity
                 .centerCrop()
                 .transform(new CircleTransformation())
                 .into(user_imageView);
-
-
     }
 
     private void setUpListeners() {
@@ -261,13 +242,11 @@ public class HomeActivity extends BaseActivity
         endlessRecyclerViewPostedJob.addOnItemTouchListener(new RecyclerItemClickListener(HomeActivity.this, new RecyclerItemClickListener.OnItemClickListener() {
             @Override
             public void onItemClick(View view, int position) {
-
                 Intent i = new Intent(HomeActivity.this, PostedJobDetailsActivity.class);
                 String JobId = String.valueOf(jobList.get(position).getJobId());
                 String name = jobList.get(position).getCustomer().getName();
                 String email = jobList.get(position).getCustomer().getEmail();
                 String phone1 = jobList.get(position).getCustomer().getPhone1();
-
                 String provider_phone_no = String.valueOf(jobList.get(position).getServiceProvider().getPhone1());
                 String profilepic = jobList.get(position).getCustomer().getProfilePic();
                 String FromLoc_latt = jobList.get(position).getFromLocation().getLatitude();
@@ -284,7 +263,6 @@ public class HomeActivity extends BaseActivity
                 String truck_name = jobList.get(position).getAssignedVehicle().getVehicleDetails().getCustomName();
                 String driver_id = String.valueOf(jobList.get(position).getAssignedVehicle().getJobDriverId());
                 String MaterialDescription = jobList.get(position).getMaterialDescription();
-
                 String Materialweight = String.valueOf(jobList.get(position).getMaterialWeight().getMaterialWeightText());
                 String DateOfLoading = jobList.get(position).getLoadingDate();
                 String PaymentType_name = jobList.get(position).getPaymentType().getPaymentTypeName();
@@ -303,11 +281,13 @@ public class HomeActivity extends BaseActivity
                 String JobStatus = jobList.get(position).getJobStatus().getName();
                 String expected_start_date = jobList.get(position).getAssignedVehicle().getExpectedStartDate();
                 String expected_end_date = jobList.get(position).getAssignedVehicle().getExpectedEndDate();
-
+                String locationDist = String.valueOf(jobList.get(position).getOrigin_destination_distance());
                 String expected_start_time = jobList.get(position).getAssignedVehicle().getExpectedStartTime();
                 String expected_end_time = jobList.get(position).getAssignedVehicle().getExpectedEndTime();
-
+                String job_code = jobList.get(position).getJob_code();
                 i.putExtra("isFrom", "Home");
+                i.putExtra("locationDist", locationDist);
+                i.putExtra("job_code", job_code);
                 i.putExtra("JobId", JobId);
                 i.putExtra("name", name);
                 i.putExtra("email", email);
@@ -324,6 +304,9 @@ public class HomeActivity extends BaseActivity
                 i.putExtra("Material_description", Material_description);
                 i.putExtra("expected_start_date", expected_start_date);
                 i.putExtra("expected_end_date", expected_end_date);
+                //
+                //
+                i.putExtra("MaterialDescription", MaterialDescription);
 
                 i.putExtra("expected_start_time", expected_start_time);
                 i.putExtra("expected_end_time", expected_end_time);
@@ -345,7 +328,7 @@ public class HomeActivity extends BaseActivity
                 i.putExtra("vehicle_id", vehicle_id);
                 i.putExtra("JobStatus", JobStatus);
 
-                i.putExtra("Materialweight",Materialweight);
+                i.putExtra("Materialweight", Materialweight);
 
                 i.putExtra("provider_phone_no", provider_phone_no);
 
@@ -408,7 +391,7 @@ public class HomeActivity extends BaseActivity
                 ApiClient.getClient().create(ApiInterface.class);
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
-          String device_token = pref.getString("regId", null);
+        String device_token = pref.getString("regId", null);
         Call<Meta> call = apiService.Logout(GloablMethods.API_HEADER + acess_token, device_token);
         call.enqueue(new Callback<Meta>() {
             @Override
@@ -469,6 +452,7 @@ public class HomeActivity extends BaseActivity
                         postedJobListAdapter.notifyDataSetChanged();
                         offset = offset + 1;
                     } else {
+                        textViewArrayEmptyInfo.setVisibility(View.VISIBLE);
                         endlessRecyclerViewPostedJob.setHaveMoreItem(false);
                     }
 

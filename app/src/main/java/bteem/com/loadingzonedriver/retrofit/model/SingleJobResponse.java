@@ -52,8 +52,21 @@ public class SingleJobResponse {
     @Expose
     private TruckSize truckSize;
     @SerializedName("location_distance")
+
     @Expose
     private Integer locationDistance;
+    @SerializedName("origin_destination_distance")
+    @Expose
+    private String origin_destination_distance;
+
+    public String getOrigin_destination_distance() {
+        return origin_destination_distance;
+    }
+
+    public void setOrigin_destination_distance(String origin_destination_distance) {
+        this.origin_destination_distance = origin_destination_distance;
+    }
+
     @SerializedName("date_requested")
     @Expose
     private String dateRequested;
@@ -75,6 +88,18 @@ public class SingleJobResponse {
     @SerializedName("load_status")
     @Expose
     private LoadStatus loadStatus;
+
+    @SerializedName("job_code")
+    @Expose
+    private String job_code;
+
+    public String getJob_code() {
+        return job_code;
+    }
+
+    public void setJob_code(String job_code) {
+        this.job_code = job_code;
+    }
 
     public Meta getMeta() {
         return meta;

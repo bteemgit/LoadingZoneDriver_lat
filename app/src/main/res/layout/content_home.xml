@@ -31,6 +31,7 @@
         android:layout_height="wrap_content"
         android:layout_above="@+id/progressBarFooter"
         android:layout_below="@id/app_bar">
+
         <bteem.com.loadingzonedriver.recyclerview.EndlessRecyclerView
             android:id="@+id/recyclerViewHomePostedJob"
             android:layout_width="match_parent"
@@ -47,6 +48,15 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:visibility="gone" />
-
+    <TextView
+        android:id="@+id/textArrayEmptyInfo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="There is No Jobs Assigned "
+        android:layout_marginTop="300dp"
+        android:textSize="20sp"
+        android:visibility="gone"
+        android:layout_below="@+id/app_bar"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>

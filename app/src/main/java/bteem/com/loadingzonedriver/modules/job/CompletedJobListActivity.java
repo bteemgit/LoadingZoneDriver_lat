@@ -11,6 +11,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.ProgressBar;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import org.json.JSONObject;
 
@@ -46,6 +47,8 @@ public class CompletedJobListActivity extends BaseActivity {
     ProgressBar progressBar;
     @BindView(R.id.rootView)
     RelativeLayout relativeLayoutRoot;
+    @BindView(R.id.textArrayEmptyInfo)
+    TextView textViewArrayEmptyInfo;
     private CompletedJobListAdapter completedJobListAdapter;
     private List<JobList> jobList = new ArrayList<>();
     private int limit = 30;
@@ -56,7 +59,7 @@ public class CompletedJobListActivity extends BaseActivity {
         public void onReachedBottom() {
             if (isConnectingToInternet(getApplicationContext()))
             {
-                getJobPosted();
+                getJobComplted();
             }
             else {
                 showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
@@ -87,7 +90,7 @@ public class CompletedJobListActivity extends BaseActivity {
 
         if (isConnectingToInternet(getApplicationContext()))
         {
-            getJobPosted();
+            getJobComplted();
         }
         else {
             showSnakBar(relativeLayoutRoot, MessageConstants.INTERNET);
@@ -104,7 +107,7 @@ public class CompletedJobListActivity extends BaseActivity {
             public void onRefresh() {
 // refreshLayout.setRefreshing(true);
                 offset = 1;
-                getJobPosted();
+                getJobComplted();
             }
         });
 
@@ -191,7 +194,7 @@ public class CompletedJobListActivity extends BaseActivity {
     }
 
     // Getting the job posted by the customer
-    public void getJobPosted() {
+    public void getJobComplted() {
 
         if (offset == 1) {
             showProgressDialog(CompletedJobListActivity.this, "loading");
@@ -223,11 +226,13 @@ public class CompletedJobListActivity extends BaseActivity {
                             endlessRecyclerViewPostedJob.setHaveMoreItem(false);
                         } else {
                             endlessRecyclerViewPostedJob.setHaveMoreItem(true);
+
                         }
                         completedJobListAdapter.notifyDataSetChanged();
                         offset = offset + 1;
                     } else {
                         endlessRecyclerViewPostedJob.setHaveMoreItem(false);
+                        textViewArrayEmptyInfo.setVisibility(View.VISIBLE);
                     }
 
                 } else {

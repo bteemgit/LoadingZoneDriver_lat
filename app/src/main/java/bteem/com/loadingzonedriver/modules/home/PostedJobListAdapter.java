@@ -93,8 +93,8 @@ public class PostedJobListAdapter extends RecyclerView.Adapter<PostedJobListAdap
         String end_dateAndtime = jobList.get(position).getAssignedVehicle().getExpectedEndDate()+" "+jobList.get(position).getAssignedVehicle().getExpectedEndTime();
         holder.textviewEndingDate.setText(end_dateAndtime);
         holder.textViewMaterial.setText(jobList.get(position).getMaterial().getMaterialName());
-        String locationDist = String.valueOf(jobList.get(position).getLocationDistance());
-        holder.textViewTotalDistance.setText(locationDist);
+        String locationDist = String.valueOf(jobList.get(position).getOrigin_destination_distance());
+        holder.textViewTotalDistance.setText(locationDist + "km");
         holder.textRunningStatus.setText(jobList.get(position).getLoadStatus().getRunningStatus().getRunningStatusText());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 

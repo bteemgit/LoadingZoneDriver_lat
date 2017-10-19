@@ -33,34 +33,6 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
 
 
     public static class ViewHolder extends RecyclerView.ViewHolder {
-       /* @NonNull
-        @BindView(R.id.textCustomerName)
-        TextView textViewCustomerName;
-        @NonNull
-        @BindView(R.id.textLocationFrom)
-        TextView textViewLocationFrom;
-        @NonNull
-        @BindView(R.id.textAssignedtruckName)
-        TextView textAssignedtruckName;
-        @NonNull
-        @BindView(R.id.textLocationTo)
-        TextView textViewLocationTo;
-        @NonNull
-        @BindView(R.id.textTruckType)
-        TextView textViewTruckType;
-        @NonNull
-        @BindView(R.id.textTruckDimension)
-        TextView textViewTruckDimension;
-        @NonNull
-        @BindView(R.id.textTruckDate)
-        TextView textViewTruckDate;
-//        @NonNull
-//        @BindView(R.id.textTruckBudget)
-//        TextView textViewTruckBudget;
-        @NonNull
-        @BindView(R.id.imageViewCustomPic)
-        ImageView imageViewCustomPic;*/
-
 
         //----------------------------------------
         @NonNull
@@ -136,8 +108,8 @@ public class CompletedJobListAdapter extends RecyclerView.Adapter<CompletedJobLi
         holder.textViewLoadingDate.setText(jobList.get(position).getAssignedVehicle().getExpectedStartDate());
         holder.textviewEndingDate.setText(jobList.get(position).getAssignedVehicle().getExpectedEndDate());
         holder.textViewMaterial.setText(jobList.get(position).getMaterial().getMaterialName());
-        String locationDist = String.valueOf(jobList.get(position).getLocationDistance());
-        holder.textViewTotalDistance.setText(locationDist);
+        String locationDist = String.valueOf(jobList.get(position).getOrigin_destination_distance());
+        holder.textViewTotalDistance.setText(locationDist +" km");
         holder.textRunningStatus.setText(jobList.get(position).getLoadStatus().getRunningStatus().getRunningStatusText());
 //        holder.textViewTruckBudget.setText(jobList.get(position).getBudget());
 

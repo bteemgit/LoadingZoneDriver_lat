@@ -11,10 +11,10 @@
     <LinearLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
+        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:orientation="vertical">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
@@ -29,33 +29,198 @@
                 app:elevation="10dp"
                 app:layout_collapseMode="pin"
                 app:layout_scrollFlags="scroll|enterAlways"
-                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
-            </android.support.v7.widget.Toolbar>
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"></android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
-        <ScrollView
+        <android.support.v4.widget.NestedScrollView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@android:color/darker_gray"
-            android:scrollbars="none">
+
+            >
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical"
                 android:background="@color/colorPrimary"
+                android:orientation="vertical"
                 android:paddingTop="20dp">
+
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content">
+
                     <include layout="@layout/headerview_posted_details_02" />
                 </LinearLayout>
+
                 <LinearLayout
                     android:id="@+id/profileData"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:background="@android:color/white"
                     android:orientation="vertical">
+
+                    <android.support.v7.widget.CardView
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="1dp"
+                        app:cardCornerRadius="2dp"
+                        app:cardElevation="2dp">
+
+                        <RelativeLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent">
+
+                            <LinearLayout
+                                android:id="@+id/linearFrom"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:ems="6"
+                                    android:text="From"
+                                    android:textColor="#414040"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text=": "
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/text_jobFrom"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearTo"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/linearFrom"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:ems="6"
+                                    android:text="To"
+                                    android:textColor="#414040"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text=": "
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/tex_jobTo"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearMaterial"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/linearTo"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="20dp"
+                                    android:ems="6"
+                                    android:text="Material"
+                                    android:textColor="#414040"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="20dp"
+                                    android:text=": "
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/textMaterialDescription"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="20dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/linearJobStatus"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_below="@+id/linearMaterial"
+                                android:layout_marginTop="4dp"
+                               android:layout_marginBottom="10dp"
+                                android:orientation="horizontal">
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="30dp"
+                                    android:layout_marginTop="10dp"
+                                    android:ems="6"
+                                    android:text="JobStatus"
+                                    android:textColor="#414040"
+                                    android:textSize="13sp"
+                                    android:textStyle="bold" />
+
+                                <TextView
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginLeft="10dp"
+                                    android:layout_marginTop="10dp"
+                                    android:text=": "
+                                    android:textSize="13sp" />
+
+                                <TextView
+                                    android:id="@+id/textJobStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginTop="10dp"
+                                    android:paddingLeft="10dp"
+                                    android:paddingRight="10dp"
+                                    android:textColor="@color/primaryTextColor"
+                                    android:textSize="13sp" />
+                            </LinearLayout>
+                        </RelativeLayout>
+                    </android.support.v7.widget.CardView>
+
                     <TextView
                         android:id="@+id/customTextView2"
                         android:layout_width="match_parent"
@@ -69,7 +234,7 @@
                         android:text="Job Info"
                         android:textColor="#ffffff"
                         android:textSize="16sp"
-                        android:textStyle="bold"/>
+                        android:textStyle="bold" />
 
 
                     <LinearLayout
@@ -85,6 +250,22 @@
                             android:layout_height="match_parent"
                             android:gravity="right"
                             android:orientation="vertical">
+
+                            <TextView
+                                android:id="@+id/customTextView0"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="10dp"
+                                android:gravity="start|center"
+                                android:text="Job Code"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="13sp"
+                                android:textStyle="bold" />
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:background="@color/upper_divider_purple" />
 
                             <TextView
                                 android:id="@+id/customTextView6"
@@ -117,6 +298,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:background="@color/upper_divider_purple" />
+
                             <TextView
                                 android:id="@+id/customTextView34"
                                 android:layout_width="match_parent"
@@ -150,6 +332,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:background="@color/upper_divider_purple" />
+
                             <TextView
                                 android:id="@+id/customTextView54"
                                 android:layout_width="match_parent"
@@ -166,6 +349,7 @@
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
                                 android:background="@color/upper_divider_purple" />
+
                             <TextView
                                 android:id="@+id/customTextView134"
                                 android:layout_width="match_parent"
@@ -218,7 +402,6 @@
                                 android:background="@color/upper_divider_purple" />
 
 
-
                         </LinearLayout>
 
                         <LinearLayout
@@ -228,6 +411,30 @@
                             android:layout_weight="1"
                             android:gravity="left"
                             android:orientation="vertical">
+
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@color/upper_divider_purple" />
+
+                            <TextView
+                                android:id="@+id/textJobCode"
+                                android:layout_width="match_parent"
+                                android:layout_height="30dp"
+                                android:layout_marginTop="10dp"
+                                android:background="@android:color/transparent"
+                                android:ellipsize="end"
+                                android:gravity="start|center"
+                                android:hint="Job Code"
+                                android:maxLength="50"
+                                android:paddingLeft="10dp"
+                                android:paddingRight="10dp"
+                                android:singleLine="true"
+                                android:textColor="@color/primaryTextColor"
+                                android:textSize="13sp" />
+
                             <View
                                 android:layout_width="match_parent"
                                 android:layout_height="1px"
@@ -327,6 +534,7 @@
                                 android:layout_marginLeft="10dp"
                                 android:layout_marginRight="10dp"
                                 android:background="@color/upper_divider_purple" />
+
                             <TextView
                                 android:id="@+id/textEndTime"
                                 android:layout_width="match_parent"
@@ -425,13 +633,13 @@
                                 android:background="@android:color/transparent"
                                 android:gravity="center_vertical"
                                 android:hint="Loading date"
-                                android:visibility="gone"
                                 android:inputType="textCapSentences"
                                 android:maxLength="50"
                                 android:paddingLeft="10dp"
                                 android:paddingRight="10dp"
                                 android:textColor="@color/primaryTextColor"
-                                android:textSize="13sp" />
+                                android:textSize="13sp"
+                                android:visibility="gone" />
 
                         </LinearLayout>
                     </LinearLayout>
@@ -476,6 +684,7 @@
                             android:gravity="right"
                             android:minWidth="80dp"
                             android:orientation="vertical">
+
                             <TextView
                                 android:id="@+id/customTextView111"
                                 android:layout_width="match_parent"
@@ -531,6 +740,7 @@
                             android:layout_weight="1"
                             android:gravity="left"
                             android:orientation="vertical">
+
                             <TextView
                                 android:id="@+id/textTruckName"
                                 android:layout_width="match_parent"
@@ -546,7 +756,12 @@
                                 android:textColor="@color/primaryTextColor"
                                 android:textSize="13sp"
                                 android:visibility="visible" />
-
+                            <View
+                                android:layout_width="match_parent"
+                                android:layout_height="1px"
+                                android:layout_marginLeft="10dp"
+                                android:layout_marginRight="10dp"
+                                android:background="@color/upper_divider_purple" />
 
                             <TextView
                                 android:id="@+id/textTruckSize"
@@ -600,9 +815,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="5dp"
-                        android:visibility="gone"
                         android:orientation="horizontal"
-                        android:paddingLeft="5dp">
+                        android:paddingLeft="5dp"
+                        android:visibility="gone">
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -627,9 +842,9 @@
                         android:layout_height="wrap_content"
                         android:background="@android:color/white"
                         android:baselineAligned="false"
-                        android:visibility="gone"
                         android:gravity="right"
-                        android:paddingLeft="15dp">
+                        android:paddingLeft="15dp"
+                        android:visibility="gone">
 
                         <LinearLayout
                             android:layout_width="130dp"
@@ -700,9 +915,9 @@
                             <LinearLayout
                                 android:layout_width="match_parent"
                                 android:layout_height="wrap_content"
+                                android:layout_marginBottom="70dp"
                                 android:background="@android:color/white"
-                                android:orientation="horizontal"
-                                android:layout_marginBottom="70dp">
+                                android:orientation="horizontal">
 
                                 <TextView
                                     android:id="@+id/textCurrency"
@@ -730,31 +945,31 @@
 
             </LinearLayout>
 
-        </ScrollView>
+        </android.support.v4.widget.NestedScrollView>
     </LinearLayout>
 
-  <RelativeLayout
-      android:layout_width="match_parent"
-      android:layout_height="50dp"
-      android:id="@+id/relativeTruckUpdate"
-      android:orientation="horizontal"
-      android:gravity="center"
-      android:background="@color/colorPrimary"
-      android:layout_alignParentBottom="true">
+    <RelativeLayout
+        android:id="@+id/relativeTruckUpdate"
+        android:layout_width="match_parent"
+        android:layout_height="50dp"
+        android:layout_alignParentBottom="true"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:orientation="horizontal">
 
 
-      <TextView
-          android:layout_width="wrap_content"
-          android:layout_height="wrap_content"
-          android:id="@+id/textDriverUpdate"
-          android:textSize="15sp"
-          android:textColor="#ffffff"
-          android:layout_gravity="center"
-          android:layout_centerVertical="true"
-          android:layout_alignParentLeft="true"
-          android:layout_alignParentStart="true" />
+        <TextView
+            android:id="@+id/textDriverUpdate"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="15sp" />
 
-  </RelativeLayout>
+    </RelativeLayout>
 
 
     <View
@@ -796,6 +1011,7 @@
         fab:menu_labels_showAnimation="@anim/fab_slide_in_from_right"
         fab:menu_labels_showShadow="true"
         fab:menu_labels_singleLine="false"
+        fab:menu_labels_style="@style/MenuLabelsStyle"
         fab:menu_labels_textColor="#f2f1f1"
         fab:menu_labels_textSize="15sp"
         fab:menu_openDirection="up"
@@ -803,18 +1019,15 @@
         fab:menu_shadowRadius="4dp"
         fab:menu_shadowXOffset="1dp"
         fab:menu_shadowYOffset="4dp"
-        fab:menu_showShadow="false"
-        fab:menu_labels_style="@style/MenuLabelsStyle">
-
-
+        fab:menu_showShadow="false">
 
 
         <com.github.clans.fab.FloatingActionButton
             android:id="@+id/fabmessage_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_envelop"
-            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/messsagered"
+            app:fab_colorNormal="#ffffff"
             app:fab_label="Mesasage Customer"
             fab:fab_size="mini" />
 
@@ -822,8 +1035,8 @@
             android:id="@+id/fabcall_customer"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_call"
-            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/callred"
+            app:fab_colorNormal="#ffffff"
             app:fab_label="Call Customer"
             fab:fab_size="mini" />
 
@@ -831,9 +1044,8 @@
             android:id="@+id/fabmessage_provider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_envelop"
-
-            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/messageblack"
+            app:fab_colorNormal="#ffffff"
             app:fab_label="Message Provider"
             fab:fab_size="mini" />
 
@@ -841,12 +1053,10 @@
             android:id="@+id/fabcall_provider"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:src="@drawable/ic_call"
-            app:fab_colorNormal="@color/colorAccent"
+            android:src="@drawable/callblack"
+            app:fab_colorNormal="#ffffff"
             app:fab_label="Call Provider"
             fab:fab_size="mini" />
 
     </com.github.clans.fab.FloatingActionMenu>
-
-
 </RelativeLayout>

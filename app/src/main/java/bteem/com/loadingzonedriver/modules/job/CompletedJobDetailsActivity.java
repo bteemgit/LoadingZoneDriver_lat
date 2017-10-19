@@ -148,7 +148,21 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     @NonNull
     @BindView(R.id.relativeTruckUpdate)
     RelativeLayout relativeTruckUpdate;
-
+    @NonNull
+    @BindView(R.id.text_jobFrom)
+    TextView textjobFrom;
+    @NonNull
+    @BindView(R.id.textJobCode)
+    TextView textJobCode;
+    @NonNull
+    @BindView(R.id.textJobStatus)
+    TextView textJobStatus;
+    @NonNull
+    @BindView(R.id.tex_jobTo)
+    TextView textjobTo;
+    @NonNull
+    @BindView(R.id.textMaterialDescription)
+    TextView textMaterialDescription;
 
 
     //Fab ------------
@@ -159,19 +173,19 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
     @NonNull
     @BindView(R.id.fabmessage_customer)
-    FloatingActionButton  fabmsgCustomer;
+    FloatingActionButton fabmsgCustomer;
 
     @NonNull
     @BindView(R.id.fabcall_customer)
-    FloatingActionButton  fabcallCustomer;
+    FloatingActionButton fabcallCustomer;
 
     @NonNull
     @BindView(R.id.fabmessage_provider)
-    FloatingActionButton  fabmsgProvider;
+    FloatingActionButton fabmsgProvider;
 
     @NonNull
     @BindView(R.id.fabcall_provider)
-    FloatingActionButton  fabcallProvider;
+    FloatingActionButton fabcallProvider;
 
 
     RelativeLayout root_relativeLayout;
@@ -195,13 +209,14 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     private static int REQUEST_CODE = 41;
     String JobId, isFrom, driver_id;
     private ApiInterface apiService;
-    String truck_status,vehicle_id;
+    String truck_status, vehicle_id;
 
     View view;
-    String CutomerMobile= null;
+    String CutomerMobile = null;
     String providerPhoneno = null;
 
     ProgressBar progressBar;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -220,193 +235,24 @@ public class CompletedJobDetailsActivity extends BaseActivity {
         vehicle_id = getIntent().getStringExtra("vehicle_id");
 
 
-        root_relativeLayout = (RelativeLayout)findViewById(R.id.rootView);
+        root_relativeLayout = (RelativeLayout) findViewById(R.id.rootView);
         progressBar = new ProgressBar(getApplicationContext());
         //-----------------------------------------
         // Fetching datas from API call
+        if (isConnectingToInternet(getApplicationContext())) {
 
-        Boolean  hasConnection = isConnectingToInternet(CompletedJobDetailsActivity.this);
-        if(hasConnection) {
+            getCompletedjob(JobId);
+            getTruckUpdation(JobId);
 
-            final ProgressDialog progressDialog;
-            progressDialog = new ProgressDialog(CompletedJobDetailsActivity.this);
-            progressDialog.setMessage("loading");
-            progressDialog.show();
-            ApiInterface apiService =
-                    ApiClient.getClient().create(ApiInterface.class);
-
-            String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-
-            Call<SingleJobResponse> call = apiService.GetSingleJob(GloablMethods.API_HEADER + acess_token, JobId);
-            call.enqueue(new Callback<SingleJobResponse>() {
-                @Override
-                public void onResponse(Call<SingleJobResponse> call, retrofit2.Response<SingleJobResponse> response) {
-
-                    progressDialog.dismiss();
-
-                    //    Log.d("Response...", response.body().toString());
-                    //    itemsArrayList = response.body().get;
-                    if (response.isSuccessful() ) {
-
-                        //-------------------------------------
-                        String CustomerName = response.body().getCustomer().getName();
-                        String CutomerEmail = response.body().getCustomer().getEmail();
-                        String CutomerMobile = response.body().getCustomer().getPhone1();
-
-                  //      String provider_phone_no = response.body().get().getPhone1());
-                        String profilepic = response.body().getCustomer().getProfilePic();
-                        String FromLoc_latt = response.body().getFromLocation().getLatitude();
-                        String FromLoc_long = response.body().getFromLocation().getLongitude();
-                        String Job_From = response.body().getFromLocation().getName();
-                        String ToLoc_latt = response.body().getToLocation().getLatitude();
-                        String ToLoc_long = response.body().getToLocation().getLongitude();
-                        String Job_To = response.body().getToLocation().getName();
-                        String LoadingMaterial = response.body().getMaterial().getMaterialName();
-                        Integer Material_id = response.body().getMaterial().getMaterialId();
-                        String vehicle_id= String.valueOf(response.body().getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
-                        String TruckSize = response.body().getTruckSize().getTruckSizeDimension();
-                        String truck_name=response.body().getAssignedVehicle().getVehicleDetails().getCustomName();
-                        String driver_id= String.valueOf(response.body().getAssignedVehicle().getJobDriverId());
-                        String MaterialDescription = response.body().getMaterialDescription();
-                        String Materialweight =response.body().getMaterialWeight().getMaterialWeightText();
-//                String DateOfLoading = jobList.get(position).getDateOfLoading();
-                        String PaymentMode = response.body().getPaymentType().getPaymentTypeName();
-                        Integer PaymentType_id = response.body().getPaymentType().getPaymentTypeId();
-                        String TruckType = response.body().getTruckType().getTruckTypeName();
-                        //  String TruckType_id = jobList.get(position).getTruckType().getTruckTypeId();
-
-                        Integer TruckSize_id = response.body().getTruckSize().getTruckSizeId();
-                        //  String Currency_name = jobList.get(position).getCurrency().getCurrencyName();
-                        String JobTotalDist = String.valueOf(response.body().getLocationDistance());
-                        String RequestedDate = response.body().getDateRequested();
-                        String DateRequestedRelative =response.body().getDateRequestedRelative();
-                        // String Budget = jobList.get(position).getBudget();
-                        String QuotationCount = response.body().getQuotationCount();
-                        //   String HasActiveQuotations = jobList.get(position).getHasActiveQuotations();
-                        String JobStatus = response.body().getJobStatus().getName();
-                        String expected_start_date=response.body().getAssignedVehicle().getExpectedStartDate();
-                        String expected_end_date=response.body().getAssignedVehicle().getExpectedEndDate();
-
-                        String expected_start_time=response.body().getAssignedVehicle().getExpectedStartTime();
-                        String expected_end_time=response.body().getAssignedVehicle().getExpectedEndTime();
-
-                        String QutoationCount = response.body().getQuotationCount();
-                        String JobDate = response.body().getLoadingDate();
-                        /*String[] splited_sDate = expected_start_date.split("\\s+");
-                        String[] splited_eDate = expected_end_date.split("\\s+");*/
-
-                        String StartDateAndTime =expected_start_date+" "+expected_start_time;
-                        String EndDateAndTime =expected_end_date+" "+expected_end_time;
-                        //----------------------------------------------------
-
-
-                        // setting datas into the xml page
-
-                        textViewCutomerName.setText(CustomerName);
-                        textViewCutomerEmail.setText(CutomerEmail);
-                        textViewCutomerMobile.setText(CutomerMobile);
-                        textViewJob_From.setText(Job_From);
-                        textViewJob_To.setText(Job_To);
-                        textViewJobTotalDist.setText(JobTotalDist);
-                        textViewRequestedDate.setText(RequestedDate);
-
-                        textViewJobDate.setText(JobDate);
-                        textViewQutoation.setText(QutoationCount);
-                        textStartTime.setText(StartDateAndTime);
-                        textEndTime.setText(EndDateAndTime);
-
-                        textViewLoadingMaterial.setText(LoadingMaterial);
-                        textViewMaterialDescription.setText(MaterialDescription);
-
-                        textLoadingMat_Weight.setText(Materialweight);
-                        textTruckName.setText(truck_name);
-                        //  textViewBudget.setText(Budget);
-                        textViewTotalDistance.setText(JobTotalDist);
-                        textViewJobFrom.setText(Job_From);
-                        textViewJobTo.setText(Job_To);
-                        //  textViewLoadingDate.setText(LoadingDate);
-                        textViewTruckSize.setText(TruckSize);
-                        textViewTruckType.setText(TruckType);
-                        textViewPaymentMode.setText(PaymentMode);
-                        //textViewCurrency.setText(Currency);
-                        Picasso.with(CompletedJobDetailsActivity.this)
-                                .load(profilepic)
-                                .resize(80, 80)
-                                .centerCrop()
-                                .transform(new CircleTransformation())
-                                .into(ivCustomerProfilePhoto);
-
-
-
-
-                    }
-
-                    else if (!response.isSuccessful()) {
-                        try {
-                            JSONObject jObjError = new JSONObject(response.errorBody().string());
-                            JSONObject meta = jObjError.getJSONObject("meta");
-                            showSnakBar(root_relativeLayout, meta.getString("message"));
-
-                        } catch (Exception e) {
-                            Log.d("exception",e.getMessage());
-                        }
-                    }
-                    progressBar.setVisibility(View.GONE);
-                }
-
-                @Override
-                public void onFailure(Call<SingleJobResponse> call, Throwable t) {
-                    // Log error here since request failed
-                    progressDialog.dismiss();
-
-                }
-            });
-
-
-
+        }
+        else {
+            showSnakBar(root_relativeLayout,MessageConstants.INTERNET);
         }
 
 
 
 
 
-
-        //--------------------------------------------------------
-
-        /*String profilepic = getIntent().getStringExtra("profilepic");
-        String CutomerName = getIntent().getStringExtra("name");
-        String CutomerEmail = getIntent().getStringExtra("email");
-        CutomerMobile = getIntent().getStringExtra("phone1");
-        String Job_From = getIntent().getStringExtra("FromLoc_name");
-        String Job_To = getIntent().getStringExtra("ToLoc_name");
-        String JobTotalDist = getIntent().getStringExtra("LocationDistance");
-        String RequestedDate = getIntent().getStringExtra("DateRequested");
-        String JobDate = getIntent().getStringExtra("DateOfLoading");
-        String Qutoation = getIntent().getStringExtra("QuotationCount");
-        String LoadingMaterial = getIntent().getStringExtra("Material_name");
-        String TotalDistance = getIntent().getStringExtra("LocationDistance");
-        String JobFrom = getIntent().getStringExtra("FromLoc_name");
-        String JobTo = getIntent().getStringExtra("ToLoc_name");
-        String TruckSize = getIntent().getStringExtra("TruckSize_dimension");
-        String TruckType = getIntent().getStringExtra("TruckType_name");
-        String PaymentMode = getIntent().getStringExtra("PaymentType_name");
-        String expected_start_date = getIntent().getStringExtra("expected_start_date");
-        String expected_end_date = getIntent().getStringExtra("expected_end_date");
-        String truck_name = getIntent().getStringExtra("truck_name");
-
-        providerPhoneno = getIntent().getStringExtra("provider_phone_no");
-
-        driver_id = getIntent().getStringExtra("driver_id");
-        vehicle_id=getIntent().getStringExtra("vehicle_id");*/
-
-
-
-    /*    String[] splited_sDate = expected_start_date.split("\\s+");
-        String[] splited_eDate = expected_end_date.split("\\s+");*/
-
-
-
-        getTruckUpdation(JobId);
 
 //BG Dimming while Fab open
         view = findViewById(R.id.background_dimmer);
@@ -423,9 +269,126 @@ public class CompletedJobDetailsActivity extends BaseActivity {
             }
         });
     }
+private void getCompletedjob(String JobId)
+{
+    showProgressDialog(getApplicationContext(),"loading..");
+    ApiInterface apiService =
+            ApiClient.getClient().create(ApiInterface.class);
+
+    String acess_token = AppController.getString(getApplicationContext(), "acess_token");
+
+    Call<SingleJobResponse> call = apiService.GetSingleJob(GloablMethods.API_HEADER + acess_token, JobId);
+    call.enqueue(new Callback<SingleJobResponse>() {
+        @Override
+        public void onResponse(Call<SingleJobResponse> call, retrofit2.Response<SingleJobResponse> response) {
+
+            hideProgressDialog();
+
+            //    Log.d("Response...", response.body().toString());
+            //    itemsArrayList = response.body().get;
+            if (response.isSuccessful()) {
+
+                //-------------------------------------
+                String CustomerName = response.body().getCustomer().getName();
+                String CutomerEmail = response.body().getCustomer().getEmail();
+                String CutomerMobile = response.body().getCustomer().getPhone1();
+
+                //      String provider_phone_no = response.body().get().getPhone1());
+                String profilepic = response.body().getCustomer().getProfilePic();
+                String Job_From = response.body().getFromLocation().getName();
+                String ToLoc_long = response.body().getToLocation().getLongitude();
+                String Job_To = response.body().getToLocation().getName();
+                String LoadingMaterial = response.body().getMaterial().getMaterialName();
+                Integer Material_id = response.body().getMaterial().getMaterialId();
+                String vehicle_id = String.valueOf(response.body().getAssignedVehicle().getVehicleDetails().getProviderVehicleId());
+                String TruckSize = response.body().getTruckSize().getTruckSizeDimension();
+                String truck_name = response.body().getAssignedVehicle().getVehicleDetails().getCustomName();
+                String driver_id = String.valueOf(response.body().getAssignedVehicle().getJobDriverId());
+                String MaterialDescription = response.body().getMaterialDescription();
+                String Materialweight = response.body().getMaterialWeight().getMaterialWeightText();
+//                String DateOfLoading = jobList.get(position).getDateOfLoading();
+                String PaymentMode = response.body().getPaymentType().getPaymentTypeName();
+                Integer PaymentType_id = response.body().getPaymentType().getPaymentTypeId();
+                String TruckType = response.body().getTruckType().getTruckTypeName();
+                String JobTotalDist = String.valueOf(response.body().getOrigin_destination_distance());
+                String RequestedDate = response.body().getDateRequested();
+                String DateRequestedRelative = response.body().getDateRequestedRelative();
+                String QuotationCount = response.body().getQuotationCount();
+                String JobStatus = response.body().getJobStatus().getName();
+                String expected_start_date = response.body().getAssignedVehicle().getExpectedStartDate();
+                String expected_end_date = response.body().getAssignedVehicle().getExpectedEndDate();
+
+                String expected_start_time = response.body().getAssignedVehicle().getExpectedStartTime();
+                String expected_end_time = response.body().getAssignedVehicle().getExpectedEndTime();
+
+                String QutoationCount = response.body().getQuotationCount();
+                String JobDate = response.body().getLoadingDate();
+                String JobCode = response.body().getJob_code();
+                String StartDateAndTime = expected_start_date + " " + expected_start_time;
+                String EndDateAndTime = expected_end_date + " " + expected_end_time;
+                //----------------------------------------------------
+                // setting datas into the xml page
+                textJobCode.setText(JobCode);
+                textViewCutomerName.setText(CustomerName);
+                textViewCutomerEmail.setText(CutomerEmail);
+                textViewCutomerMobile.setText(CutomerMobile);
+                textViewJob_From.setText(Job_From);
+                textjobFrom.setText(Job_From);
+                textViewJob_To.setText(Job_To);
+                textjobTo.setText(Job_To);
+                textViewJobTotalDist.setText(JobTotalDist +" km");
+                textViewRequestedDate.setText(RequestedDate);
+
+                textViewJobDate.setText(JobDate);
+                textViewQutoation.setText(QutoationCount);
+                textStartTime.setText(StartDateAndTime);
+                textEndTime.setText(EndDateAndTime);
+
+                textViewLoadingMaterial.setText(LoadingMaterial);
+                textViewMaterialDescription.setText(MaterialDescription);
+                textMaterialDescription.setText(LoadingMaterial + "/n" + MaterialDescription);
+
+                textLoadingMat_Weight.setText(Materialweight);
+                textTruckName.setText(truck_name);
+                //  textViewBudget.setText(Budget);
+                textViewTotalDistance.setText(JobTotalDist+" km");
+                textViewJobFrom.setText(Job_From);
+                textViewJobTo.setText(Job_To);
+                textJobStatus.setText(JobStatus);
+                //  textViewLoadingDate.setText(LoadingDate);
+                textViewTruckSize.setText(TruckSize);
+                textViewTruckType.setText(TruckType);
+                textViewPaymentMode.setText(PaymentMode);
+                //textViewCurrency.setText(Currency);
+                Picasso.with(CompletedJobDetailsActivity.this)
+                        .load(profilepic)
+                        .resize(80, 80)
+                        .centerCrop()
+                        .transform(new CircleTransformation())
+                        .into(ivCustomerProfilePhoto);
 
 
+            } else if (!response.isSuccessful()) {
+                try {
+                    JSONObject jObjError = new JSONObject(response.errorBody().string());
+                    JSONObject meta = jObjError.getJSONObject("meta");
+                    showSnakBar(root_relativeLayout, meta.getString("message"));
 
+                } catch (Exception e) {
+                    Log.d("exception", e.getMessage());
+                }
+            }
+            progressBar.setVisibility(View.GONE);
+        }
+
+        @Override
+        public void onFailure(Call<SingleJobResponse> call, Throwable t) {
+            // Log error here since request failed
+            hideProgressDialog();
+
+        }
+    });
+}
 
     @Override
     public boolean onSupportNavigateUp() {
@@ -512,10 +475,6 @@ public class CompletedJobDetailsActivity extends BaseActivity {
         super.onDestroy();
         locationTrack.stopListener();
     }*/
-
-
-
-
 
 
     // for sending messages to Customer
@@ -605,7 +564,7 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
         try {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setData(Uri.parse("tel:" + PhoneNo ));
+            callIntent.setData(Uri.parse("tel:" + PhoneNo));
             if (ActivityCompat.checkSelfPermission(this, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                 // TODO: Consider calling
                 //    ActivityCompat#requestPermissions
@@ -633,21 +592,20 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
 
-    public  boolean isPermissionGranted() {
+    public boolean isPermissionGranted() {
         if (Build.VERSION.SDK_INT >= 23) {
             if (checkSelfPermission(android.Manifest.permission.CALL_PHONE)
                     == PackageManager.PERMISSION_GRANTED) {
-                Log.v("TAG","Permission is granted");
+                Log.v("TAG", "Permission is granted");
                 return true;
             } else {
 
-                Log.v("TAG","Permission is revoked");
+                Log.v("TAG", "Permission is revoked");
                 ActivityCompat.requestPermissions(this, new String[]{Manifest.permission.CALL_PHONE}, 1);
                 return false;
             }
-        }
-        else { //permission is automatically granted on sdk<23 upon installation
-            Log.v("TAG","Permission is granted");
+        } else { //permission is automatically granted on sdk<23 upon installation
+            Log.v("TAG", "Permission is granted");
             return true;
         }
     }
@@ -685,9 +643,6 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
 
-
-
-
     @Override
     protected void onResume() {
         super.onResume();
@@ -703,16 +658,16 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
         getCurrentLocation();
 
-        if(isGPS_Enabled == true) {
-            if (truck_status!=null) {
+        if (isGPS_Enabled == true) {
+            if (truck_status != null) {
                 if (truck_status.equals("uninitiated")) {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    TruckStartToCustomerLocation(JobId,longitude,latitude);
+                                    TruckStartToCustomerLocation(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -730,10 +685,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    LoadingMaterials(JobId,longitude,latitude);
+                                    LoadingMaterials(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -750,10 +705,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    TruckOntheWayToDestination(JobId,longitude,latitude);
+                                    TruckOntheWayToDestination(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -771,10 +726,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    TruckUnLoadingGoods(JobId,longitude,latitude);
+                                    TruckUnLoadingGoods(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -792,10 +747,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    BackFromDestination(JobId,longitude,latitude);
+                                    BackFromDestination(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -813,10 +768,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     DialogInterface.OnClickListener dialogClickListener = new DialogInterface.OnClickListener() {
                         @Override
                         public void onClick(DialogInterface dialog, int which) {
-                            switch (which){
+                            switch (which) {
                                 case DialogInterface.BUTTON_POSITIVE:
                                     //Yes button clicked
-                                    ReachedOrigin(JobId,longitude,latitude);
+                                    ReachedOrigin(JobId, longitude, latitude);
                                     break;
 
                                 case DialogInterface.BUTTON_NEGATIVE:
@@ -893,11 +848,10 @@ public class CompletedJobDetailsActivity extends BaseActivity {
                     if (truck_status.equals("return")) {
                         textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
-                    if (truck_status.equals("free")){
+                    if (truck_status.equals("free")) {
                         relativeTruckUpdate.setVisibility(View.GONE);
                         textDriverUpdate.setText(response.body().getRunningStatus().getRunningStatusText());
                     }
-
 
 
                 } else {
@@ -923,13 +877,12 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
 
-
     //api call truck started to the customer location
-    public void TruckStartToCustomerLocation(String job_id,Double longitude,Double latitude) {
+    public void TruckStartToCustomerLocation(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.StartToCustomerLocation(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.StartToCustomerLocation(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {
@@ -969,11 +922,11 @@ public class CompletedJobDetailsActivity extends BaseActivity {
 
 
     //api call for loading materials
-    public void LoadingMaterials(String job_id,Double longitude,Double latitude) {
+    public void LoadingMaterials(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.LoadingMaterial(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.LoadingMaterial(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {
@@ -1012,11 +965,11 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
     //api call for truck on the way to destination
-    public void TruckOntheWayToDestination(String job_id,Double longitude,Double latitude) {
+    public void TruckOntheWayToDestination(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.OnthewayToDestination(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.OnthewayToDestination(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {
@@ -1055,11 +1008,11 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
     //api call for truck on the way to destination
-    public void TruckUnLoadingGoods(String job_id,Double longitude,Double latitude) {
+    public void TruckUnLoadingGoods(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.TruckUnLoad(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.TruckUnLoad(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {
@@ -1098,11 +1051,11 @@ public class CompletedJobDetailsActivity extends BaseActivity {
     }
 
     //api call for truck on the way to destination
-    public void BackFromDestination(String job_id,Double longitude,Double latitude) {
+    public void BackFromDestination(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.BackToDestination(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.BackToDestination(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {
@@ -1139,12 +1092,13 @@ public class CompletedJobDetailsActivity extends BaseActivity {
         });
 
     }
+
     //api call for truck reached origion
-    public void ReachedOrigin(String job_id,Double longitude,Double latitude) {
+    public void ReachedOrigin(String job_id, Double longitude, Double latitude) {
 
         showProgressDialog(CompletedJobDetailsActivity.this, "Loading");
         String acess_token = AppController.getString(getApplicationContext(), "acess_token");
-        Call<TruckUpdateStatusresponse> call = apiService.ReachedOrigion(GloablMethods.API_HEADER +acess_token, job_id,longitude,latitude);
+        Call<TruckUpdateStatusresponse> call = apiService.ReachedOrigion(GloablMethods.API_HEADER + acess_token, job_id, longitude, latitude);
         call.enqueue(new Callback<TruckUpdateStatusresponse>() {
             @Override
             public void onResponse(Call<TruckUpdateStatusresponse> call, retrofit2.Response<TruckUpdateStatusresponse> response) {

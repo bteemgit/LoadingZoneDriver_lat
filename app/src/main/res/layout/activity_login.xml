@@ -40,14 +40,17 @@
             android:gravity="center"
             android:orientation="vertical"
             android:weightSum="5">
+
             <TextView
+                android:id="@+id/textView"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="start"
-                android:textStyle="bold"
                 android:layout_marginLeft="65dp"
+                android:text="Login to your account"
                 android:textColor="@color/colorAccent"
-                android:text="Login to your account"/>
+                android:textStyle="bold" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
@@ -64,12 +67,14 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textEmailAddress"
                     android:maxLines="1"
-                    android:textSize="13sp"
+                    android:textSize="17sp"
                     android:singleLine="true"
                     android:textCursorDrawable="@null" />
 
 
             </LinearLayout>
+
+
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -77,13 +82,13 @@
                 android:layout_marginLeft="60dp"
                 android:layout_marginRight="60dp"
                 android:layout_weight="1"
-                android:gravity="center">
-
-
+                android:orientation="horizontal"
+                android:gravity="start">
 
                 <EditText
                     android:id="@+id/editTextPassword"
                     android:layout_width="match_parent"
+                    android:layout_weight="2"
                     android:layout_height="wrap_content"
                     android:focusable="true"
                     android:hint="Password"
@@ -91,13 +96,24 @@
                     android:imeOptions="actionUnspecified"
                     android:inputType="textPassword"
                     android:maxLines="1"
-                    android:textSize="13sp"
+                    android:textSize="17sp"
                     android:singleLine="true"
                     android:textCursorDrawable="@null" />
 
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="25dp"
+                    android:visibility="gone"
+                    android:id="@+id/linearEye"
+                    android:gravity="center">
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/imageEye"
+                        android:layout_gravity="top"
+                        android:src="@drawable/ic_eye"/>
+                </LinearLayout>
             </LinearLayout>
-
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

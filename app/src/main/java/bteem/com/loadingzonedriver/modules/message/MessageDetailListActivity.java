@@ -70,7 +70,7 @@ public class MessageDetailListActivity extends BaseActivity {
     @BindView(R.id.text_messageSubject)
     TextView text_subject;
     @NonNull
-    @BindView(R.id.activity_qutation_list_actvity)
+    @BindView(R.id.rootView)
     RelativeLayout relativeLayout;
 
     private EditText.OnKeyListener keyListener = new View.OnKeyListener() {

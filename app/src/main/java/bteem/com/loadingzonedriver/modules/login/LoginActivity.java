@@ -9,9 +9,14 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.support.v4.content.LocalBroadcastManager;
+import android.text.Editable;
+import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Log;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -47,34 +52,35 @@ public class LoginActivity extends BaseActivity {
     EditText editUserName;
     @BindView(R.id.buttonLogin)
     Button buttonLogin;
-
+    @BindView(R.id.linearEye)
+    LinearLayout linearLayoutEye;
     @NonNull
     @BindView(R.id.rootView)
     RelativeLayout rootView;
-
     @BindView(R.id.textViewForgotPassword)
     TextView textViewForgotPassword;
-
     private SessionManager session;
     private ApiInterface apiService;
     private BroadcastReceiver mRegistrationBroadcastReceiver;
     String regId;
+    Boolean isPasswordVisible = false;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_login_02);
+        setContentView(R.layout.activity_login);
         //buuterknife for injecting the views
         ButterKnife.bind(this);
         apiService = ApiClient.getClient().create(ApiInterface.class);//retrofit
         //If the session is logged in move to Home
         session = new SessionManager(getApplicationContext());
         if (session.isLoggedIn()) {
-            Log.d("login Isuue", "sessionfalse");
+
             Intent intent1 = new Intent(LoginActivity.this, HomeActivity.class);
             startActivity(intent1);
             finish();
         } else {
-            Log.d("login Isuue", "sessionfalse");
+           // Log.d("login Isuue", "sessionfalse");
         }
 
 
@@ -92,17 +98,29 @@ public class LoginActivity extends BaseActivity {
                     displayFirebaseRegId();
 
                 } else if (intent.getAction().equals(Config.PUSH_NOTIFICATION)) {
-                    // new push notification is received
-
-                    //   String message = intent.getStringExtra("message");
-
-                    //  Toast.makeText(getApplicationContext(), "Push notification: " + message, Toast.LENGTH_LONG).show();
-
-                    //  txtMessage.setText(message);
                 }
             }
         };
+        //manage password visibility
+        editTextPassword.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                linearLayoutEye.setVisibility(View.VISIBLE);
+                if (count == 0) {
+                    linearLayoutEye.setVisibility(View.GONE);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+        });
         displayFirebaseRegId();
     }
 
@@ -112,13 +130,6 @@ public class LoginActivity extends BaseActivity {
         SharedPreferences pref = getApplicationContext().getSharedPreferences(Config.SHARED_PREF, 0);
         regId = pref.getString("regId", null);
 
-
-        Log.e("deviceid ", "Firebase reg id: " + regId);
-
-      /*  if (!TextUtils.isEmpty(regId))
-            txtRegId.setText("Firebase Reg Id: " + regId);
-        else
-            txtRegId.setText("Firebase Reg Id is not received yet!");*/
     }
 
     @Override
@@ -163,28 +174,22 @@ public class LoginActivity extends BaseActivity {
             else {
                 showSnakBar(rootView, MessageConstants.INTERNET);
             }
-//            }
-//            } else {
-//                showSnakBar(rootView, MessageConstants.INVALID_EMAIL);
-//            }
+
         } else {
             showSnakBar(rootView, MessageConstants.PROVIDE_BASIC_INFO);
         }
     }
-
-    //chumma...
-
     //api call for singin
     public void Signin(String username, String password, String usertype) {
 
         showProgressDialog(LoginActivity.this, "Loading");
-        Call<LoginResponse> call = apiService.Signin(username, password, usertype,regId);
+        Call<LoginResponse> call = apiService.Signin(username, password, usertype, regId);
         call.enqueue(new Callback<LoginResponse>() {
             @Override
             public void onResponse(Call<LoginResponse> call, retrofit2.Response<LoginResponse> response) {
                 hideProgressDialog();
                 if (response.isSuccessful()) {
-                    if (response.body().getMeta().getStatus().equals(true)||response.body().getMeta().getStatus().equals("true")) {
+                    if (response.body().getMeta().getStatus().equals(true) || response.body().getMeta().getStatus().equals("true")) {
 
                         Intent intent = new Intent(LoginActivity.this, HomeActivity.class);
                         session.setLogin(true);
@@ -223,10 +228,22 @@ public class LoginActivity extends BaseActivity {
             public void onFailure(Call<LoginResponse> call, Throwable t) {
                 hideProgressDialog();
                 Toast.makeText(LoginActivity.this, t.getMessage(), Toast.LENGTH_SHORT).show();
-                Log.d("exception>>>", t.getMessage());
+              //  Log.d("exception>>>", t.getMessage());
 
             }
         });
 
+    }
+
+    @OnClick(R.id.linearEye)
+    public void PasswordVisibility() {
+
+        if (isPasswordVisible.equals(false)) {
+            editTextPassword.setInputType(InputType.TYPE_TEXT_VARIATION_PASSWORD);
+            isPasswordVisible = true;
+        } else if (isPasswordVisible.equals(true)) {
+            editTextPassword.setInputType(129);
+            isPasswordVisible = false;
+        }
     }
 }
